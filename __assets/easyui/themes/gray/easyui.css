@@ -176,7 +176,7 @@
   filter: none;
 }
 .accordion .accordion-header-selected {
-  background: #0092DC;
+  background: #50B0DB;
 }
 .accordion .accordion-header-selected .panel-title {
   color: #fff;
