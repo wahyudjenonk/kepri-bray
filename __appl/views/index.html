@@ -1,10 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>403 Forbidden</title>
+	<title>SIPBBKB - PEMPROV KEPULAUAN RIAU</title>
+	<link href="" rel="shortcut icon" type="image/x-icon">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content=">
+	<meta name="description" content="">
+	<META name="Author" content="">
+	
+	<script type="text/javascript">
+		var host = '{$host}';
+	</script>
+	<link rel="stylesheet" type="text/css" href="{$host}__assets/css/main_style.css">	
+	<link rel="stylesheet" type="text/css" href="{$host}__assets/easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="{$host}__assets/easyui/themes/icon.css">
+	<script type="text/javascript" src="{$host}__assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="{$host}__assets/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="{$host}__assets/js/fungsi.js"></script>
 </head>
-<body>
-
-<p>Directory access is forbidden.</p>
-
+<body id="bodyHt"  fit="true" style="overflow: hidden;border:none;">
+	<div region="north" border="false" style="position: relative; background: transparent url({$host}__assets/images/bg_banner.png) repeat-x; height:123px; overflow:hidden;">
+		<table width="100%">
+			<tr>
+				<td align='center' style="background: transparent; width: 159px; height: 90px;">
+					<img src='{$host}__assets/images/logo-kepri.png'>
+				</td>
+				<td style="height: 90px; text-align: center;">
+					<h1>SISTEM INFORMASI <font color='red'>PAJAK</font> BAHAN BAKAR <font color='red'>KENDARAAN BERMOTOR</font></h1>
+				</td>
+				<td align='center' style="background: transparent; width: 159px; height: 90px;">
+					<img src='{$host}__assets/images/logo-dirjen-pajak.png'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="background-color:#D2D1D1">
+					<div style="text-align: right; padding-right: 5px;" >
+						<span id="namauser">{$auth.UserLogin|upper}</span>&nbsp&nbsp&nbsp-&nbsp&nbsp
+						<span id="waktu"></span>&nbsp&nbsp&nbsp-	
+						<a id='btnLogout' href="{$host}home/logout" plain="true" class="easyui-linkbutton" iconCls="icon-lock">Log Out</a>
+					</div>			
+				</td>
+			</tr>
+		</table> 
+	</div>
+	
+	<div region="west"  fit='false' border="false" title="Menu Utama Sistem" style="width:255px;padding:1px 0px 0px 0px;">
+		<div id="accordionMenu" fit="true" class="easyui-accordion" style="width:240px;">
+			 {include file="main-menu.html"}
+		</div>
+	</div>
+	
+	<div id="mainContainer" region="center" style="background:#fff; border-bottom:1px dotted #ccc; padding:5px 5px 5px 5px;">
+		
+	</div>
+	
+	<div region="south" border="true" style='background-color:#CCC6C6;'>
+        <div style="text-align: center; padding:5px">
+		  <a href="#" style="font-weight: bold; color: inherit; text-decoration: none;">
+			DINAS PENDAPATAN & PAJAK - PEMPROV KEPULAUAN RIAU
+		  </a>&nbsp;&copy;&nbsp;2015&nbsp;
+	   </div>
+    </div>
 </body>
 </html>
