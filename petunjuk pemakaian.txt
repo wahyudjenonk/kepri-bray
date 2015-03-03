@@ -1,0 +1,4 @@
+file-file & folder yang kudu ditambahin bray
+- file .htaccess
+- file __appl/config/database.php
+- folder __tmp
