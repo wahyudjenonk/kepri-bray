@@ -10,7 +10,7 @@ class home extends CI_Controller {
 		$this->smarty->assign('host',$this->host);
 		$this->smarty->assign('auth', $this->auth);
 		
-		$this->load->model('mhome');
+		$this->load->model('mhome'); 
 	}
 
 	
