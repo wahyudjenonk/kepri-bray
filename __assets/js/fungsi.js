@@ -44,6 +44,37 @@ function getClientHeight(){
 	return theHeight;
 }
 
+var container;
+function windowForm(html,judul,width,height){
+    container = "win"+Math.floor(Math.random()*9999);
+    $("<div id="+container+"></div>").appendTo("body");
+    container = "#"+container;
+    $(container).html(html);
+    $(container).css('padding','5px');
+    $(container).window({
+       title:judul,
+       width:width,
+       height:height,
+       autoOpen:false,
+       maximizable:false,
+       minimizable: false,
+	   collapsible: false,
+       resizable: false,
+       closable:true,
+       modal:true,
+	   onBeforeClose:function(){	   
+			$(container).window("close",true);
+			//$(container).window("destroy",true);
+	   }
+    });
+    $(container).window('open');        
+}
+function closeWindow(){
+    $(container).window('close');
+    $(container).html("");
+}
+
+
 function getClientWidth(){
 	var theWidth;
 	if (window.innerWidth) 
@@ -54,4 +85,144 @@ function getClientWidth(){
 		theWidth=document.body.clientWidth;
 
 	return theWidth;
+}
+
+function genGrid(modnya, divnya){
+	var kolom ={};
+	var judulnya;
+	var urlnya;
+	
+	switch(modnya){
+		case "provinsi":
+			judulnya = "Data Provinsi";
+			urlnya = "provinsi";
+			kolom[modnya] = [	
+				{field:'KdProv',title:'Kode Provinsi',width:100, halign:'center'},
+				{field:'NmProvinsi',title:'Nama Provinsi',width:150, halign:'center'},
+			];
+		break;
+		case "kabupaten":
+			judulnya = "Data Kota/Kabupaten";
+			urlnya = "kabupaten";
+			kolom[modnya] = [	
+				{field:'NmProvinsi',title:'Nama Provinsi',width:150, halign:'center'},
+				{field:'NmKabKot',title:'Nama Kota/Kabupaten',width:200, halign:'center'},
+			];
+		break;
+		case "jenis_perusahaan":
+			judulnya = "Data Jenis Perusahaan";
+			urlnya = "jenis_perusahaan";
+			kolom[modnya] = [	
+				{field:'KdJenCP',title:'Kode Jenis Perusahaan',width:200, halign:'center'},
+				{field:'NmJenCP',title:'Nama Jenis Perusahaan',width:200, halign:'center'},
+			];
+		break;
+		case "jenis_bahanbakar":
+			judulnya = "Data Jenis Bahan Bakar";
+			urlnya = "jenis_bahanbakar";
+			kolom[modnya] = [	
+				{field:'KdBB',title:'Kode Jenis Bahan Bakar',width:200, halign:'center'},
+				{field:'NmBB',title:'Nama Jenis Bahan Bakar',width:200, halign:'center'},
+			];
+		break;
+		case "klasifikasi_pbbkb":
+			judulnya = "Data Klasifikasi PBB-KB";
+			urlnya = "klasifikasi_pbbkb";
+			kolom[modnya] = [	
+				{field:'NmKlas',title:'Nama Klasiifikasi',width:200, halign:'center'},
+				{field:'Persentasi',title:'Persentase(%)',width:200, halign:'center'},
+				{field:'FieldAktif',title:'Status Klasifikasi',width:100, halign:'center'},
+			];
+		break;
+		case "klasifikasi_pbbkb_pertamina":
+			judulnya = "Data Klasifikasi PBB-KB Pertamina";
+			urlnya = "klasifikasi_pbbkb";
+			kolom[modnya] = [	
+				{field:'NmBB',title:'Nama Bahan Bakar',width:200, halign:'center'},
+				{field:'Persentasi',title:'Persentase(%)',width:200, halign:'center'},
+				{field:'FieldAktif',title:'Status Klasifikasi',width:100, halign:'center'},
+			];
+		break;
+		case "profil_wajib_pungut":
+			judulnya = "Data Profil Wajib Pungut";
+			urlnya = "profil_wajib_pungut";
+			kolom[modnya] = [	
+				{field:'NmCP',title:'Nama Perusahaan',width:200, halign:'center'},
+				{field:'AdssCP',title:'Alamat Perusahan',width:200, halign:'center'},
+				{field:'NmKabKot',title:'Kabupaten',width:200, halign:'center'},
+				{field:'NoSIUP',title:'No. SIUP',width:200, halign:'center'},
+				{field:'LastDateSIUP',title:'Masa Berlaku SIUP',width:100, halign:'center'},
+				{field:'NoNPWP',title:'Status No. NPWP',width:100, halign:'center'},
+				{field:'NmOwner',title:'Nama Pemilik',width:100, halign:'center'},
+				{field:'OwnerAdss',title:'Alamat Pemilik',width:100, halign:'center'},
+				{field:'OwnerIdentity',title:'No. Identitas',width:100, halign:'center'},
+			];
+		break;
+		case "profil_wajib_pajak":
+			judulnya = "Data Profil Wajib Pajak";
+			urlnya = "profil_wajib_pajak";
+			kolom[modnya] = [	
+				{field:'NmWP',title:'Nama Perusahaan',width:200, halign:'center'},
+				{field:'AdssWP',title:'Alamat Perusahan',width:200, halign:'center'},
+				{field:'NmKabKot',title:'Kabupaten',width:200, halign:'center'},
+				{field:'NmJenCP',title:'Jenis Perusahaan',width:200, halign:'center'},
+				{field:'NmKlas',title:'Klasifikasi Perusahaan',width:200, halign:'center'},
+				{field:'WPNoSIUP',title:'No. SIUP',width:200, halign:'center'},
+				{field:'WPLastDateSIUP',title:'Masa Berlaku SIUP',width:100, halign:'center'},
+				{field:'WPNoNPWP',title:'Status No. NPWP',width:100, halign:'center'},
+				{field:'NmOwner',title:'Nama Pemilik',width:100, halign:'center'},
+				{field:'OwnerAdss',title:'Alamat Pemilik',width:100, halign:'center'},
+				{field:'OwnerIdentity',title:'No. Identitas',width:100, halign:'center'},
+			];
+		break;
+		case "bank":
+			judulnya = "Data Bank";
+			urlnya = "bank";
+			kolom[modnya] = [	
+				{field:'KdBank',title:'Kode Bank',width:200, halign:'center'},
+				{field:'NmBank',title:'Nama Bank',width:200, halign:'center'},
+			];
+		break;		
+	}
+	
+	$("#"+divnya).datagrid({
+		title:judulnya,
+        height:getClientHeight-74,
+        width:getClientWidth-15,
+		rownumbers:true,
+		iconCls:'database',
+        fit:true,
+        striped:true,
+        pagination:true,
+        remoteSort: false,
+        url:host+"home/getdata/"+urlnya,		
+		nowrap: true,
+        singleSelect:true,
+		columns:[
+            kolom[modnya]
+        ],
+		toolbar: '#tb_'+modnya,
+	});
+}
+
+
+function genform(type, modulnya, submodulnya){
+	switch(submodulnya){
+		case "provinsi":
+			var lebar = getClientWidth()-950;
+			var tinggi = getClientHeight()-535;
+			var judulwindow = 'Form Data Provinsi';
+		break;
+	}
+	
+	switch(type){
+		case "add":
+			$.post(host+'home/getdisplay/'+modulnya+'/'+submodulnya+'/form/', {'editstatus':'add'}, function(resp){
+				windowForm(resp, judulwindow, lebar, tinggi);
+			});
+		break;
+		case "edit":
+		
+		break;
+	}
 }
