@@ -22,6 +22,7 @@ class home extends CI_Controller {
 		}
 	}
 	
+	//fungsi Login
 	function login(){
 		$this->load->library('encrypt');
 		
@@ -42,12 +43,35 @@ class home extends CI_Controller {
 			header("Location: " . $this->host);
 		}
 	}
-
+	
 	function logout(){
 		$this->session->unset_userdata('sipbbg-k3pr1', 'limit');
 		$this->session->sess_destroy();
 		header("Location: " . $this->host);
 	}
+	//End Fungsi Login
+	
+	//fungsi front_end
+	function getdata($type){
+		echo $this->mhome->getdata($type);
+	}
+	
+	function getdisplay($type="", $p1="", $p2=""){
+		switch($p2){
+			case "main":
+				$template = $type."/".$p1."/main.html";
+			break;
+			case "form":
+				$editstatus = $this->input->post('editstatus');
+				$template = $type."/".$p1."/form.html";
+				//echo "kontel Tenyom";exit;
+			break;
+		}
+		$this->smarty->assign('type', $type);
+		$this->smarty->assign('modul', $p1);
+		$this->smarty->display($template);
+	}
+	//end fungsi front_end
 	
 }
 
