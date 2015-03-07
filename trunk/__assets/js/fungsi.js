@@ -209,9 +209,50 @@ function genGrid(modnya, divnya){
 function genform(type, modulnya, submodulnya){
 	switch(submodulnya){
 		case "provinsi":
-			var lebar = getClientWidth()-950;
+			var lebar = getClientWidth()-990;
 			var tinggi = getClientHeight()-535;
 			var judulwindow = 'Form Data Provinsi';
+		break;
+		// angkanya gede formnya jadi kecil
+		case "kabupaten":
+			var lebar = getClientWidth()-910;
+			var tinggi = getClientHeight()-530;
+			var judulwindow = 'Form Data Kabupaten';
+		break;
+		case "jenis_perusahaan":
+			var lebar = getClientWidth()-930;
+			var tinggi = getClientHeight()-530;
+			var judulwindow = 'Form Jenis Perusahaan';
+		break;
+		case "jenis_bahanbakar":
+			var lebar = getClientWidth()-930;
+			var tinggi = getClientHeight()-530;
+			var judulwindow = 'Form Jenis Bahan Bakar';
+		break;
+		case "klasifikasi_pbbkb":
+			var lebar = getClientWidth()-930;
+			var tinggi = getClientHeight()-488;
+			var judulwindow = 'Form Klasifikasi PBB-KB';
+		break;
+		case "klasifikasi_pbbkb_pertamina":
+			var lebar = getClientWidth()-930;
+			var tinggi = getClientHeight()-475;
+			var judulwindow = 'Klasifikasi PBB-KB Pertamina';
+		break;
+		case "profil_wajib_pungut":
+			var lebar = getClientWidth()-935;
+			var tinggi = getClientHeight()-325;
+			var judulwindow = 'Profil Wajib Pungut';
+		break;
+		case "profil_wajib_pajak":
+			var lebar = getClientWidth()-935;
+			var tinggi = getClientHeight()-295;
+			var judulwindow = 'Profil Wajib Pajak';
+		break;
+		case "bank":
+			var lebar = getClientWidth()-985;
+			var tinggi = getClientHeight()-510;
+			var judulwindow = 'Profil Data Bank';
 		break;
 	}
 	
