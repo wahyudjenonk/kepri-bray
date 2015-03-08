@@ -1,25 +1,46 @@
+<form method='post' url="{$host}home/crud_na/cl_provinsi/{$editstatus}" id="form_prov" enctype="multipart/form-data">
 <table width='100%' style='margin-bottom:20px;'>
-	<form method='post' action="{$host}">
+	
 		<tr>
 			<td width='34%'>Nama Provinsi</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NmProvinsi' style='width:250px;padding:2px;'>
+				<input type='hidden' name='KdProv' style='width:250px;padding:2px;' value="">
+				<input type='text' name='NmProvinsi' style='width:250px;padding:2px;' class="easyui-validatebox" >
 			</td>
 		</tr>
-	</form>
+	
 </table>
-
+</form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_prov" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
 	</a>
 	&nbsp;
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
 		</span>
 	</a>
 </div>
+{literal}
+<script>
+$(function(){
+	$('#simpan_prov').on('click',function(){
+		submit_form("form_prov",function(r){
+			if(r==1){
+				$.messager.alert('Data Provinsi',"Data Sudah Tersimpan",'info');
+				$('#grid_provinsi').datagrid('reload');
+				closeWindow();
+			}
+			else{
+				console.log(r);
+				$.messager.alert('Data Provinsi',"Data Gagal Tersimpan",'error');
+			}
+		});
+	})
+});	
+</script>
+{/literal}

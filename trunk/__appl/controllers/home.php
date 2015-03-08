@@ -63,14 +63,24 @@ class home extends CI_Controller {
 			break;
 			case "form":
 				$editstatus = $this->input->post('editstatus');
+				$this->smarty->assign('editstatus', $editstatus);
 				$template = $type."/".$p1."/form.html";
 				//echo "kontel Tenyom";exit;
 			break;
 		}
+	
 		$this->smarty->assign('type', $type);
 		$this->smarty->assign('modul', $p1);
 		$this->smarty->display($template);
 	}
+	
+	function crud_na($table,$sts_crud){
+		$data=array();
+		foreach($_POST as $k=>$v) $data[$k] = $this->input->post($k);//$this->db->escape_str($this->input->post($k));
+		//print_r($_POST);exit;
+		echo $this->mhome->crud_na($table,$data,$sts_crud);
+	}
+	
 	//end fungsi front_end
 	
 }
