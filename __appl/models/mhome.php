@@ -109,4 +109,112 @@ class mhome extends CI_Model{
 		} 
 	}
 	
+	function crud_na($table,$data,$sts_crud){//$sts_crud --> STATUS NYEE INSERT, UPDATE, DELETE
+		$this->db->trans_begin();
+		switch ($table){
+			case "cl_bank":
+				//if(isset($data['KdBank'])){
+					$id=$data['KdBank'];unset($data['KdBank']);
+				//}
+				$field_id="KdBank";
+			break;
+			case "cl_jabatan_user":
+				$id=$data['KdJabatan'];	unset($data['KdJabatan']);
+				$field_id="KdJabatan";
+			break;
+			case "cl_jenis_bahan_bakar":
+				$id=$data['KdBB'];unset($data['KdBB']);
+				$field_id="KdBB";
+			break;
+			case "cl_jenis_perusahaan":
+				$id=$data['KdJenCP'];unset($data['KdJenCP']);
+				$field_id="KdJenCP";
+			break;
+			case "cl_kabupaten_kota":
+				$id=$data['KdKabKot'];unset($data['KdKabKot']);
+				$field_id="KdKabKot";
+			break;
+			case "cl_klasifikasi_pbbkb":
+				$id=$data['KdKlas'];unset($data['KdKlas']);
+				$field_id="KdKlas";
+			break;
+			case "cl_klasifikasi_pbbkb_pertamina":
+				$id=$data['KdKlasSec'];unset($data['KdKlasSec']);
+				$field_id="KdKlasSec";
+			break;
+			case "cl_level_user":
+				$id=$data['KdLevel'];unset($data['KdLevel']);
+				$field_id="KdLevel";
+			break;
+			case "cl_provinsi":
+				$id=$data['KdProv'];unset($data['KdProv']);
+				$field_id="KdProv";
+			break;
+			case "cl_tahun_pajak":
+				$id=$data['ThnPajak'];unset($data['ThnPajak']);
+				$field_id="ThnPajak";
+			break;
+			case "cl_tingkat_daerah_pengguna":
+				$id=$data['KdTk'];unset($data['KdTk']);
+				$field_id="KdTk";
+			break;
+			case "target_pajak":
+				$id=$data['ThnPajak'];unset($data['ThnPajak']);
+				$field_id="ThnPajak";
+			break;
+			case "tbl_lembaga_pengguna_owner":
+				$id=$data['KdDinas'];unset($data['KdDinas']);
+				$field_id="KdDinas";
+			break;
+			case "tbl_pembayaran_pungutan_bank":
+				$id=$data['RecNo3'];unset($data['RecNo3']);
+				$field_id="RecNo3";
+			break;
+			case "tbl_punggut_pbbkb_pertamina":
+				$id=$data['RecNo2'];unset($data['RecNo2']);
+				$field_id="RecNo2";
+			break;
+			case "tbl_pungutan_pbbkb":
+				$id=$data['RecNo'];unset($data['RecNo']);
+				$field_id="RecNo";
+			break;
+			case "tbl_user":
+				$id=$data['KdUser'];unset($data['KdUser']);
+				$pass=$data['Password'];
+				unset($data['Password']);
+				$data['Password']=$this->encrypt->encode($pass);
+				$field_id="KdUser";
+			break;
+			case "tbl_wajib_pajak_pertamina_daerah":
+				$id=$data['KdWP'];unset($data['KdWP']);
+				$field_id="KdWP";
+			break;
+			case "tbl_wajib_pungut_pertamina_wil":
+				$id=$data['KdCP'];unset($data['KdCP']);
+				$field_id="KdCP";
+			break;
+		}
+		switch ($sts_crud){
+			case "add":
+				$this->db->insert($table,$data);
+			break;
+			case "edit":
+				$this->db->where($field_id,$id);
+				$this->db->update($table,$data);
+			break;
+			case "delete":
+				$this->db->where($field_id,$id);
+				$this->db->delete($table,$data);
+			break;
+		}
+		
+		if($this->db->trans_status() == false){
+			$this->db->trans_rollback();
+			return 0;
+		} else{
+			return $this->db->trans_commit();
+		}
+		
+	}
+	
 }

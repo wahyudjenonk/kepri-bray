@@ -64,7 +64,8 @@ function windowForm(html,judul,width,height){
        modal:true,
 	   onBeforeClose:function(){	   
 			$(container).window("close",true);
-			//$(container).window("destroy",true);
+			$(container).window("destroy",true);
+			return true;
 	   }
     });
     $(container).window('open');        
@@ -266,4 +267,34 @@ function genform(type, modulnya, submodulnya){
 		
 		break;
 	}
+}
+
+function submit_form(frm,func){
+	var url = jQuery('#'+frm).attr("url");
+    jQuery('#'+frm).form('submit',{
+            url:url,
+            onSubmit: function(){
+                  return $(this).form('validate');
+            },
+            success:function(data){
+				//$.unblockUI();
+                if (func == undefined ){
+                     if (data == "1"){
+                        pesan('Data Sudah Disimpan ','Sukses');
+                    }else{
+                         pesan(data,'Result');
+                    }
+                }else{
+                    func(data);
+                }
+            },
+            error:function(data){
+				//$.unblockUI();
+                 if (func == undefined ){
+                     pesan(data,'Error');
+                }else{
+                    func(data);
+                }
+            }
+    });
 }
