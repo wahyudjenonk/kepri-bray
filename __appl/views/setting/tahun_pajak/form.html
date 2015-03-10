@@ -1,0 +1,46 @@
+<form method='post' action="{$host}">
+	<table width='100%' style='margin-bottom:20px;'>
+		
+			<tr>
+				<td width='34%'>Tahun Pajak</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<input type='hidden' name='ThnPajak' style='width:250px;padding:2px;' value="">
+					<input type='text' name='ThnPajak' style='width:250px;padding:2px;' class="easyui-validatebox" >
+				</td>
+			</tr>
+		
+	</table>
+</form>
+<div style='float:left;'>
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_prov" >
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
+		</span>
+	</a>
+	&nbsp;
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
+		</span>
+	</a>
+</div>
+{literal}
+<script>
+$(function(){
+	$('#simpan_prov').on('click',function(){
+		submit_form("form_prov",function(r){
+			if(r==1){
+				$.messager.alert('Data Provinsi',"Data Sudah Tersimpan",'info');
+				$('#grid_provinsi').datagrid('reload');
+				closeWindow();
+			}
+			else{
+				console.log(r);
+				$.messager.alert('Data Provinsi',"Data Gagal Tersimpan",'error');
+			}
+		});
+	})
+});	
+</script>
+{/literal}
