@@ -1,0 +1,88 @@
+<form method='post' action="{$host}">
+	<table width='100%' style='margin-bottom:20px;'>
+	
+		<tr>
+			<td width='24%'>User Level</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='hidden' name='KdUser' style='width:250px;padding:2px;' value="">
+				<input type='text' name='KdLevel' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>User Login</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select type='text' name='UserLogin' style='width:250px;padding:2px;'>
+				  <option value="">X</option>
+				  <option value="">Y</option>
+				  <option value="">Z</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Password</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='Password' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>User Name</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='UserNm' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Jabatan</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='KdJabatan' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Tanggal Awal Menjabat</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' id="TglAwal" name='TglAwal' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Tanggal Akhir Menjabat</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' id="TglAkhir" name='TglAkhir' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Masih Menjabat</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select name='FieldAktif'>
+				  <option value="">Aktif</option>
+				  <option value="">Tidak Aktif</option>
+				</select>
+			</td>
+		</tr>
+
+	</table>
+</form>
+<div style='float:left;'>
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
+		</span>
+	</a>
+	&nbsp;
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
+		</span>
+	</a>
+</div>
+
+<script>
+    $('#TglAwal').datebox();
+    $('#TglAkhir').datebox();
+</script>
