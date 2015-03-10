@@ -183,7 +183,154 @@ function genGrid(modnya, divnya){
 				{field:'KdBank',title:'Kode Bank',width:200, halign:'center'},
 				{field:'NmBank',title:'Nama Bank',width:200, halign:'center'},
 			];
-		break;		
+		break;
+
+		//Modul Setting
+		case "tahun_pajak":
+			judulnya = "Data Tahun Pajak";
+			urlnya = "tahun_pajak";
+			kolom[modnya] = [	
+				{field:'ThnPajak',title:'Tahun Pajak',width:150, halign:'center'},
+			];
+		break;
+		case "target_pajak":
+			judulnya = "Data Target Pajak";
+			urlnya = "target_pajak";
+			kolom[modnya] = [	
+				{field:'ThnPajak',title:'Tahun Pajak',width:150, halign:'center'},
+				{field:'TargetTaxAPBD',title:'Target APBD',width:200, halign:'center'},
+				{field:'TargetTaxAPBDP',title:'Target APBDP',width:200, halign:'center'},
+			];
+		break;
+		case "tingkat_daerah":
+			judulnya = "Data Tingkat Daerah";
+			urlnya = "target_pajak";
+			kolom[modnya] = [	
+				{field:'KdTk',title:'Kode Tk.',width:150, halign:'center'},
+				{field:'KetTk',title:'Keterangan Tk.',width:200, halign:'center'},
+			];
+		break;
+		case "jabatan":
+			judulnya = "Data Jabatan";
+			urlnya = "jabatan";
+			kolom[modnya] = [	
+				{field:'Jabatan',title:'Jabatan',width:150, halign:'center'},
+				{field:'KetJabatan',title:'Keterangan jabatan',width:200, halign:'center'},
+			];
+		break;
+		case "user_level":
+			judulnya = "Data User Level";
+			urlnya = "user_level";
+			kolom[modnya] = [	
+				{field:'UserLevel',title:'User Level',width:250, halign:'center'},
+			];
+		break;
+		case "user_manajemen":
+			judulnya = "Data User Manajemen";
+			urlnya = "user_manajemen";
+			kolom[modnya] = [	
+				{field:'UserNm',title:'Username',width:250, halign:'center'},
+				{field:'UserLevel',title:'User Level',width:250, halign:'center'},
+				{field:'Jabatan',title:'Jabatan',width:250, halign:'center'},
+				{field:'TglAwal',title:'Tanggal Awal Jabatan',width:150, halign:'center'},
+				{field:'TglAkhir',title:'Tanggal Akhir Jabatan',width:150, halign:'center'},
+				{field:'RecAktif',title:'Status User',width:150, halign:'center'},
+			];
+		break;
+		//end setting
+		
+		//modul pungutan pajek
+		case "pbbkb":
+			judulnya = "Data PBBKB";
+			urlnya = "pbbkb";
+			kolom[modnya] = [	
+				{field:'TglInput',title:'Tanggal Input',width:150, halign:'center'},
+				{field:'TglLaporan',title:'Tanggal Laporan',width:150, halign:'center'},
+				{field:'TaxBulan',title:'Pajak Bulan',width:250, halign:'center'},
+				{field:'TaxThn',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
+				{field:'NmWP',title:'Wajib Pajak',width:250, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
+				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
+				{field:'Pay',title:'Pembayaran',width:250, halign:'center'},
+				{field:'Tax',title:'Pajak',width:250, halign:'center'},
+			];
+		break;
+		case "pbbkb_pertamina":
+			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
+			urlnya = "pbbkb_pertamina";
+			kolom[modnya] = [	
+				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
+				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
+				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
+				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
+				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
+				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
+				{field:'Tax2',title:'Pajak',width:250, halign:'center'},
+			];
+		break;
+		case "pbbkb_pertamina":
+			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina";
+			urlnya = "pbbkb_pertamina";
+			kolom[modnya] = [	
+				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
+				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
+				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
+				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
+				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
+				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
+				{field:'Tax2',title:'Pajak',width:250, halign:'center'},
+			];
+		break;
+		case "pbbkb_pertamina_sektor":
+			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
+			urlnya = "pbbkb_pertamina_sektor";
+			kolom[modnya] = [	
+				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
+				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
+				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
+				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
+				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
+				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
+			];
+		break;
+		case "pbbkb_pertamina_sektor":
+			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
+			urlnya = "pbbkb_pertamina_sektor";
+			kolom[modnya] = [	
+				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
+				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
+				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
+				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
+				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
+				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
+			];
+		break;
+		case "pbbkb_bank":
+			judulnya = "Data Setoran PBBKB ke Bank";
+			urlnya = "pbbkb_bank";
+			kolom[modnya] = [	
+				{field:'TglInput3',title:'Tanggal Input',width:150, halign:'center'},
+				{field:'TglBankPaid',title:'Tanggal Bayar Bank',width:150, halign:'center'},
+				{field:'TaxBulan3',title:'Pajak Bulan',width:250, halign:'center'},
+				{field:'TaxThn3',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
+				{field:'NmBank',title:'Nama Bank',width:250, halign:'center'},
+				{field:'QtyBB3',title:'Quantity Pembelian',width:250, halign:'center'},
+				{field:'Pay3',title:'Nominal Pajak',width:250, halign:'center'},
+				{field:'Tax3',title:'Nominal Pembayaran',width:250, halign:'center'},
+			];
+		break;
+		//end modul pungutan pajek
+		
 	}
 	
 	$("#"+divnya).datagrid({
@@ -209,6 +356,7 @@ function genGrid(modnya, divnya){
 
 function genform(type, modulnya, submodulnya){
 	switch(submodulnya){
+		//Modul Master
 		case "provinsi":
 			var lebar = getClientWidth()-990;
 			var tinggi = getClientHeight()-535;
@@ -255,6 +403,18 @@ function genform(type, modulnya, submodulnya){
 			var tinggi = getClientHeight()-510;
 			var judulwindow = 'Profil Data Bank';
 		break;
+		
+		//Modul Setting
+		case "tahun_pajak":
+			
+		break;
+		
+		//End Modul Setting
+		
+		//Modul Pungutan Pajak
+		
+		
+		//EndModul Pungutan Pajak
 	}
 	
 	switch(type){
