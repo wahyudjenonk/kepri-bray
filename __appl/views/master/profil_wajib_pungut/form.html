@@ -1,0 +1,100 @@
+<table width='100%' style='margin-bottom:20px;'>
+	<form method='post' action="{$host}">
+		<tr>
+			<td width='24%'>Nama Wajib Pungut</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='NmCP' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Alamat</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='AdssCP' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Kabupatan/Kota</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select type='text' name='NmKabKot' style='width:250px;padding:2px;'>
+				  <option value="">Pekan Baru</option>
+				  <option value="">Riau</option>
+				  <option value="">Batam</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Nomor SIUP</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='NoSIUP' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Tanggal Berakhir SIUP</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' id="LastDateSIUP" name='LastDateSIUP' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Nomor NPWP</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='NoNPWP' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Pemilik Perusahaan</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='NmOwner' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Alamat Pemilik</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='OwnerAdss' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Nomor Identitas Pemilik</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='OwnerIdentity' style='width:250px;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='24%'>Pertamina Wilayah</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select name='KdPW'>
+				  <option value="">1</option>
+				  <option value="">2</option>
+				</select>
+			</td>
+		</tr>
+		
+	</form>
+</table>
+
+<div style='float:left;'>
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
+		</span>
+	</a>
+	&nbsp;
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
+		</span>
+	</a>
+</div>
+
+<script>
+    $('#LastDateSIUP').datebox();
+</script>
