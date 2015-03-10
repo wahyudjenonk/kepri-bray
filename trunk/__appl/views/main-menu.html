@@ -2,10 +2,10 @@
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Dashboard Aplikasi</a>
 </div>
 <div title="Pungutan Pajak" iconCls="" style="padding:5px;">
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >PBBKB</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >PBBKB Pertamina</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >PBBKB Pertamina Sektor</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Pembayaran Ke Bank</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/pungutan_pajak/pbbkb/main/');" >PBBKB</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/pungutan_pajak/pbbkb_pertamina/main/');" >PBBKB Pertamina</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/pungutan_pajak/pbbkb_pertamina_sektor/main/');" >PBBKB Pertamina Sektor</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/pungutan_pajak/pbbkb_bank/main/');" >Pembayaran Ke Bank</a>
 </div>
 <div title="Laporan" iconCls="" style="padding:5px;">
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Laporan PBBKB</a>
@@ -22,9 +22,10 @@
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/bank/main/');" >Bank</a>
 </div>
 <div title="Setting" iconCls="" style="padding:5px;">
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Target Pajak</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Tingkat Daerah</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Jabatan</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >Owner</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="" >User Manajemen</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/tahun_pajak/main/');" >Tahun Pajak</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/target_pajak/main/');" >Target Pajak</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/tingkat_daerah/main/');" >Tingkat Daerah</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/jabatan/main/');" >Jabatan</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/user_level/main/');" >User Level</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/user_manajemen/main/');" >User Manajemen</a>
 </div>
