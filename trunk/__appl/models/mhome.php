@@ -77,6 +77,95 @@ class mhome extends CI_Model{
 				";
 			break;
 			//end query datamaster
+			
+			//query setting
+			case "tahun_pajak":
+				$sql = "
+					SELECT *
+					FROM cl_tahun_pajak
+				";
+			break;
+			case "target_pajak":
+				$sql = "
+					SELECT *
+					FROM target_pajak
+				";
+			break;
+			case "tingkat_daerah":
+				$sql = "
+					SELECT *
+					FROM cl_tingkat_daerah_pengguna
+				";
+			break;
+			case "jabatan":
+				$sql = "
+					SELECT *
+					FROM cl_jabatan_user
+				";
+			break;
+			case "jabatan":
+				$sql = "
+					SELECT *
+					FROM cl_jabatan_user
+				";
+			break;
+			case "user_level":
+				$sql = "
+					SELECT *
+					FROM cl_level_user
+				";
+			break;
+			case "user_manajemen":
+				$sql = "
+					SELECT A.*, B.UserLevel, C.Jabatan
+					FROM tbl_user A
+					LEFT JOIN cl_level_user B ON A.KdLevel = B.KdLevel
+					LEFT JOIN cl_jabatan_user C ON A.KdJabatan = C.KdJabatan
+				";
+			break;
+			//end query setting
+			
+			//modul pungutan_pajak
+			case "pbbkb":
+				$sql = "
+					SELECT A.*, B.NmCP, C.NmWP, D.NmBB, E.NmKlas
+					FROM tbl_pungutan_pbbkb A
+					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP = B.KdCP
+					LEFT JOIN tbl_wajib_pajak_pertamina_daerah C ON A.KdWP = C.KdWP
+					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB = D.KdBB
+					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas = E.KdKlas
+				";
+			break;
+			case "pbbkb_pertamina":
+				$sql = "
+					SELECT A.*, B.NmCP, D.NmBB, E.NmKlas
+					FROM tbl_punggut_pbbkb_pertamina A
+					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP2 = B.KdCP
+					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB2 = D.KdBB
+					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas2 = E.KdKlas
+					WHERE flag_data = 'P'
+				";
+			break;
+			case "pbbkb_pertamina_sektor":
+				$sql = "
+					SELECT A.*, B.NmCP, D.NmBB, E.NmKlas
+					FROM tbl_punggut_pbbkb_pertamina A
+					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP2 = B.KdCP
+					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB2 = D.KdBB
+					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas2 = E.KdKlas
+					WHERE flag_data = 'S'
+				";
+			break;
+			case "pbbkb_bank":
+				$sql = "
+					SELECT A.*, B.NmCP, D.NmBank
+					FROM tbl_pembayaran_pungutan_bank A
+					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP3 = B.KdCP
+					LEFT JOIN cl_bank D ON A.KdBank = D.KdBank
+				";
+			break;
+			//end modul pungutan pajak
+			
 		}
 		return $this->get_json($sql);
 	}
