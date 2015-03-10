@@ -407,9 +407,35 @@ function genform(type, modulnya, submodulnya){
 		
 		//Modul Setting
 		case "tahun_pajak":
-			
+			var lebar = getClientWidth()-990;
+			var tinggi = getClientHeight()-535;
+			var judulwindow = 'Tahun Pajak';
 		break;
-		
+		case "target_pajak":
+			var lebar = getClientWidth()-930;
+			var tinggi = getClientHeight()-500;
+			var judulwindow = 'Form Target Pajak';
+		break;
+		case "tingkat_daerah":
+			var lebar = getClientWidth()-990;
+			var tinggi = getClientHeight()-535;
+			var judulwindow = 'Form Tingkat Daerah';
+		break;
+		case "jabatan":
+			var lebar = getClientWidth()-930;
+			var tinggi = getClientHeight()-510;
+			var judulwindow = 'Form Setting Jabatan';
+		break;
+		case "user_level":
+			var lebar = getClientWidth()-990;
+			var tinggi = getClientHeight()-535;
+			var judulwindow = 'Form User Level';
+		break;
+		case "user_manajemen":
+			var lebar = getClientWidth()-935;
+			var tinggi = getClientHeight()-365;
+			var judulwindow = 'User Manajemen';
+		break;
 		
 		//End Modul Setting
 		
