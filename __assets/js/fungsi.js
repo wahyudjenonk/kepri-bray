@@ -244,16 +244,17 @@ function genGrid(modnya, divnya){
 			judulnya = "Data PBBKB";
 			urlnya = "pbbkb";
 			kolom[modnya] = [	
-				{field:'TglInput',title:'Tanggal Input',width:150, halign:'center'},
-				{field:'TglLaporan',title:'Tanggal Laporan',width:150, halign:'center'},
-				{field:'TaxBulan',title:'Pajak Bulan',width:250, halign:'center'},
-				{field:'TaxThn',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'TglInput',title:'Tanggal Input',width:150, halign:'center',align:'center'},
+				{field:'TglLaporan',title:'Tanggal Laporan',width:150, halign:'center',align:'center'},
+				{field:'TaxBulan',title:'Pajak Bulan',width:150, halign:'center',align:'center'},
+				{field:'TaxThn',title:'Pajak Tahun',width:100, halign:'center',align:'center'},
 				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
 				{field:'NmWP',title:'Wajib Pajak',width:250, halign:'center'},
 				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
 				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
-				{field:'Pay',title:'Pembayaran',width:250, halign:'center'},
-				{field:'Tax',title:'Pajak',width:250, halign:'center'},
+				{field:'QtyBB',title:'Quantity',width:100, halign:'center',align:'right'},
+				{field:'Pay',title:'Pembayaran',width:250, halign:'center',align:'right'},
+				{field:'Tax',title:'Pajak',width:250, halign:'center',align:'right'},
 			];
 		break;
 		case "pbbkb_pertamina":
@@ -409,10 +410,17 @@ function genform(type, modulnya, submodulnya){
 			
 		break;
 		
+		
 		//End Modul Setting
 		
 		//Modul Pungutan Pajak
-		
+		case "pbbkb":
+			var lebar = getClientWidth()-800;
+			var tinggi = getClientHeight()-320;
+			var judulwindow = 'PBBKB';
+			var table="tbl_pungutan_pbbkb";
+			var field_id="tbl_pungutan_pbbkb";
+		break;
 		
 		//EndModul Pungutan Pajak
 	}
@@ -424,7 +432,32 @@ function genform(type, modulnya, submodulnya){
 			});
 		break;
 		case "edit":
-		
+		case "delete":
+			var row = $("#grid_"+submodulnya).datagrid('getSelected');
+			if(row){
+				if(type=='edit'){
+					$.post(host+'home/getdisplay/'+modulnya+'/'+submodulnya+'/form/', {'editstatus':'edit',id:row.id}, function(resp){
+						windowForm(resp, judulwindow, lebar, tinggi);
+					});
+				}
+				else{
+					if(confirm("Apakah Data Ini Akan Dihapus ?")){
+						$.post(host+'home/crud_na/'+table+'/delete/', {id:row.id}, function(r){
+							if(r==1){
+								$.messager.alert('SIPBB-KB',"Row Data Telah TerHapus",'info');
+								$('#grid_'+submodulnya).datagrid('reload');
+							}
+							else{
+								console.log(r)
+								$.messager.alert('SIPBB-KB',"Row Data Gagal DiHapus",'error');
+							}
+						});	
+					}
+				}
+			}
+			else{
+				$.messager.alert('SIPBB-KB',"Pilih Row Data Dalam Grid",'error');
+			}
 		break;
 	}
 }
@@ -458,3 +491,28 @@ function submit_form(frm,func){
             }
     });
 }
+function fillCombo(url, SelID, value, value2, value3, value4){
+	//if(Ext.get(SelID).innerHTML == "") return false;
+	if (value == undefined) value = "";
+	if (value2 == undefined) value2 = "";
+	if (value3 == undefined) value3 = "";
+	if (value4 == undefined) value4 = "";
+	
+	$('#'+SelID).empty();
+	$.post(url, {"v": value, "v2": value2, "v3": value3, "v4": value4},function(data){
+		$('#'+SelID).append(data);
+	});
+
+}
+function formatDate(date) {
+	var bulan=date.getMonth() +1;
+	var tgl=date.getDate();
+	if(bulan < 10){
+		bulan='0'+bulan;
+	}
+	
+	if(tgl < 10){
+		tgl='0'+tgl;
+	}
+	return date.getFullYear() + "-" + bulan + "-" + tgl;
+}		

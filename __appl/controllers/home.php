@@ -63,6 +63,10 @@ class home extends CI_Controller {
 			break;
 			case "form":
 				$editstatus = $this->input->post('editstatus');
+				if($editstatus=='edit'){
+					$data_edit=$this->mhome->getdata($p1,'edit');
+					$this->smarty->assign('data_edit', $data_edit);
+				}
 				$this->smarty->assign('editstatus', $editstatus);
 				$template = $type."/".$p1."/form.html";
 				//echo "kontel Tenyom";exit;
@@ -73,13 +77,46 @@ class home extends CI_Controller {
 		$this->smarty->assign('modul', $p1);
 		$this->smarty->display($template);
 	}
-	
+	// GOYZ CROTZ
 	function crud_na($table,$sts_crud){
 		$data=array();
 		foreach($_POST as $k=>$v) $data[$k] = $this->input->post($k);//$this->db->escape_str($this->input->post($k));
 		//print_r($_POST);exit;
 		echo $this->mhome->crud_na($table,$data,$sts_crud);
 	}
+	
+	function get_combo($p1=""){
+		$opt="<option value=''>-- Pilih --</option>";
+		$data=$this->mhome->get_combo($p1);
+		$id=$this->input->post('v');
+		foreach($data as $v){
+			$sts="";
+			if($id){
+				if($id==$v['id']){
+					$sts ="selected";
+				}
+			}
+			
+			$opt .="<option value='".$v['id']."' ".$sts.">".$v['txt']."</option>";
+		}
+		echo $opt;
+		
+	}
+	function get_autocomplete($p1){
+		$data=$this->mhome->get_combo($p1);
+		foreach($data as $row)
+		{
+			$arr['query'] = $p1;
+			$arr['suggestions'][] = array(
+				'value'	=>$row["txt"],
+				'data'	=>$row["id"]
+			);
+		}
+		echo json_encode($arr);
+		
+	}
+	//END GOYZ CROTZ
+	
 	
 	//end fungsi front_end
 	

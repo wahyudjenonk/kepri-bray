@@ -128,13 +128,20 @@ class mhome extends CI_Model{
 			//modul pungutan_pajak
 			case "pbbkb":
 				$sql = "
-					SELECT A.*, B.NmCP, C.NmWP, D.NmBB, E.NmKlas
+					SELECT A.*,A.RecNo as id, B.NmCP, C.NmWP, D.NmBB, E.NmKlas
 					FROM tbl_pungutan_pbbkb A
 					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP = B.KdCP
 					LEFT JOIN tbl_wajib_pajak_pertamina_daerah C ON A.KdWP = C.KdWP
 					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB = D.KdBB
 					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas = E.KdKlas
 				";
+				
+				if($p1=='edit'){
+					$sql .=" WHERE A.RecNo=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
+				
+				
 			break;
 			case "pbbkb_pertamina":
 				$sql = "
@@ -197,7 +204,7 @@ class mhome extends CI_Model{
 		   return json_encode($responce);
 		} 
 	}
-	
+	// GOYZ CROTZZZ
 	function crud_na($table,$data,$sts_crud){//$sts_crud --> STATUS NYEE INSERT, UPDATE, DELETE
 		$this->db->trans_begin();
 		switch ($table){
@@ -264,7 +271,13 @@ class mhome extends CI_Model{
 				$field_id="RecNo2";
 			break;
 			case "tbl_pungutan_pbbkb":
-				$id=$data['RecNo'];unset($data['RecNo']);
+				if($sts_crud=='delete'){
+					$id=$this->input->post('id');
+					unset($data['id']);
+				}else{
+					$id=$data['RecNo'];unset($data['RecNo']);unset($data['NmCP']);unset($data['NmWP']);
+					$data['TglInput']=date('Y-m-d');
+				}
 				$field_id="RecNo";
 			break;
 			case "tbl_user":
@@ -305,5 +318,21 @@ class mhome extends CI_Model{
 		}
 		
 	}
+	function get_combo($p1,$p2="",$p3=""){
+		switch($p1){
+			case "tbl_wajib_pungut_pertamina_wil":
+				$sql="SELECT KdCP as id,NmCP as txt FROM tbl_wajib_pungut_pertamina_wil ";
+			break;
+			case "tbl_wajib_pajak_pertamina_daerah":
+				$sql="SELECT KdWP as id,NmWP as txt FROM tbl_wajib_pajak_pertamina_daerah ";
+			break;
+			case "cl_jenis_bahan_bakar":
+				$sql="SELECT KdBB as id,NmBB as txt FROM cl_jenis_bahan_bakar ";
+			break;
+			
+		}
+		return $this->db->query($sql)->result_array();
+	}
+	// END GOYZ CROTZZZ
 	
 }
