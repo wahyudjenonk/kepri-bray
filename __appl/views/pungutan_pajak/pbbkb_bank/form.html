@@ -1,0 +1,189 @@
+<form method='post' url="{$host}home/crud_na/tbl_pembayaran_pungutan_bank/{$editstatus}" id="form_pbbkb_bank" enctype="multipart/form-data">
+<input type='hidden' name='RecNo3' style='width:250px;padding:2px;' value="{$data_edit->RecNo3|default:''}">
+<table width='100%' style='margin-bottom:20px;'>
+		<tr>
+			<td width='34%'>Tgl. Setor Bank</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='TglBankPaid' id="TglBankPaid" style='width:100%;padding:2px;' value="{$data_edit->TglBankPaid|default:''}" >
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Tahun dan Bulan Pajak</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select name='TaxThn3' id="TaxThn3" style='width:45%;padding:2px;' class="easyui-validatebox" >
+					<option value="">-- Pilih --</option>
+					{assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
+					{assign var=tahun_awal value=$tahun_skr-5}
+					{assign var=tahun_akhir value=$tahun_skr+5}
+					{for $foo=$tahun_awal to $tahun_akhir}
+						<option value="{$foo}" {if $data_edit->TaxThn3|default:'' eq $foo}selected{/if}>{$foo}</option>
+					{/for}
+				</select>
+				- 
+				<select name='TaxBulan3' id="TaxBulan3" style='width:52%;padding:2px;' class="easyui-validatebox" >
+					<option value="">-- Pilih --</option>
+					<option value="1" {if $data_edit->TaxBulan3|default:'' eq 1}selected{/if}>Januari</option>
+					<option value="2" {if $data_edit->TaxBulan3|default:'' eq 2}selected{/if}>Februari</option>
+					<option value="3" {if $data_edit->TaxBulan3|default:'' eq 3}selected{/if}>Maret</option>
+					<option value="4" {if $data_edit->TaxBulan3|default:'' eq 4}selected{/if}>April</option>
+					<option value="5" {if $data_edit->TaxBulan3|default:'' eq 5}selected{/if}>Mei</option>
+					<option value="6" {if $data_edit->TaxBulan3|default:'' eq 6}selected{/if}>Juni</option>
+					<option value="7" {if $data_edit->TaxBulan3|default:'' eq 7}selected{/if}>Juli</option>
+					<option value="8" {if $data_edit->TaxBulan3|default:'' eq 8}selected{/if}>Agustus</option>
+					<option value="9" {if $data_edit->TaxBulan3|default:'' eq 9}selected{/if}>September</option>
+					<option value="10" {if $data_edit->TaxBulan3|default:'' eq 10}selected{/if}>Oktober</option>
+					<option value="11" {if $data_edit->TaxBulan3|default:'' eq 11}selected{/if}>November</option>
+					<option value="12" {if $data_edit->TaxBulan3|default:'' eq 12}selected{/if}>Desember</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Data bank</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type="hidden" id="KdBank" name="KdBank" style='width:341px;padding:2px;' value="{$data_edit->KdBank|default:''}">
+				<input type="text" id="NmBank" name="NmBank" style='width:341px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmBank|default:''}">
+				{$data_edit->NmBank|default:''}
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Data Wajib Pungut</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				
+				{*<select id="KdCP" name="KdCP" style='width:100%;padding:2px;' class="easyui-validatebox"></select>*}
+				<input type="hidden" id="KdCP3" name="KdCP3" style='width:341px;padding:2px;' value="{$data_edit->KdCP3|default:''}">
+				<input type="text" id="NmCP" name="NmCP" style='width:341px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmCP|default:''}">
+				
+			</td>
+		</tr>
+		
+		<tr>
+			<td width='34%'>Quantity Penjualan (L)</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='QtyBB3' id="QtyBB3" style='width:20%;padding:2px;' value="{$data_edit->QtyBB3|default:''}">
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Total Harga Jual</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='Pay3' id="Pay3" style='width:50%;padding:2px;'  value="{$data_edit->Pay3|default:''}" >
+				&nbsp;
+				<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="calc_pajak_bank" >
+					<span class="l-btn-left l-btn-icon-left">
+						<span class="l-btn-text">Kalkulasi Pajak</span><span class="l-btn-icon icon-save">&nbsp;</span>
+					</span>
+				</a>
+				
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Kalkulasi PBB-KB</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='Tax3' id="Tax3" style='width:50%;padding:2px;' value="{$data_edit->Tax3|default:''}" >
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Setoran Bank</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<input type='text' name='BankPaid' id="BankPaid" style='width:50%;padding:2px;' value="{$data_edit->BankPaid|default:''}" >
+			</td>
+		</tr>
+</table>
+</form>
+<div style='float:left;'>
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_pbbkb_bank" >
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
+		</span>
+	</a>
+	&nbsp;
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="batal_pbbkb_bank" onClick="closeWindow();">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
+		</span>
+	</a>
+</div>
+{literal}
+<script>
+
+$(document).ready(function(){
+	$('#TglBankPaid').datebox({formatter: formatDate,required:true });
+	$(".easyui-validatebox").validatebox({required:true}); 
+	$('#QtyBB3').numberbox({  
+		required:true,
+		min:0,  
+		precision:0 ,
+		groupSeparator:',' 
+	});
+	$('#Pay3').numberbox({  
+		required:true,
+		min:0,  
+		precision:2 ,
+		groupSeparator:','
+		//onChange : function(){return hit_pajak('pbbkb');}		
+	});
+	$('#Tax3').numberbox({  
+		required:true,
+		min:0,  
+		precision:2 ,
+		groupSeparator:',' 
+	});
+	$('#BankPaid').numberbox({  
+		required:true,
+		min:0,  
+		precision:2 ,
+		groupSeparator:',' 
+	});
+	//fillCombo(host+'home/get_combo/tbl_wajib_pungut_pertamina_wil','KdCP');
+	//fillCombo(host+'home/get_combo/tbl_wajib_pajak_pertamina_daerah','KdWP');
+	$('#NmCP').autocomplete({
+		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pungut_pertamina_wil',
+		onSelect: function (suggestion) {
+			console.log(suggestion.data)
+			  $('#KdCP3').val(suggestion.data);
+			   //$('#vr_no').html(suggestion.data);
+			  
+		}
+	});
+	$('#NmBank').autocomplete({
+		serviceUrl: host+'home/get_autocomplete/cl_bank',
+		onSelect: function (suggestion) {
+			console.log(suggestion.data2);
+			$('#KdBank').val(suggestion.data);
+			  
+		}
+	});
+	
+});	
+	
+	$('#calc_pajak_bank').on('click',function(){
+		return hit_pajak('bank');
+	});
+	
+	$('#simpan_pbbkb_bank').on('click',function(){
+		if ($('#form_pbbkb_bank').form('validate')){
+			submit_form("form_pbbkb_bank",function(r){
+				if(r==1){
+					$.messager.alert('Data PBB-KB PEMBAYARAN BANK',"Data Sudah Tersimpan",'info');
+					$('#grid_pbbkb_bank').datagrid('reload');
+					closeWindow();
+				}
+				else{
+					console.log(r);
+					$.messager.alert('Data PBB-KB',"Data Gagal Tersimpan",'error');
+				}
+			});
+		}
+		else{
+			$.messager.alert('Data PBB-KB',"Isi Yang Kosong",'error');
+		}
+	})
+</script>
+{/literal}

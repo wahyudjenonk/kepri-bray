@@ -272,21 +272,7 @@ function genGrid(modnya, divnya){
 				{field:'Tax2',title:'Pajak',width:250, halign:'center'},
 			];
 		break;
-		case "pbbkb_pertamina":
-			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina";
-			urlnya = "pbbkb_pertamina";
-			kolom[modnya] = [	
-				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
-				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
-				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
-				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
-				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
-				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
-				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
-				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
-				{field:'Tax2',title:'Pajak',width:250, halign:'center'},
-			];
-		break;
+		
 		case "pbbkb_pertamina_sektor":
 			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
 			urlnya = "pbbkb_pertamina_sektor";
@@ -297,24 +283,11 @@ function genGrid(modnya, divnya){
 				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
 				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
 				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
-				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
+				{field:'NmKlass',title:'Klasifikasi',width:250, halign:'center'},
 				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
 			];
 		break;
-		case "pbbkb_pertamina_sektor":
-			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
-			urlnya = "pbbkb_pertamina_sektor";
-			kolom[modnya] = [	
-				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
-				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
-				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
-				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
-				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
-				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
-				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
-				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
-			];
-		break;
+		
 		case "pbbkb_bank":
 			judulnya = "Data Setoran PBBKB ke Bank";
 			urlnya = "pbbkb_bank";
@@ -445,7 +418,28 @@ function genform(type, modulnya, submodulnya){
 			var tinggi = getClientHeight()-320;
 			var judulwindow = 'PBBKB';
 			var table="tbl_pungutan_pbbkb";
-			var field_id="tbl_pungutan_pbbkb";
+			//var field_id="tbl_pungutan_pbbkb";
+		break;
+		case "pbbkb_pertamina":
+			var lebar = getClientWidth()-800;
+			var tinggi = getClientHeight()-320;
+			var judulwindow = 'PBBKB-PERTAMINA';
+			var table="tbl_punggut_pbbkb_pertamina";
+			//var field_id="tbl_pungutan_pbbkb";
+		break;
+		case "pbbkb_pertamina_sektor":
+			var lebar = getClientWidth()-800;
+			var tinggi = getClientHeight()-320;
+			var judulwindow = 'PBBKB-PERTAMINA SEKTOR';
+			var table="tbl_punggut_pbbkb_pertamina";
+			//var field_id="tbl_pungutan_pbbkb";
+		break;
+		case "pbbkb_bank":
+			var lebar = getClientWidth()-800;
+			var tinggi = getClientHeight()-320;
+			var judulwindow = 'PBBKB PEMBAYARAN BANK';
+			var table="tbl_pembayaran_pungutan_bank";
+			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		
 		//EndModul Pungutan Pajak
@@ -542,3 +536,47 @@ function formatDate(date) {
 	}
 	return date.getFullYear() + "-" + bulan + "-" + tgl;
 }		
+
+function hit_pajak(mod){
+	switch(mod){
+		case "pbbkb":
+			console.log($('#persentase').html());
+			console.log($('#KdWP').val());
+			if($('#persentase').html()!="" && $('#KdWP').val()!="" && $("#Pay").numberbox('getValue')!=""){
+				var pajak;
+				pajak=(parseFloat($("#Pay").numberbox('getValue')) * parseFloat($('#persentase').html()))/100;
+				$('#Tax').numberbox('setValue',pajak);
+				console.log(pajak);
+			}
+			else{
+				$.messager.alert('Data PBB-KB',"Untuk Melakukan Kalkulasi Harap Pilih Data Wajib Pungut Dan Pembayaran!!",'info');
+			}
+		break;
+		case "pertamina":
+			console.log($('#persentase').html());
+			console.log($('#KdWP').val());
+			if($('#persentase').html()!="" && $('#KdWP2').val()!="" && $("#Pay2").numberbox('getValue')!=""){
+				var pajak;
+				pajak=(parseFloat($("#Pay2").numberbox('getValue')) * parseFloat($('#persentase').html()))/100;
+				$('#Tax2').numberbox('setValue',pajak);
+				console.log(pajak);
+			}
+			else{
+				$.messager.alert('Data PBB-KB',"Untuk Melakukan Kalkulasi Harap Pilih Data Wajib Pungut Dan Pembayaran!!",'info');
+			}
+		break;
+		case "bank":
+			console.log($('#persentase').html());
+			console.log($('#KdWP').val());
+			if($('#KdCP3').val()!="" && $("#Pay3").numberbox('getValue')!=""){
+				var pajak;
+				pajak=(parseFloat($("#Pay3").numberbox('getValue')) * 10 )/100;
+				$('#Tax3').numberbox('setValue',pajak);
+				console.log(pajak);
+			}
+			else{
+				$.messager.alert('Data PBB-KB',"Untuk Melakukan Kalkulasi Harap Pilih Data Wajib Pungut Dan Pembayaran!!",'info');
+			}
+		break;
+	}
+}
