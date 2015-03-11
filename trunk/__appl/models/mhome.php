@@ -128,7 +128,7 @@ class mhome extends CI_Model{
 			//modul pungutan_pajak
 			case "pbbkb":
 				$sql = "
-					SELECT A.*,A.RecNo as id, B.NmCP, C.NmWP, D.NmBB, E.NmKlas
+					SELECT A.*,A.RecNo as id, B.NmCP, C.NmWP, D.NmBB, E.NmKlas,E.Persentasi
 					FROM tbl_pungutan_pbbkb A
 					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP = B.KdCP
 					LEFT JOIN tbl_wajib_pajak_pertamina_daerah C ON A.KdWP = C.KdWP
@@ -145,31 +145,44 @@ class mhome extends CI_Model{
 			break;
 			case "pbbkb_pertamina":
 				$sql = "
-					SELECT A.*, B.NmCP, D.NmBB, E.NmKlas
+					SELECT A.*,A.RecNo2 as id, B.NmCP, D.NmBB, E.NmKlas
 					FROM tbl_punggut_pbbkb_pertamina A
 					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP2 = B.KdCP
 					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB2 = D.KdBB
 					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas2 = E.KdKlas
 					WHERE flag_data = 'P'
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.RecNo2=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "pbbkb_pertamina_sektor":
 				$sql = "
-					SELECT A.*, B.NmCP, D.NmBB, E.NmKlas
+					SELECT A.*,A.RecNo2 as id, B.NmCP, D.NmBB, E.NmKlass,E.Persentasi
 					FROM tbl_punggut_pbbkb_pertamina A
 					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP2 = B.KdCP
 					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB2 = D.KdBB
-					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas2 = E.KdKlas
+					LEFT JOIN cl_klasifikasi_pbbkb_pertamina E ON A.KdKlas2 = E.KdKlasSec
 					WHERE flag_data = 'S'
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.RecNo2=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "pbbkb_bank":
 				$sql = "
-					SELECT A.*, B.NmCP, D.NmBank
+					SELECT A.*, B.NmCP,A.RecNo3 as id, D.NmBank
 					FROM tbl_pembayaran_pungutan_bank A
 					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP3 = B.KdCP
 					LEFT JOIN cl_bank D ON A.KdBank = D.KdBank
 				";
+				if($p1=='edit'){
+					$sql .=" WHERE A.RecNo3=".$this->input->post('id');
+					//echo $sql;
+					return $this->db->query($sql)->row();
+				}
 			break;
 			//end modul pungutan pajak
 			
@@ -263,11 +276,28 @@ class mhome extends CI_Model{
 				$field_id="KdDinas";
 			break;
 			case "tbl_pembayaran_pungutan_bank":
-				$id=$data['RecNo3'];unset($data['RecNo3']);
+				if($sts_crud=='delete'){
+					$id=$this->input->post('id');
+					unset($data['id']);
+				}else{
+					$id=$data['RecNo3'];unset($data['RecNo3']);
+					unset($data['NmCP']);
+					unset($data['NmBank']);
+					$data['TglInput3']=date('Y-m-d');
+				}
 				$field_id="RecNo3";
 			break;
 			case "tbl_punggut_pbbkb_pertamina":
-				$id=$data['RecNo2'];unset($data['RecNo2']);
+				if($sts_crud=='delete'){
+					$id=$this->input->post('id');
+					unset($data['id']);
+				}else{
+					$id=$data['RecNo2'];unset($data['RecNo2']);
+					if(isset($data['NmBB'])){unset($data['NmBB']);}
+					unset($data['NmCP']);
+					$data['TglInput2']=date('Y-m-d');
+				}
+				
 				$field_id="RecNo2";
 			break;
 			case "tbl_pungutan_pbbkb":
@@ -324,11 +354,21 @@ class mhome extends CI_Model{
 				$sql="SELECT KdCP as id,NmCP as txt FROM tbl_wajib_pungut_pertamina_wil ";
 			break;
 			case "tbl_wajib_pajak_pertamina_daerah":
-				$sql="SELECT KdWP as id,NmWP as txt FROM tbl_wajib_pajak_pertamina_daerah ";
+				$sql="SELECT KdWP as id,NmWP as txt,KdKlasifikas,B.NmKlas,B.Persentasi from tbl_wajib_pajak_pertamina_daerah A
+					LEFT JOIN cl_klasifikasi_pbbkb B ON A.KdKlasifikas=B.KdKlas ORDER BY NmWP ASC";
 			break;
+			case "cl_klasifikasi_pbbkb_pertamina":
+				$sql="SELECT A.KdKlasSec as id,A.NmKlass as txt,A.Persentasi FROM cl_klasifikasi_pbbkb_pertamina A 
+				LEFT JOIN cl_jenis_bahan_bakar B ON A.KdBB=B.KdBB ORDER BY A.NmKlass ASC";
+			break;
+			
 			case "cl_jenis_bahan_bakar":
 				$sql="SELECT KdBB as id,NmBB as txt FROM cl_jenis_bahan_bakar ";
 			break;
+			case "cl_bank":
+				$sql="SELECT KdBank as id,NmBank as txt FROM cl_bank ORDER BY NmBank";
+			break;
+			
 			
 		}
 		return $this->db->query($sql)->result_array();

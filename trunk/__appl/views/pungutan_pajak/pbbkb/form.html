@@ -56,15 +56,17 @@
 			<td width='75%'>
 				{*<select id="KdWP" name="KdWP" style='width:100%;padding:2px;' class="easyui-validatebox"></select>*}
 				<input type="hidden" id="KdWP" name="KdWP" style='width:341px;padding:2px;' value="{$data_edit->KdWP|default:''}">
-				<input type="text" id="NmWP" name="NmWP" style='width:341px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmWP|default:''}">
+				<input type="text" id="NmWP" name="NmWP" style='width:150px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmWP|default:''}">
+				&nbsp;&nbsp;
+				<input type='hidden' name='KdKlas' id="KdKlas" style='width:250px;padding:2px;' value="{$data_edit->KdKlas|default:''}">
+				Klas.: <span id="klasifikasi">{$data_edit->NmKlas|default:''}</span>&nbsp;&nbsp;Persen: <span id="persentase">{$data_edit->Persentasi|default:''}</span>%
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Jenis Bahan Bakar</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select id="KdBB" name="KdBB" style='width:50%;padding:2px;' class="easyui-validatebox"></select>&nbsp;&nbsp;
-				Klas.: <span id="klasifikasi">XXX</span>&nbsp;&nbsp;Persen: <span id="persentase">10,05</span>%
+				<select id="KdBB" name="KdBB" style='width:50%;padding:2px;' class="easyui-validatebox"></select>
 			</td>
 		</tr>
 		
@@ -80,6 +82,12 @@
 			<td width='1%'>:</td>
 			<td width='75%'>
 				<input type='text' name='Pay' id="Pay" style='width:50%;padding:2px;'  value="{$data_edit->Pay|default:''}" >
+				&nbsp;
+				<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="calc_pajak" >
+					<span class="l-btn-left l-btn-icon-left">
+						<span class="l-btn-text">Kalkulasi Pajak</span><span class="l-btn-icon icon-save">&nbsp;</span>
+					</span>
+				</a>
 			</td>
 		</tr>
 		<tr>
@@ -127,8 +135,12 @@ $(document).ready(function(){
 		required:true,
 		min:0,  
 		precision:2 ,
-		groupSeparator:',' 
+		groupSeparator:','
+		//onChange : function(){return hit_pajak('pbbkb');}		
 	});
+	
+	
+	
 	$('#Tax').numberbox({  
 		required:true,
 		min:0,  
@@ -137,10 +149,6 @@ $(document).ready(function(){
 	});
 	//fillCombo(host+'home/get_combo/tbl_wajib_pungut_pertamina_wil','KdCP');
 	//fillCombo(host+'home/get_combo/tbl_wajib_pajak_pertamina_daerah','KdWP');
-	
-	
-	
-	
 	$('#NmCP').autocomplete({
 		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pungut_pertamina_wil',
 		onSelect: function (suggestion) {
@@ -153,12 +161,20 @@ $(document).ready(function(){
 	$('#NmWP').autocomplete({
 		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pajak_pertamina_daerah',
 		onSelect: function (suggestion) {
+			console.log(suggestion.data2);
+			$('#KdKlas').val(suggestion.data4);
+			$('#klasifikasi').html(suggestion.data2);
+			$('#persentase').html(suggestion.data3);
 			 $('#KdWP').val(suggestion.data);
 			   //$('#vr_no').html(suggestion.data);
 			  
 		}
 	});
 });	
+
+	$('#calc_pajak').on('click',function(){
+		return hit_pajak('pbbkb');
+	});
 	$('#simpan_pbbkb').on('click',function(){
 		if ($('#form_pbbkb').form('validate')){
 			submit_form("form_pbbkb",function(r){

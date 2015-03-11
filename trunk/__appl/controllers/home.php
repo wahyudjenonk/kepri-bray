@@ -65,6 +65,7 @@ class home extends CI_Controller {
 				$editstatus = $this->input->post('editstatus');
 				if($editstatus=='edit'){
 					$data_edit=$this->mhome->getdata($p1,'edit');
+					//print_r($data_edit);
 					$this->smarty->assign('data_edit', $data_edit);
 				}
 				$this->smarty->assign('editstatus', $editstatus);
@@ -104,13 +105,31 @@ class home extends CI_Controller {
 	}
 	function get_autocomplete($p1){
 		$data=$this->mhome->get_combo($p1);
+		//print_r($data);
 		foreach($data as $row)
 		{
 			$arr['query'] = $p1;
-			$arr['suggestions'][] = array(
-				'value'	=>$row["txt"],
-				'data'	=>$row["id"]
-			);
+			switch($p1){
+				case "tbl_wajib_pajak_pertamina_daerah":
+					$arr['suggestions'][] = array(
+						'value'	=>$row["txt"],
+						'data'	=>$row["id"],
+						'data2'=>$row["NmKlas"],
+						'data3'=>$row["Persentasi"],
+						'data4'=>$row["KdKlasifikas"]
+					);
+				break;
+				case "cl_klasifikasi_pbbkb_pertamina":
+					$arr['suggestions'][] = array(
+						'value'	=>$row["txt"],
+						'data'	=>$row["id"],
+						'data2'	=>$row["Persentasi"]
+						//'data3'	=>$row["Persentasi"],
+					);
+				break;
+				default: $arr['suggestions'][] = array('value'=>$row["txt"],'data'=>$row["id"]);
+				
+			}
 		}
 		echo json_encode($arr);
 		
