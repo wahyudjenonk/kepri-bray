@@ -1,27 +1,36 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/cl_klasifikasi_pbbkb_pertamina/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
+	<input type='hidden' name='KdKlasSec' value="{$data_edit->KdKlasSec|default:''}">
 	<table width='100%' style='margin-bottom:20px;'>
-	
 		<tr>
 			<td width='34%'>Klasifikasi PBB-KB Pertamina</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NmKlas' style='width:250px;padding:2px;'>
+				<input type='text' name='NmKlass' class="easyui-validatebox" value="{$data_edit->NmKlass|default:''}" style='width:90%;padding:2px;'>
+			</td>
+		</tr>
+		<tr>
+			<td width='34%'>Jenis Bahan Bakar</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select name='KdBB' class="easyui-validatebox" style='width:100px;padding:2px;'>
+					{$combo_bahanbakar}
+				</select>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Persentasi</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='Persentasi' style='width:250px;padding:2px;'>
+				<input type='text' name='Persentasi' class="easyui-numberbox easyui-validatebox" value="{$data_edit->Persentasi|default:''}" style='width:150px;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
-			<td width='24%'></td>
+			<td width='24%'>Status</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select name='FieldAktif'>
-				  <option value="">Aktif</option>
-				  <option value="">Tidak Aktif</option>
+				<select name='FieldAktif' class="easyui-validatebox" style='width:100px;padding:2px;'>
+				  <option value="T" {if $data_edit->FieldAktif|default:'' eq 'T'}selected{/if}>Aktif</option>
+				  <option value="F" {if $data_edit->FieldAktif|default:'' eq 'F'}selected{/if}>Tidak Aktif</option>
 				</select>
 			</td>
 		</tr>
@@ -29,15 +38,39 @@
 	</table>
 </form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
 	</a>
 	&nbsp;
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
 		</span>
 	</a>
 </div>
+
+<script>
+$(function(){
+	$(".easyui-validatebox").validatebox({ required:true }); 
+	$('.easyui-numberbox').numberbox({  
+		required:true,
+		min:0,  
+		precision:2 ,
+		groupSeparator:','
+	});
+	$('#simpan_{$modul}').on('click',function(){
+		submit_form("form_{$modul}",function(r){
+			if(r==1){
+				$.messager.alert('Data PBB-KB  Pertamina',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
+				closeWindow();
+			}else{
+				console.log(r);
+				$.messager.alert('Data PBB-KB Pertamina',"Data Gagal Tersimpan",'error');
+			}
+		});
+	})
+});	
+</script>

@@ -1,28 +1,26 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/tbl_wajib_pungut_pertamina_wil/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
+	<input type='hidden' name='KdCP' value="{$data_edit->KdCP|default:''}">	
 	<table width='100%' style='margin-bottom:20px;'>
-	
 		<tr>
 			<td width='24%'>Nama Wajib Pungut</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NmCP' style='width:250px;padding:2px;'>
+				<input type='text' name='NmCP' value="{$data_edit->NmCP|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Alamat</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='AdssCP' style='width:250px;padding:2px;'>
+				<input type='text' name='AdssCP' value="{$data_edit->AdssCP|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
-			<td width='24%'>Kabupatan/Kota</td>
+			<td width='24%'>Kabupaten/Kota</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select type='text' name='NmKabKot' style='width:250px;padding:2px;'>
-				  <option value="">Pekan Baru</option>
-				  <option value="">Riau</option>
-				  <option value="">Batam</option>
+				<select type='text' name='KdKabKot' class="easyui-validatebox" style='width:200px;padding:2px;'>
+					{$combo_kab}
 				</select>
 			</td>
 		</tr>
@@ -30,52 +28,50 @@
 			<td width='24%'>Nomor SIUP</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NoSIUP' style='width:250px;padding:2px;'>
+				<input type='text' name='NoSIUP' value="{$data_edit->NoSIUP|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Tanggal Berakhir SIUP</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' id="LastDateSIUP" name='LastDateSIUP' style='width:250px;padding:2px;'>
+				<input type='text' id="LastDateSIUP" name='LastDateSIUP' style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Nomor NPWP</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NoNPWP' style='width:250px;padding:2px;'>
+				<input type='text' name='NoNPWP' value="{$data_edit->NoNPWP|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Pemilik Perusahaan</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NmOwner' style='width:250px;padding:2px;'>
+				<input type='text' name='NmOwner' value="{$data_edit->NmOwner|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Alamat Pemilik</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='OwnerAdss' style='width:250px;padding:2px;'>
+				<input type='text' name='OwnerAdss' value="{$data_edit->OwnerAdss|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Nomor Identitas Pemilik</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='OwnerIdentity' style='width:250px;padding:2px;'>
+				<input type='text' name='OwnerIdentity' value="{$data_edit->OwnerIdentity|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Pertamina Wilayah</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select name='KdPW'>
-				  <option value="">1</option>
-				  <option value="">2</option>
-				</select>
+				<input type="radio" name="KdPW" value="T" {if $data_edit->KdPW|default:'' eq 'T'}checked{/if} >Ya &nbsp;
+				<input type="radio" name="KdPW" value="F" {if $data_edit->KdPW|default:'' eq 'F'}checked{/if} >Tidak
 			</td>
 		</tr>
 		
@@ -83,13 +79,13 @@
 	</table>
 </form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
 	</a>
 	&nbsp;
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
 		</span>
@@ -97,5 +93,26 @@
 </div>
 
 <script>
-    $('#LastDateSIUP').datebox();
+	var lastdatesiup = "{$data_edit->LastDateSIUP|default:''}";
+    $('#LastDateSIUP').datebox({
+		value : lastdatesiup,
+		formatter:formatDate,
+		required:true
+	});
+
+	$(".easyui-validatebox").validatebox({ required:true }); 
+
+	$('#simpan_{$modul}').bind('click',function(){
+		submit_form("form_{$modul}",function(r){
+			if(r==1){
+				$.messager.alert('Data Wajib Pungut',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
+				closeWindow();
+			}else{
+				console.log(r);
+				$.messager.alert('Data Wajib Pungut',"Data Gagal Tersimpan",'error');
+			}
+		});
+	})
+	
 </script>

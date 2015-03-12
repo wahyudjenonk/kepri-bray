@@ -1,26 +1,43 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/cl_jenis_perusahaan/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
+	<input type='hidden' name='KdJenCP' value="{$data_edit->KdJenCP|default:''}">
 	<table width='100%' style='margin-bottom:20px;'>
-
 			<tr>
 				<td width='34%'>Jenis Perusahaan</td>
 				<td width='1%'>:</td>
 				<td width='75%'>
-					<input type='text' name='NmJenCP' style='width:250px;padding:2px;'>
+					<input type='text' name='NmJenCP' style='width:250px;padding:2px;' value="{$data_edit->NmJenCP|default:''}">
 				</td>
 			</tr>
 
 	</table>
 </form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
 	</a>
 	&nbsp;
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
 		</span>
 	</a>
 </div>
+
+<script>
+$(function(){
+	$('#simpan_{$modul}').on('click',function(){
+		submit_form("form_{$modul}",function(r){
+			if(r==1){
+				$.messager.alert('Data Jenis Perusahaan',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
+				closeWindow();
+			}else{
+				console.log(r);
+				$.messager.alert('Data Jenis Perusahaan',"Data Gagal Tersimpan",'error');
+			}
+		});
+	})
+});	
+</script>

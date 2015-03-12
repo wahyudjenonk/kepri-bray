@@ -1,38 +1,51 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/cl_bank/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
+	<input type='hidden' name='KdBank' value="{$data_edit->KdBank|default:''}">			
 	<table width='100%' style='margin-bottom:20px;'>
-	
+		<tr>
+			<td width='24%'>Kabupaten/Kota</td>
+			<td width='1%'>:</td>
+			<td width='75%'>
+				<select type='text' name='KdKabKot' class="easyui-validatebox" style='width:250px;padding:2px;'>
+					{$combo_kab}
+				</select>
+			</td>
+		</tr>		
 		<tr>
 			<td width='24%'>Nama Bank</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='NmBank' style='width:250px;padding:2px;'>
+				<input type='text' name='NmBank' class="easyui-validatebox" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
-		<tr>
-			<td width='24%'>Kabupatan/Kota</td>
-			<td width='1%'>:</td>
-			<td width='75%'>
-				<select type='text' name='NmKabKot' style='width:250px;padding:2px;'>
-				  <option value="">Pekan Baru</option>
-				  <option value="">Riau</option>
-				  <option value="">Batam</option>
-				</select>
-			</td>
-		</tr>
-	
 	</table>
 </form>
 
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
 	</a>
 	&nbsp;
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
 		</span>
 	</a>
 </div>
+
+<script>
+	$(".easyui-validatebox").validatebox({ required:true }); 
+	$('#simpan_{$modul}').bind('click',function(){
+		submit_form("form_{$modul}",function(r){
+			if(r==1){
+				$.messager.alert('Data Wajib Pajak',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
+				closeWindow();
+			}else{
+				console.log(r);
+				$.messager.alert('Data Wajib Pajak',"Data Gagal Tersimpan",'error');
+			}
+		});
+	});
+</script>

@@ -7,6 +7,7 @@ class mhome extends CI_Model{
 	}
 	
 	function getdata($type="", $p1="", $p2=""){
+		$where = " WHERE 1=1 ";
 		switch($type){
 			case "data_login":
 				$sql = "
@@ -19,62 +20,109 @@ class mhome extends CI_Model{
 			//query datamaster
 			case "provinsi":
 				$sql = "
-					SELECT *
+					SELECT *, KdProv as id
 					FROM cl_provinsi
+					$where 
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdProv=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "kabupaten":
 				$sql = "
-					SELECT *
-					FROM cl_kabupaten_kota
+					SELECT A.*, A.KdKabKot as id, B.NmProvinsi
+					FROM cl_kabupaten_kota A
+					LEFT JOIN cl_provinsi B ON A.KdProv = B.KdProv
+					$where
 				";
+				
+				if($p1=='edit'){
+					$sql .=" AND KdKabKot=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "jenis_perusahaan":
 				$sql = "
-					SELECT *
+					SELECT *, KdJenCP as id
 					FROM cl_jenis_perusahaan
+					$where 
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdJenCP=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "jenis_bahanbakar":
 				$sql = "
-					SELECT *
+					SELECT *, KdBB as id
 					FROM cl_jenis_bahan_bakar
+					$where 
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdBB=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "klasifikasi_pbbkb":
 				$sql = "
-					SELECT *
+					SELECT *, KdKlas as id
 					FROM cl_klasifikasi_pbbkb
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdKlas=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "klasifikasi_pbbkb_pertamina":
 				$sql = "
-					SELECT A.*, B.NmBB
+					SELECT A.*, B.NmBB, KdKlasSec as id
 					FROM cl_klasifikasi_pbbkb_pertamina A
 					LEFT JOIN cl_jenis_bahan_bakar B ON A.KdBB = B.KdBB
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.KdKlasSec=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "profil_wajib_pungut":
 				$sql = "
-					SELECT A.*, B.NmKabKot
+					SELECT A.*, B.NmKabKot, A.KdCP as id
 					FROM tbl_wajib_pungut_pertamina_wil A
 					LEFT JOIN cl_kabupaten_kota B ON A.KdKabKot = B.KdKabKot
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.KdCP=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "profil_wajib_pajak":
 				$sql = "
-					SELECT A.*, B.NmKabKot, C.NmJenCP, D.NmKlas
+					SELECT A.*, B.NmKabKot, C.NmJenCP, A.KdWP as id
 					FROM tbl_wajib_pajak_pertamina_daerah A
 					LEFT JOIN cl_kabupaten_kota B ON A.KdKabKot = B.KdKabKot
 					LEFT JOIN cl_jenis_perusahaan C ON A.KdJenCP = C.KdJenCP
-					LEFT JOIN cl_klasifikasi_pbbkb D ON A.KdKlas = D.KdKlas
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.KdWP=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "bank":
 				$sql = "
-					SELECT *
-					FROM cl_bank
+					SELECT A.*, KdBank as id, B.NmKabKot
+					FROM cl_bank A
+					LEFT JOIN cl_kabupaten_kota B ON A.KdKabKot = B.KdKabKot
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.KdBank=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			//end query datamaster
 			
@@ -369,6 +417,34 @@ class mhome extends CI_Model{
 				$sql="SELECT KdBank as id,NmBank as txt FROM cl_bank ORDER BY NmBank";
 			break;
 			
+			case 'cl_provinsi':
+				$sql = "
+					SELECT KdProv as id, NmProvinsi as txt
+					FROM cl_provinsi
+					ORDER BY NmProvinsi
+				";
+			break;
+			case 'cl_kabupaten_kota':
+				$sql = "
+					SELECT KdKabKot as id, NmKabKot as txt
+					FROM cl_kabupaten_kota
+					ORDER BY NmKabKot
+				";
+			break;
+			case 'cl_jenis_bahan_bakar':
+				$sql = "
+					SELECT KdBB as id, NmBB as txt
+					FROM cl_jenis_bahan_bakar
+					ORDER BY NmBB
+				";
+			break;
+			case 'cl_jenis_perusahaan':
+				$sql = "
+					SELECT KdJenCP as id, NmJenCP as txt
+					FROM cl_jenis_perusahaan
+					ORDER BY NmJenCP
+				";
+			break;
 			
 		}
 		return $this->db->query($sql)->result_array();
