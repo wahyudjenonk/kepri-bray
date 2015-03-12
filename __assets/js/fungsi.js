@@ -137,11 +137,12 @@ function genGrid(modnya, divnya){
 		break;
 		case "klasifikasi_pbbkb_pertamina":
 			judulnya = "Data Klasifikasi PBB-KB Pertamina";
-			urlnya = "klasifikasi_pbbkb";
+			urlnya = "klasifikasi_pbbkb_pertamina";
 			kolom[modnya] = [	
 				{field:'NmBB',title:'Nama Bahan Bakar',width:200, halign:'center'},
+				{field:'NmKlass',title:'Nama Klasifikasi',width:200, halign:'center'},
 				{field:'Persentasi',title:'Persentase(%)',width:200, halign:'center'},
-				{field:'FieldAktif',title:'Status Klasifikasi',width:100, halign:'center'},
+				{field:'FieldAktif',title:'Status Klasifikasi',width:110, halign:'center'},
 			];
 		break;
 		case "profil_wajib_pungut":
@@ -152,11 +153,11 @@ function genGrid(modnya, divnya){
 				{field:'AdssCP',title:'Alamat Perusahan',width:200, halign:'center'},
 				{field:'NmKabKot',title:'Kabupaten',width:200, halign:'center'},
 				{field:'NoSIUP',title:'No. SIUP',width:200, halign:'center'},
-				{field:'LastDateSIUP',title:'Masa Berlaku SIUP',width:100, halign:'center'},
-				{field:'NoNPWP',title:'Status No. NPWP',width:100, halign:'center'},
-				{field:'NmOwner',title:'Nama Pemilik',width:100, halign:'center'},
-				{field:'OwnerAdss',title:'Alamat Pemilik',width:100, halign:'center'},
-				{field:'OwnerIdentity',title:'No. Identitas',width:100, halign:'center'},
+				{field:'LastDateSIUP',title:'Masa Berlaku SIUP',width:150, halign:'center', align:'center'},
+				{field:'NoNPWP',title:'No. NPWP',width:150, halign:'center'},
+				{field:'NmOwner',title:'Nama Pemilik',width:200, halign:'center'},
+				{field:'OwnerAdss',title:'Alamat Pemilik',width:200, halign:'center'},
+				{field:'OwnerIdentity',title:'No. Identitas',width:150, halign:'center'},
 			];
 		break;
 		case "profil_wajib_pajak":
@@ -167,13 +168,13 @@ function genGrid(modnya, divnya){
 				{field:'AdssWP',title:'Alamat Perusahan',width:200, halign:'center'},
 				{field:'NmKabKot',title:'Kabupaten',width:200, halign:'center'},
 				{field:'NmJenCP',title:'Jenis Perusahaan',width:200, halign:'center'},
-				{field:'NmKlas',title:'Klasifikasi Perusahaan',width:200, halign:'center'},
-				{field:'WPNoSIUP',title:'No. SIUP',width:200, halign:'center'},
-				{field:'WPLastDateSIUP',title:'Masa Berlaku SIUP',width:100, halign:'center'},
-				{field:'WPNoNPWP',title:'Status No. NPWP',width:100, halign:'center'},
-				{field:'NmOwner',title:'Nama Pemilik',width:100, halign:'center'},
-				{field:'OwnerAdss',title:'Alamat Pemilik',width:100, halign:'center'},
-				{field:'OwnerIdentity',title:'No. Identitas',width:100, halign:'center'},
+				{field:'KdKlasifikas',title:'Klasifikasi Perusahaan',width:170, halign:'center'},
+				{field:'WPNoSIUP',title:'No. SIUP',width:150, halign:'center'},
+				{field:'WPLastDateSIUP',title:'Masa Berlaku SIUP',width:150, halign:'center'},
+				{field:'WPNoNPWP',title:'No. NPWP',width:150, halign:'center'},
+				{field:'NmOwner',title:'Nama Pemilik',width:200, halign:'center'},
+				{field:'OwnerAdss',title:'Alamat Pemilik',width:200, halign:'center'},
+				{field:'OwnerIdentity',title:'No. Identitas',width:150, halign:'center'},
 			];
 		break;
 		case "bank":
@@ -184,7 +185,7 @@ function genGrid(modnya, divnya){
 				{field:'NmBank',title:'Nama Bank',width:200, halign:'center'},
 			];
 		break;
-
+		
 		//Modul Setting
 		case "tahun_pajak":
 			judulnya = "Data Tahun Pajak";
@@ -335,47 +336,56 @@ function genform(type, modulnya, submodulnya){
 			var lebar = getClientWidth()-990;
 			var tinggi = getClientHeight()-535;
 			var judulwindow = 'Form Data Provinsi';
+			var table="cl_provinsi";
 		break;
 		// angkanya gede formnya jadi kecil
 		case "kabupaten":
 			var lebar = getClientWidth()-910;
-			var tinggi = getClientHeight()-530;
+			var tinggi = getClientHeight()-515;
 			var judulwindow = 'Form Data Kabupaten';
+			var table="cl_kabupaten_kota";
 		break;
 		case "jenis_perusahaan":
 			var lebar = getClientWidth()-930;
 			var tinggi = getClientHeight()-530;
 			var judulwindow = 'Form Jenis Perusahaan';
+			var table="cl_jenis_perusahaan";
 		break;
 		case "jenis_bahanbakar":
 			var lebar = getClientWidth()-930;
 			var tinggi = getClientHeight()-530;
 			var judulwindow = 'Form Jenis Bahan Bakar';
+			var table="cl_jenis_bahan_bakar";
 		break;
 		case "klasifikasi_pbbkb":
 			var lebar = getClientWidth()-930;
 			var tinggi = getClientHeight()-488;
 			var judulwindow = 'Form Klasifikasi PBB-KB';
+			var table="cl_klasifikasi_pbbkb";
 		break;
 		case "klasifikasi_pbbkb_pertamina":
-			var lebar = getClientWidth()-930;
-			var tinggi = getClientHeight()-475;
+			var lebar = getClientWidth()-850;
+			var tinggi = getClientHeight()-450;
 			var judulwindow = 'Klasifikasi PBB-KB Pertamina';
+			var table="cl_klasifikasi_pbbkb_pertamina";
 		break;
 		case "profil_wajib_pungut":
 			var lebar = getClientWidth()-935;
-			var tinggi = getClientHeight()-325;
+			var tinggi = getClientHeight()-310;
 			var judulwindow = 'Profil Wajib Pungut';
+			var table="tbl_wajib_pungut_pertamina_wil";
 		break;
 		case "profil_wajib_pajak":
 			var lebar = getClientWidth()-935;
-			var tinggi = getClientHeight()-295;
+			var tinggi = getClientHeight()-275;
 			var judulwindow = 'Profil Wajib Pajak';
+			var table="tbl_wajib_pajak_pertamina_daerah";
 		break;
 		case "bank":
 			var lebar = getClientWidth()-985;
 			var tinggi = getClientHeight()-510;
 			var judulwindow = 'Profil Data Bank';
+			var table="cl_bank";
 		break;
 		
 		//Modul Setting
@@ -409,7 +419,6 @@ function genform(type, modulnya, submodulnya){
 			var tinggi = getClientHeight()-365;
 			var judulwindow = 'User Manajemen';
 		break;
-		
 		//End Modul Setting
 		
 		//Modul Pungutan Pajak
