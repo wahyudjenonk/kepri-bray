@@ -70,10 +70,28 @@ class home extends CI_Controller {
 				}
 				$this->smarty->assign('editstatus', $editstatus);
 				$template = $type."/".$p1."/form.html";
-				//echo "kontel Tenyom";exit;
+				
+				if($p1 == 'kabupaten'){
+					$combo = $this->get_combo('cl_provinsi', ($editstatus == 'add' ? '' : $data_edit->KdProv), 'return' );
+					$this->smarty->assign('combo_provinsi', $combo);
+				}
+				if($p1 == 'klasifikasi_pbbkb_pertamina'){
+					$combo = $this->get_combo('cl_jenis_bahan_bakar', ($editstatus == 'add' ? '' : $data_edit->KdBB), 'return' );
+					$this->smarty->assign('combo_bahanbakar', $combo);
+				}
+				if($p1 == 'profil_wajib_pungut' || $p1 == 'profil_wajib_pajak' || $p1 == 'bank'){
+					$combo = $this->get_combo('cl_kabupaten_kota', ($editstatus == 'add' ? '' : $data_edit->KdKabKot), 'return' );
+					if($p1 == 'profil_wajib_pajak'){
+						$combo2 = $this->get_combo('cl_jenis_perusahaan', ($editstatus == 'add' ? '' : $data_edit->KdJenCP), 'return' );
+						$this->smarty->assign('combo_jenper', $combo2);
+					}
+					
+					$this->smarty->assign('combo_kab', $combo);
+				}
+				
 			break;
 		}
-	
+				
 		$this->smarty->assign('type', $type);
 		$this->smarty->assign('modul', $p1);
 		$this->smarty->display($template);
@@ -86,7 +104,7 @@ class home extends CI_Controller {
 		echo $this->mhome->crud_na($table,$data,$sts_crud);
 	}
 	
-	function get_combo($p1=""){
+	function get_combo($p1="", $p2="", $p3=""){
 		$opt="<option value=''>-- Pilih --</option>";
 		$data=$this->mhome->get_combo($p1);
 		$id=$this->input->post('v');
@@ -96,11 +114,20 @@ class home extends CI_Controller {
 				if($id==$v['id']){
 					$sts ="selected";
 				}
+			}else{
+				if($p2==$v['id']){
+					$sts ="selected";
+				}
 			}
 			
 			$opt .="<option value='".$v['id']."' ".$sts.">".$v['txt']."</option>";
 		}
-		echo $opt;
+		
+		if($p3 == 'return'){
+			return $opt;
+		}else{
+			echo $opt;
+		}
 		
 	}
 	function get_autocomplete($p1){
