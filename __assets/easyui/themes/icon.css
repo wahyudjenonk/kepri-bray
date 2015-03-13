@@ -64,7 +64,9 @@
 .icon-lock{
 	background:url('icons/lock.png') no-repeat center center;
 }
-
+.icon-calculator_add{
+	background:url('icons/calculator_add.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
