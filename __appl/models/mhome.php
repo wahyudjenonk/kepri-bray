@@ -129,47 +129,84 @@ class mhome extends CI_Model{
 			//query setting
 			case "tahun_pajak":
 				$sql = "
-					SELECT *
+					SELECT *, ThnPajak as id
 					FROM cl_tahun_pajak
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND ThnPajak=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "target_pajak":
 				$sql = "
-					SELECT *
+					SELECT *, ThnPajak as id
 					FROM target_pajak
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND ThnPajak=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "tingkat_daerah":
 				$sql = "
-					SELECT *
+					SELECT *, KdTk as id
 					FROM cl_tingkat_daerah_pengguna
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdTk=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "jabatan":
 				$sql = "
-					SELECT *
+					SELECT *, KdJabatan as id
 					FROM cl_jabatan_user
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdJabatan=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
-			case "jabatan":
+			case "owner":
 				$sql = "
-					SELECT *
-					FROM cl_jabatan_user
+					SELECT A.*, B.NmKabKot, A.KdDinas as id, C.KetTk
+					FROM tbl_lembaga_pengguna_owner A
+					LEFT JOIN cl_kabupaten_kota B ON A.KdKabKot = B.KdKabKot
+					LEFT JOIN cl_tingkat_daerah_pengguna C ON A.KdTk = C.KdTk
+					
 				";
+				if($p1=='edit'){
+					$sql .=" AND A.KdDinas=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "user_level":
 				$sql = "
-					SELECT *
+					SELECT *, KdLevel as id
 					FROM cl_level_user
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdLevel=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			case "user_manajemen":
 				$sql = "
-					SELECT A.*, B.UserLevel, C.Jabatan
+					SELECT A.*, B.UserLevel, C.Jabatan, A.KdUser as id
 					FROM tbl_user A
 					LEFT JOIN cl_level_user B ON A.KdLevel = B.KdLevel
 					LEFT JOIN cl_jabatan_user C ON A.KdJabatan = C.KdJabatan
+					$where
 				";
+				if($p1=='edit'){
+					$sql .=" AND KdUser=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
 			//end query setting
 			
@@ -308,7 +345,7 @@ class mhome extends CI_Model{
 				$field_id="KdProv";
 			break;
 			case "cl_tahun_pajak":
-				$id=$data['ThnPajak'];unset($data['ThnPajak']);
+				$id=$data['ThnPajak'];
 				$field_id="ThnPajak";
 			break;
 			case "cl_tingkat_daerah_pengguna":
@@ -316,7 +353,7 @@ class mhome extends CI_Model{
 				$field_id="KdTk";
 			break;
 			case "target_pajak":
-				$id=$data['ThnPajak'];unset($data['ThnPajak']);
+				$id=$data['ThnPajak']; //unset($data['ThnPajak']);
 				$field_id="ThnPajak";
 			break;
 			case "tbl_lembaga_pengguna_owner":
@@ -359,6 +396,7 @@ class mhome extends CI_Model{
 				$field_id="RecNo";
 			break;
 			case "tbl_user":
+				$this->load->library('encrypt');
 				$id=$data['KdUser'];unset($data['KdUser']);
 				$pass=$data['Password'];
 				unset($data['Password']);
@@ -445,7 +483,46 @@ class mhome extends CI_Model{
 					ORDER BY NmJenCP
 				";
 			break;
-			
+			case 'cl_tahun_pajak':
+				$sqlceker = "
+					SELECT ThnPajak
+					FROM target_pajak
+					GROUP BY ThnPajak
+				";
+				$queryceker = $this->db->query($sqlceker)->result_array();
+				$array = array();
+				foreach($queryceker as $k => $v){
+					$array[] = $v['ThnPajak'];
+				}
+				
+				$sql = "
+					SELECT ThnPajak as id, ThnPajak as txt
+					FROM cl_tahun_pajak
+					WHERE ThnPajak NOT IN ('".join("','",$array)."')
+					ORDER BY ThnPajak
+				";
+			break;
+			case 'cl_level_user':
+				$sql = "
+					SELECT KdLevel as id, UserLevel as txt
+					FROM cl_level_user
+					ORDER BY UserLevel
+				";
+			break;
+			case 'cl_jabatan_user':
+				$sql = "
+					SELECT KdJabatan as id, Jabatan as txt
+					FROM cl_jabatan_user
+					ORDER BY Jabatan
+				";
+			break;
+			case 'cl_tingkat_daerah_pengguna':
+				$sql = "
+					SELECT KdTk as id, KetTk as txt
+					FROM cl_tingkat_daerah_pengguna
+					ORDER BY KetTk
+				";
+			break;
 		}
 		return $this->db->query($sql)->result_array();
 	}

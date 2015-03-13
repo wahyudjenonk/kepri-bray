@@ -87,14 +87,35 @@ class home extends CI_Controller {
 					$combo = $this->get_combo('cl_jenis_bahan_bakar', ($editstatus == 'add' ? '' : $data_edit->KdBB), 'return' );
 					$this->smarty->assign('combo_bahanbakar', $combo);
 				}
-				if($p1 == 'profil_wajib_pungut' || $p1 == 'profil_wajib_pajak' || $p1 == 'bank'){
+				if($p1 == 'profil_wajib_pungut' || $p1 == 'profil_wajib_pajak' || $p1 == 'bank' || $p1 == 'owner'){
 					$combo = $this->get_combo('cl_kabupaten_kota', ($editstatus == 'add' ? '' : $data_edit->KdKabKot), 'return' );
 					if($p1 == 'profil_wajib_pajak'){
 						$combo2 = $this->get_combo('cl_jenis_perusahaan', ($editstatus == 'add' ? '' : $data_edit->KdJenCP), 'return' );
 						$this->smarty->assign('combo_jenper', $combo2);
 					}
+					if($p1 == 'owner'){
+						$combo2 = $this->get_combo('cl_tingkat_daerah_pengguna', ($editstatus == 'add' ? '' : $data_edit->KdTk), 'return' );
+						$this->smarty->assign('combo_tdpengguna', $combo2);
+					}
 					
 					$this->smarty->assign('combo_kab', $combo);
+				}
+				if($p1 == 'target_pajak'){
+					$combo = $this->get_combo('cl_tahun_pajak', ($editstatus == 'add' ? '' : $data_edit->ThnPajak), 'return' );
+					$this->smarty->assign('combo_tahun', $combo);
+				}
+				if($p1 == 'user_manajemen'){
+					$combo = $this->get_combo('cl_level_user', ($editstatus == 'add' ? '' : $data_edit->KdLevel), 'return' );
+					$combo2 = $this->get_combo('cl_jabatan_user', ($editstatus == 'add' ? '' : $data_edit->KdJabatan), 'return' );
+					
+					$this->smarty->assign('combo_level', $combo);
+					$this->smarty->assign('combo_jabatan', $combo2);
+					
+					if($editstatus == 'edit'){
+						$this->load->library('encrypt');
+						$password = $this->encrypt->decode($data_edit->Password);
+						$this->smarty->assign('password', $password);
+					}
 				}
 				
 			break;
@@ -170,6 +191,22 @@ class home extends CI_Controller {
 		
 	}
 	//END GOYZ CROTZ
+	
+	function tester(){
+		$sqlceker = "
+			SELECT ThnPajak
+			FROM target_pajak
+			GROUP BY ThnPajak
+		";
+		$queryceker = $this->db->query($sqlceker)->result_array();
+		$array = array();
+		foreach($queryceker as $k => $v){
+			$array[] = $v['ThnPajak'];
+		}
+		//print_r($array);
+		//('".join("','",$arraypelanggan)."')
+		//echo join("','",$array);
+	}
 	
 	
 	//end fungsi front_end
