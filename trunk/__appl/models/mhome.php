@@ -449,6 +449,98 @@ class mhome extends CI_Model{
 		}
 		return $this->db->query($sql)->result_array();
 	}
+	
+	function get_dashboard_data($p1){
+		$data =array();
+		
+		switch ($p1){
+			case "realisasi":
+				$tahun_skr=date('Y');
+				$tahun_blm=$tahun_skr-1;
+				for($i=1;$i<=12;$i++){
+					$bulan=$this->konversi_bulan($i);
+					$qry_skr=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_skr)->row('pajak');
+					$qry_blm=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_blm)->row('pajak');	
+					$data[$i]=array();
+					//$data[$i][$tahun_skr]=(isset($qry_skr) ? number_format($qry_skr,2) : '-');
+					//$data[$i][$tahun_blm]=(isset($qry_blm) ? number_format($qry_blm,2) : '-');
+					$data[$i]['data']=array('bulan'=>$bulan,'thn_skr'=>(isset($qry_skr) ? number_format($qry_skr,2) : '-'),'thn_blm'=>(isset($qry_blm) ? number_format($qry_blm,2) : '-'));
+				}
+			break;
+			case "apbd":
+			case "apbdp":
+				$tahun_skr=date('Y');
+				$bulan_skr=date('m');
+				$sql="SELECT A.*,B.pajak as pajak_blm,C.pajak as pajak_skr,B.pajak+c.pajak as total,
+						((B.pajak+c.pajak)/A.TargetTaxAPBD)*100 as real_apbd,((B.pajak+c.pajak)/A.TargetTaxAPBDP)*100 as real_apbdp
+						FROM target_pajak A 
+						LEFT JOIN (
+							SELECT A.TaxThn as tahun,SUM(A.Tax)as pajak,B.TargetTaxAPBD,B.TargetTaxAPBDP 
+							FROM tbl_pungutan_pbbkb A 
+							LEFT JOIN target_pajak B ON A.TaxThn=B.ThnPajak
+							WHERE A.TaxBulan < ".$bulan_skr." AND A.TaxThn=".$tahun_skr."
+							GROUP BY A.TaxThn,B.TargetTaxAPBD,B.TargetTaxAPBDP
+						)AS B ON A.ThnPajak=B.tahun
+						LEFT JOIN (
+							SELECT A.TaxThn as tahun,SUM(A.Tax)as pajak,B.TargetTaxAPBD,B.TargetTaxAPBDP 
+							FROM tbl_pungutan_pbbkb A 
+							LEFT JOIN target_pajak B ON A.TaxThn=B.ThnPajak
+							WHERE A.TaxBulan = ".$bulan_skr." AND A.TaxThn=".$tahun_skr."
+							GROUP BY A.TaxThn,B.TargetTaxAPBD,B.TargetTaxAPBDP
+						)AS C ON A.ThnPajak=C.tahun WHERE A.ThnPajak=".$tahun_skr;
+			
+				$qry=$this->db->query($sql)->row();
+				if(isset($qry->pajak_blm)){$pajak_blm=$qry->pajak_blm;}else{$pajak_blm=0;}
+				if(isset($qry->pajak_skr)){$pajak_skr=$qry->pajak_skr;}else{$pajak_skr=0;}
+				if(isset($qry->TargetTaxAPBD)){$apbd=$qry->TargetTaxAPBD;}else{$apbd=0;}
+				if(isset($qry->TargetTaxAPBDP)){$apbdp=$qry->TargetTaxAPBDP;}else{$apbdp=0;}
+				
+				$total=$pajak_blm+$pajak_skr;
+				$real_apbd=(($pajak_blm+$pajak_skr)/$apbd)*100;
+				$real_apbdp=(($pajak_blm+$pajak_skr)/$apbdp)*100;
+				$bulan=$this->konversi_bulan($bulan_skr);
+				$data=array(
+					'target_apbd'=>(isset($qry->TargetTaxAPBD) ? number_format($qry->TargetTaxAPBD,2) : '-'),
+					'target_apbdp'=>(isset($qry->TargetTaxAPBDP) ? number_format($qry->TargetTaxAPBDP,2) : '-'),
+					'pajak_blm'=>(isset($qry->pajak_blm) ? number_format($qry->pajak_blm,2) : '-'),
+					'pajak_skr'=>(isset($qry->pajak_skr) ? number_format($qry->pajak_skr,2) : '-'),
+					'total'=>number_format($total,2),
+					'real_apbd'=>number_format($real_apbd,2),
+					'real_apbdp'=>number_format($real_apbdp,2),
+				);
+				
+				/*for($i=1;$i<=12;$i++){
+					$bulan=$this->konversi_bulan($i);
+					$qry_skr=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_skr)->row('pajak');
+					$qry_blm=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_blm)->row('pajak');	
+					$data[$i]=array();
+					//$data[$i][$tahun_skr]=(isset($qry_skr) ? number_format($qry_skr,2) : '-');
+					//$data[$i][$tahun_blm]=(isset($qry_blm) ? number_format($qry_blm,2) : '-');
+					$data[$i]['data']=array('bulan'=>$bulan,'thn_skr'=>(isset($qry_skr) ? number_format($qry_skr,2) : '-'),'thn_blm'=>(isset($qry_blm) ? number_format($qry_blm,2) : '-'));
+				}*/
+			break;
+		}
+		//print_r($data);exit;
+		return $data;
+	}
+	
+	function konversi_bulan($bln){
+		switch($bln){
+			case 1:$bulan='Januari';break;
+			case 2:$bulan='Februari';break;
+			case 3:$bulan='Maret';break;
+			case 4:$bulan='April';break;
+			case 5:$bulan='Mei';break;
+			case 6:$bulan='Juni';break;
+			case 7:$bulan='Juli';break;
+			case 8:$bulan='Agustus';break;
+			case 9:$bulan='September';break;
+			case 10:$bulan='Oktober';break;
+			case 11:$bulan='November';break;
+			case 12:$bulan='Desember';break;
+		}
+		return $bulan;
+	}
 	// END GOYZ CROTZZZ
 	
 }

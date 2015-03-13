@@ -1,0 +1,36 @@
+{assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
+{assign var=tahun_blm value=$tahun_skr-1}
+<div style="overflow:auto;" id="main_real">
+<div style="text-align:center;font-size:12px;font-weight:bold;"> Realisasi Penerimaan PBB-KB </div>
+<table id="rounded-corner" style="width:98%;margin:10px;" >
+	<thead>
+        <tr >
+            <th width='5%' scope="col" class="rounded-company" align='center'>No</th>		
+            <th scope="col" class="rounded-q1" align='left'>Bulan</th>	
+            <th scope="col" class="rounded-q1" align='center'>Tahun {$tahun_blm}</th>	
+            <th scope="col" class="rounded-q4" align='center'>Tahun {$tahun_skr}</th>	
+		</tr>
+		
+	</thead>
+	<tbody>
+		{for $idx=1 to 12 }
+		<tr >
+        	<td align='center' >{$idx}</td>
+            <td align='left' >{$data.$idx.data.bulan}</td>
+            <td align='right' style='width:20%'>Rp. {$data.$idx.data.thn_blm}</td>
+            <td align='right' style='width:20%'>Rp. {$data.$idx.data.thn_skr}</td>
+		</tr>
+		{/for}
+	</tbody>
+	<tfoot>
+    	<tr>
+        	<td colspan="3" class="rounded-foot-left" style="text-align:center;"><em>Realisasi PBB-KB Tahun {$tahun_blm} dan {$tahun_skr} </em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+    </tfoot>
+</table>
+
+</div>
+<script>
+$('#main_real').css('height',getClientHeight()-200);
+</script>

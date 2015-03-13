@@ -60,6 +60,14 @@ class home extends CI_Controller {
 		switch($p2){
 			case "main":
 				$template = $type."/".$p1."/main.html";
+				if($p1 == 'realisasi' || $p1=='apbd' || $p1=='apbdp'){
+					$data=$this->mhome->get_dashboard_data($p1);
+					$this->smarty->assign('data', $data);
+					//echo '<pre>';print_r($data);echo '</pre>';exit;
+					//print_r($data);exit;
+				}
+				
+				
 			break;
 			case "form":
 				$editstatus = $this->input->post('editstatus');
