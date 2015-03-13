@@ -198,14 +198,14 @@ function genGrid(modnya, divnya){
 			judulnya = "Data Target Pajak";
 			urlnya = "target_pajak";
 			kolom[modnya] = [	
-				{field:'ThnPajak',title:'Tahun Pajak',width:150, halign:'center'},
-				{field:'TargetTaxAPBD',title:'Target APBD',width:200, halign:'center'},
-				{field:'TargetTaxAPBDP',title:'Target APBDP',width:200, halign:'center'},
+				{field:'ThnPajak',title:'Tahun Pajak',width:150, halign:'center', align:'center'},
+				{field:'TargetTaxAPBD',title:'Target APBD',width:200, halign:'center', align:'right'},
+				{field:'TargetTaxAPBDP',title:'Target APBDP',width:200, halign:'center', align:'right'},
 			];
 		break;
 		case "tingkat_daerah":
 			judulnya = "Data Tingkat Daerah";
-			urlnya = "target_pajak";
+			urlnya = "tingkat_daerah";
 			kolom[modnya] = [	
 				{field:'KdTk',title:'Kode Tk.',width:150, halign:'center'},
 				{field:'KetTk',title:'Keterangan Tk.',width:200, halign:'center'},
@@ -219,11 +219,23 @@ function genGrid(modnya, divnya){
 				{field:'KetJabatan',title:'Keterangan jabatan',width:200, halign:'center'},
 			];
 		break;
+		case "owner":
+			judulnya = "Data Lembaga Pengguna/Owner";
+			urlnya = "owner";
+			kolom[modnya] = [	
+				{field:'NmDinas',title:'Nama Dinas',width:150, halign:'center'},
+				{field:'AdssDinas',title:'Alamat',width:200, halign:'center'},
+				{field:'NmKabKot',title:'Kabupaten',width:200, halign:'center'},
+				{field:'KetTk',title:'Tingkat Daerah',width:150, halign:'center'},
+				{field:'nama_kepala_dinas',title:'Nama Kepala Dinas',width:200, halign:'center'},
+				{field:'nama_kepala_seksi',title:'Nama Kepala Seksi',width:200, halign:'center'},
+			];
+		break;
 		case "user_level":
 			judulnya = "Data User Level";
 			urlnya = "user_level";
 			kolom[modnya] = [	
-				{field:'UserLevel',title:'User Level',width:250, halign:'center'},
+				{field:'UserLevel',title:'User Level',width:200, halign:'center'},
 			];
 		break;
 		case "user_manajemen":
@@ -393,31 +405,43 @@ function genform(type, modulnya, submodulnya){
 			var lebar = getClientWidth()-990;
 			var tinggi = getClientHeight()-535;
 			var judulwindow = 'Tahun Pajak';
+			var table="cl_tahun_pajak";
 		break;
 		case "target_pajak":
-			var lebar = getClientWidth()-930;
-			var tinggi = getClientHeight()-500;
+			var lebar = getClientWidth()-980;
+			var tinggi = getClientHeight()-485;
 			var judulwindow = 'Form Target Pajak';
+			var table="target_pajak";
 		break;
 		case "tingkat_daerah":
 			var lebar = getClientWidth()-990;
 			var tinggi = getClientHeight()-535;
 			var judulwindow = 'Form Tingkat Daerah';
+			var table="cl_tingkat_daerah_pengguna";
 		break;
 		case "jabatan":
 			var lebar = getClientWidth()-930;
 			var tinggi = getClientHeight()-510;
 			var judulwindow = 'Form Setting Jabatan';
+			var table="cl_jabatan_user";
+		break;
+		case "owner":
+			var lebar = getClientWidth()-900;
+			var tinggi = getClientHeight()-400;
+			var judulwindow = 'Form Lembaga Pengguna';
+			var table="cl_tingkat_daerah_pengguna";
 		break;
 		case "user_level":
 			var lebar = getClientWidth()-990;
 			var tinggi = getClientHeight()-535;
 			var judulwindow = 'Form User Level';
+			var table="cl_level_user";
 		break;
 		case "user_manajemen":
 			var lebar = getClientWidth()-935;
 			var tinggi = getClientHeight()-365;
 			var judulwindow = 'User Manajemen';
+			var table="tbl_user";
 		break;
 		//End Modul Setting
 		
