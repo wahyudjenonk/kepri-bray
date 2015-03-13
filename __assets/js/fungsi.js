@@ -370,8 +370,8 @@ function genform(type, modulnya, submodulnya){
 			var table="cl_jenis_bahan_bakar";
 		break;
 		case "klasifikasi_pbbkb":
-			var lebar = getClientWidth()-930;
-			var tinggi = getClientHeight()-488;
+			var lebar = getClientWidth()-850;
+			var tinggi = getClientHeight()-480;
 			var judulwindow = 'Form Klasifikasi PBB-KB';
 			var table="cl_klasifikasi_pbbkb";
 		break;
