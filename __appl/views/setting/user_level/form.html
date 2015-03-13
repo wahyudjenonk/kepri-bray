@@ -1,19 +1,18 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/cl_level_user/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
 	<table width='100%' style='margin-bottom:20px;'>
-		
 			<tr>
 				<td width='34%'>User Level</td>
 				<td width='1%'>:</td>
 				<td width='75%'>
-					<input type='hidden' name='KdLevel' style='width:250px;padding:2px;' value="">
-					<input type='text' name='UserLevel' style='width:250px;padding:2px;' class="easyui-validatebox" >
+					<input type='hidden' name='KdLevel' value="{$data_edit->KdLevel|default:''}">
+					<input type='text' name='UserLevel' value="{$data_edit->UserLevel|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;' >
 				</td>
 			</tr>
 		
 	</table>
 </form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_prov" >
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
@@ -25,22 +24,21 @@
 		</span>
 	</a>
 </div>
-{literal}
+
 <script>
 $(function(){
-	$('#simpan_prov').on('click',function(){
-		submit_form("form_prov",function(r){
+	$(".easyui-validatebox").validatebox({ required:true }); 
+	$('#simpan_{$modul}').on('click',function(){
+		submit_form("form_{$modul}",function(r){
 			if(r==1){
-				$.messager.alert('Data Provinsi',"Data Sudah Tersimpan",'info');
-				$('#grid_provinsi').datagrid('reload');
+				$.messager.alert('Data User Level',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
 				closeWindow();
-			}
-			else{
+			}else{
 				console.log(r);
-				$.messager.alert('Data Provinsi',"Data Gagal Tersimpan",'error');
+				$.messager.alert('Data User Level',"Data Gagal Tersimpan",'error');
 			}
 		});
 	})
 });	
 </script>
-{/literal}

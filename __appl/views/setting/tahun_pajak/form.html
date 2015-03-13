@@ -1,19 +1,17 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/cl_tahun_pajak/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
 	<table width='100%' style='margin-bottom:20px;'>
-		
 			<tr>
 				<td width='34%'>Tahun Pajak</td>
 				<td width='1%'>:</td>
 				<td width='75%'>
-					<input type='hidden' name='ThnPajak' style='width:250px;padding:2px;' value="">
-					<input type='text' name='ThnPajak' style='width:250px;padding:2px;' class="easyui-validatebox" >
+					<input type='text' name='ThnPajak' value="{$data_edit->ThnPajak|default:''}" style='width:90%;padding:2px;' class="easyui-validatebox easyui-numberbox" >
 				</td>
 			</tr>
 		
 	</table>
 </form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_prov" >
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
@@ -25,22 +23,27 @@
 		</span>
 	</a>
 </div>
-{literal}
+
 <script>
 $(function(){
-	$('#simpan_prov').on('click',function(){
-		submit_form("form_prov",function(r){
+	$(".easyui-validatebox").validatebox({ required:true });
+	$('.easyui-numberbox').numberbox({  
+		required:true,
+		min:0,  
+		precision:0,
+		groupSeparator:''
+	});	
+	$('#simpan_{$modul}').on('click',function(){
+		submit_form("form_{$modul}",function(r){
 			if(r==1){
-				$.messager.alert('Data Provinsi',"Data Sudah Tersimpan",'info');
-				$('#grid_provinsi').datagrid('reload');
+				$.messager.alert('Data Tahun Pajak',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
 				closeWindow();
-			}
-			else{
+			}else{
 				console.log(r);
-				$.messager.alert('Data Provinsi',"Data Gagal Tersimpan",'error');
+				$.messager.alert('Data Tahun Pajak',"Data Gagal Tersimpan",'error');
 			}
 		});
-	})
+	});
 });	
 </script>
-{/literal}

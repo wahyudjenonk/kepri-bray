@@ -1,0 +1,82 @@
+<form method='post' url="{$host}home/crud_na/tbl_lembaga_pengguna_owner/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
+	<table width='100%' style='margin-bottom:20px;'>
+			<tr>
+				<td width='34%'>Nama Dinas</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<input type='hidden' name='KdDinas' value="{$data_edit->KdDinas|default:''}">
+					<input type='text' name='NmDinas' value="{$data_edit->NmDinas|default:''}" class="easyui-validatebox" style='width:90%;padding:2px;' >
+				</td>
+			</tr>
+			<tr>
+				<td width='24%'>Alamat</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<input type='text' name='AdssDinas' class="easyui-validatebox" value="{$data_edit->AdssDinas|default:''}" style='width:90%;padding:2px;'>
+				</td>
+			</tr>
+			<tr>
+				<td width='24%'>Kabupaten/Kota</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<select type='text' name='KdKabKot' class="easyui-validatebox" class="easyui-validatebox" style='width:200px;padding:2px;'>
+						{$combo_kab}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width='24%'>Tingkat Daerah Pengguna</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<select type='text' name='KdTk' class="easyui-validatebox" class="easyui-validatebox" style='width:200px;padding:2px;'>
+						{$combo_tdpengguna}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width='24%'>Nama Kepala Dinas</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<input type='text' name='nama_kepala_dinas' class="easyui-validatebox" value="{$data_edit->nama_kepala_dinas|default:''}" style='width:90%;padding:2px;'>
+				</td>
+			</tr>
+			<tr>
+				<td width='24%'>Nama Kepala Seksi</td>
+				<td width='1%'>:</td>
+				<td width='75%'>
+					<input type='text' name='nama_kepala_seksi' class="easyui-validatebox" value="{$data_edit->nama_kepala_seksi|default:''}" style='width:90%;padding:2px;'>
+				</td>
+			</tr>
+	</table>
+</form>
+<div style='float:left;'>
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
+		</span>
+	</a>
+	&nbsp;
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
+		<span class="l-btn-left l-btn-icon-left">
+			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
+		</span>
+	</a>
+</div>
+
+<script>
+$(function(){
+	$(".easyui-validatebox").validatebox({ required:true }); 
+	$('#simpan_{$modul}').on('click',function(){
+		submit_form("form_{$modul}",function(r){
+			if(r==1){
+				$.messager.alert('Data Lembaga Pengguna',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
+				closeWindow();
+			}else{
+				console.log(r);
+				$.messager.alert('Data Lembaga Pengguna',"Data Gagal Tersimpan",'error');
+			}
+		});
+	})
+});	
+</script>
