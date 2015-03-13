@@ -67,10 +67,19 @@
 .icon-calculator_add{
 	background:url('icons/calculator_add.png') no-repeat center center;
 	
-}.icon-group{
+}
+
+.icon-group{
 	background:url('icons/group.png') no-repeat center center;
 }
 
+.icon-laporan{
+	background:url('icons/report_go.png') no-repeat center center;
+}
+
+.icon-bank{
+	background:url('icons/bank.png') no-repeat center center;
+}
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
 }
