@@ -383,19 +383,19 @@ function genform(type, modulnya, submodulnya){
 		break;
 		case "profil_wajib_pungut":
 			var lebar = getClientWidth()-935;
-			var tinggi = getClientHeight()-310;
+			var tinggi = getClientHeight()-300;
 			var judulwindow = 'Profil Wajib Pungut';
 			var table="tbl_wajib_pungut_pertamina_wil";
 		break;
 		case "profil_wajib_pajak":
 			var lebar = getClientWidth()-935;
-			var tinggi = getClientHeight()-275;
+			var tinggi = getClientHeight()-265;
 			var judulwindow = 'Profil Wajib Pajak';
 			var table="tbl_wajib_pajak_pertamina_daerah";
 		break;
 		case "bank":
 			var lebar = getClientWidth()-985;
-			var tinggi = getClientHeight()-510;
+			var tinggi = getClientHeight()-500;
 			var judulwindow = 'Profil Data Bank';
 			var table="cl_bank";
 		break;
@@ -448,28 +448,28 @@ function genform(type, modulnya, submodulnya){
 		//Modul Pungutan Pajak
 		case "pbbkb":
 			var lebar = getClientWidth()-800;
-			var tinggi = getClientHeight()-320;
+			var tinggi = getClientHeight()-350;
 			var judulwindow = 'PBBKB';
 			var table="tbl_pungutan_pbbkb";
 			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		case "pbbkb_pertamina":
 			var lebar = getClientWidth()-800;
-			var tinggi = getClientHeight()-320;
+			var tinggi = getClientHeight()-385;
 			var judulwindow = 'PBBKB-PERTAMINA';
 			var table="tbl_punggut_pbbkb_pertamina";
 			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		case "pbbkb_pertamina_sektor":
 			var lebar = getClientWidth()-800;
-			var tinggi = getClientHeight()-320;
+			var tinggi = getClientHeight()-330;
 			var judulwindow = 'PBBKB-PERTAMINA SEKTOR';
 			var table="tbl_punggut_pbbkb_pertamina";
 			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		case "pbbkb_bank":
 			var lebar = getClientWidth()-800;
-			var tinggi = getClientHeight()-320;
+			var tinggi = getClientHeight()-345;
 			var judulwindow = 'PBBKB PEMBAYARAN BANK';
 			var table="tbl_pembayaran_pungutan_bank";
 			//var field_id="tbl_pungutan_pbbkb";
