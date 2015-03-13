@@ -1,67 +1,66 @@
-<form method='post' action="{$host}">
+<form method='post' url="{$host}home/crud_na/tbl_user/{$editstatus}" id="form_{$modul}" enctype="multipart/form-data">
 	<table width='100%' style='margin-bottom:20px;'>
-	
 		<tr>
 			<td width='24%'>User Level</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='hidden' name='KdUser' style='width:250px;padding:2px;' value="">
-				<input type='text' name='KdLevel' style='width:250px;padding:2px;'>
+				<input type='hidden' name='KdUser' value="{$data_edit->KdUser|default:''}">
+				<select name='KdLevel' class="easyui-validatebox" style='width:50%;padding:2px;'>
+					{$combo_level}
+				</select>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>User Login</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select type='text' name='UserLogin' style='width:250px;padding:2px;'>
-				  <option value="">X</option>
-				  <option value="">Y</option>
-				  <option value="">Z</option>
-				</select>
+				<input type='text' name='UserLogin' class="easyui-validatebox" value="{$data_edit->UserLogin|default:''}" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Password</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='Password' style='width:250px;padding:2px;'>
+				<input type='text' name='Password' class="easyui-validatebox" value="{$password|default:''}" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
-			<td width='24%'>User Name</td>
+			<td width='24%'>Nama Lengkap User</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='UserNm' style='width:250px;padding:2px;'>
+				<input type='text' name='UserNm' class="easyui-validatebox" value="{$data_edit->UserNm|default:''}" style='width:90%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='24%'>Jabatan</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='KdJabatan' style='width:250px;padding:2px;'>
+				<select name='KdJabatan' class="easyui-validatebox" style='width:50%;padding:2px;'>
+					{$combo_jabatan}
+				</select>
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Tanggal Awal Menjabat</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' id="TglAwal" name='TglAwal' style='width:250px;padding:2px;'>
+				<input type='text' id="TglAwal" name='TglAwal' style='width:40%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Tanggal Akhir Menjabat</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' id="TglAkhir" name='TglAkhir' style='width:250px;padding:2px;'>
+				<input type='text' id="TglAkhir" name='TglAkhir' style='width:40%;padding:2px;'>
 			</td>
 		</tr>
 		<tr>
-			<td width='24%'>Masih Menjabat</td>
+			<td width='24%'>Status User</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select name='FieldAktif'>
-				  <option value="">Aktif</option>
-				  <option value="">Tidak Aktif</option>
+				<select name='RecAktif' class="easyui-validatebox" style='width:100px;padding:2px;'>
+				  <option value="T" {if $data_edit->RecAktif|default:'' eq 'T'}selected{/if}>Aktif</option>
+				  <option value="F" {if $data_edit->RecAktif|default:'' eq 'F'}selected{/if}>Tidak Aktif</option>
 				</select>
 			</td>
 		</tr>
@@ -69,13 +68,13 @@
 	</table>
 </form>
 <div style='float:left;'>
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="simpan_{$modul}" >
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Simpan</span><span class="l-btn-icon icon-save">&nbsp;</span>
 		</span>
 	</a>
 	&nbsp;
-	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="">
+	<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="closeWindow();">
 		<span class="l-btn-left l-btn-icon-left">
 			<span class="l-btn-text">Batal</span><span class="l-btn-icon icon-cancel">&nbsp;</span>
 		</span>
@@ -83,6 +82,30 @@
 </div>
 
 <script>
-    $('#TglAwal').datebox();
-    $('#TglAkhir').datebox();
+$(function(){
+    var tglAwal = "{$data_edit->TglAwal|default:''}";
+    var tglAkhir = "{$data_edit->TglAkhir|default:''}";
+	$('#TglAwal').datebox({
+		value : tglAwal,
+		formatter:formatDate,
+		required:true
+	});
+    $('#TglAkhir').datebox({
+		value : tglAkhir,
+		formatter:formatDate,
+		required:true
+	});
+	$('#simpan_{$modul}').on('click',function(){
+		submit_form("form_{$modul}",function(r){
+			if(r==1){
+				$.messager.alert('Data User Manajemen',"Data Sudah Tersimpan",'info');
+				$('#grid_{$modul}').datagrid('reload');
+				closeWindow();
+			}else{
+				console.log(r);
+				$.messager.alert('Data User Manajemen',"Data Gagal Tersimpan",'error');
+			}
+		});
+	});
+});
 </script>
