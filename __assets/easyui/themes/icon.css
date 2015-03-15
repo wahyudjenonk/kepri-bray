@@ -120,4 +120,43 @@
 }
 .database{
 	background:url('icons/database.png') no-repeat center center;
+}.owner{
+	background:url('icons/owner.png') no-repeat center center;
 }
+.wpajak{
+	background:url('icons/wpajak.png') no-repeat center center;
+}
+.wpungut{
+	background:url('icons/wpungut.png') no-repeat center center;
+}
+.pbb-kb{
+	background:url('icons/pbb-kb.png') no-repeat center center;
+}
+.pbb-kb-pertamina{
+	background:url('icons/pbb-kb-pertamina.png') no-repeat center center;
+}
+.fuel{
+	background:url('icons/fuel.png') no-repeat center center;
+}
+.provinsi{
+	background:url('icons/zone.png') no-repeat center center;
+}
+.kabupaten{
+	background:url('icons/zones.png') no-repeat center center;
+}
+.perusahaan{
+	background:url('icons/ieframe_17363_6_16x16x32.png') no-repeat center center;
+}
+.tingkat_daerah{
+	background:url('icons/devmgr_43_6_16x16x32.png') no-repeat center center;
+}
+.Realisasi_PBB_KB{
+	background:url('icons/application_view_tile.png') no-repeat center center;
+}
+.Target_Pajak_APBD{
+	background:url('icons/chart16.png') no-repeat center center;
+}
+.Target_Pajak_APBDP{
+	background:url('icons/chart_bar.png') no-repeat center center;
+}
+
