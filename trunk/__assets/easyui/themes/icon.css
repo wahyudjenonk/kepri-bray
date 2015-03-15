@@ -105,8 +105,19 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+.icon-group_key{
+	background:url('icons/group_key.png') no-repeat center center;
+}
 
-
+.icon-jabatan{
+	background:url('icons/award_star_bronze_3.png') no-repeat center center;
+}
+.icon-tahun-pajak{
+	background:url('icons/date_add.png') no-repeat center center;
+}
+.icon-target-pajak{
+	background:url('icons/tax.png') no-repeat center center;
+}
 .database{
 	background:url('icons/database.png') no-repeat center center;
 }
