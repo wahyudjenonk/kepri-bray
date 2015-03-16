@@ -1,0 +1,65 @@
+<div id="chart_garis" style="width: 100%; height: 400px; margin: 0 auto"></div>
+
+<script>
+$( document ).ready(function() {
+    $.post(host+'home/getdisplay/home/chart_line/main/', { }, function(resp){ 
+		var x=JSON.parse(resp);
+		var tahun_sekarang = parseInt(x.tahun_sekarang);
+		var tahun_kemaren = parseInt(x.tahun_kemaren);
+		var line1 = [];
+		var line2 = [];
+		for (var indeks in x.tahun_ini) {
+			line1.push(x.tahun_ini[indeks]);
+			line2.push(x.tahun_wingi[indeks]);
+		}
+		console.log(line1);
+		//console.log(line2);
+		
+		$('#chart_garis').highcharts({
+			title: {
+				text: 'Grafik Trend Realisasi Pajak Bahan Bakar Kendaraan Bermotor',
+				x: -20 //center
+			},
+			credits: {
+				enabled: false
+			},
+			xAxis: {
+				categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+			},
+			yAxis: {
+				title: {
+					text: 'Nilai Realisasi (Rp.)'
+				},
+				plotLines: [{
+					color: '#808080'
+				}]
+			},
+			tooltip: {
+				backgroundColor: '#FCFFC5',
+				borderColor: 'black',
+				borderRadius: 10,
+				borderWidth: 3,
+				formatter: function() {
+					//return 'The value for <b>' + this.x + '</b> is <b>' + this.y + '</b>, in series '+ this.series.name;
+					return 'Realisasi PBB-KB Rp. '+this.y;
+				}
+			},
+			legend: {
+				layout: 'horizontal',
+				align: 'center',
+				verticalAlign: 'bottom',
+				borderWidth: 0
+			},
+			series: [{
+				name: 'Realisasi Tahun '+tahun_sekarang,
+				color: '#F5434C',
+				dashStyle: 'ShortDash',
+				data: line1
+			}, {
+				name: 'Realisasi Tahun '+tahun_kemaren,
+				data: line2
+			}]
+		});
+	});
+});
+</script>
