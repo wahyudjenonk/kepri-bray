@@ -596,6 +596,28 @@ class mhome extends CI_Model{
 					$data[$i]['data']=array('bulan'=>$bulan,'thn_skr'=>(isset($qry_skr) ? number_format($qry_skr,2) : '-'),'thn_blm'=>(isset($qry_blm) ? number_format($qry_blm,2) : '-'));
 				}*/
 			break;
+			case 'chart_line':
+				$tahun_skr=date('Y');
+				$tahun_blm=$tahun_skr-1;
+				$data = array();
+				$data['tahun_sekarang'] = $tahun_skr;
+				$data['tahun_kemaren'] = $tahun_blm;
+				$data['tahun_ini'] = array();
+				$data['tahun_wingi'] = array();
+				for($i=1;$i<=12;$i++){
+					$bulan=$this->konversi_bulan($i);
+					$qry_skr=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_skr)->row('pajak');
+					$qry_blm=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_blm)->row('pajak');	
+					
+					$data['tahun_ini'][$i] = (isset($qry_blm) ? number_format($qry_blm,0) : 0);
+					$data['tahun_wingi'][$i] = (isset($qry_blm) ? number_format($qry_blm,0) : 0);
+					
+					//$data[$i]=array();	
+					//$data[$i][$tahun_skr]=(isset($qry_skr) ? number_format($qry_skr,0) : 0);
+					//$data[$i][$tahun_blm]=(isset($qry_blm) ? number_format($qry_blm,0) : 0);
+					//$data[$i]['data']=array('bulan'=>$bulan,'thn_skr'=>(isset($qry_skr) ? number_format($qry_skr,0) : 0),'thn_blm'=>(isset($qry_blm) ? number_format($qry_blm,2) : 0));
+				}
+			break;
 		}
 		//print_r($data);exit;
 		return $data;

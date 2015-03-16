@@ -66,7 +66,13 @@ class home extends CI_Controller {
 					//echo '<pre>';print_r($data);echo '</pre>';exit;
 					//print_r($data);exit;
 				}
-				
+				if($p1 == 'chart_line'){
+					$data=$this->mhome->get_dashboard_data($p1);
+					echo json_encode($data);
+					//echo "<pre>";
+					//print_r($data);
+					exit;
+				}
 				
 			break;
 			case "form":
