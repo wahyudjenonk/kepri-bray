@@ -609,7 +609,7 @@ class mhome extends CI_Model{
 					$qry_skr=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_skr)->row('pajak');
 					$qry_blm=$this->db->query("SELECT SUM(tax)as pajak FROM tbl_pungutan_pbbkb WHERE TaxBulan=".$i." AND TaxThn=".$tahun_blm)->row('pajak');	
 					
-					$data['tahun_ini'][$i] = (isset($qry_blm) ? number_format($qry_blm,0) : 0);
+					$data['tahun_ini'][$i] = (isset($qry_skr) ? (float)$qry_skr : 0);
 					$data['tahun_wingi'][$i] = (isset($qry_blm) ? number_format($qry_blm,0) : 0);
 					
 					//$data[$i]=array();	
