@@ -1,0 +1,56 @@
+
+<div style="text-align:center;font-size:12px;font-weight:bold;"> REKON BKKD </div>
+<div style="overflow:auto;" id="main_real">
+<table id="rounded-corner" style="width:98%;margin:10px;" >
+	<thead>
+        <tr >
+            <th width='5%' rowspan="2" scope="col" class="rounded-company" align='center'>No</th>		
+            <th scope="col" rowspan="2" class="rounded-q1" align='left'>Penerimaan Bank Bulan</th>	
+			<th scope="col" class="rounded-q1" align='center' colspan="{$data.jml_data}">Penyedia Bahan Bakar</th>	
+            <th scope="col" rowspan="2" class="rounded-q4" align='right'>Total</th>	
+		</tr>
+		<tr>
+			{foreach from=$data item=i}
+				{if $i.nama_cp neq ''}
+				<th scope="col" class="rounded-q1" align='center'>{$i.nama_cp}</th>	
+				{/if}
+			{/foreach}
+		</tr>
+		
+	</thead>
+	<tbody>
+	
+	{for $idx=1 to 12 }
+	{assign var=total value=0}
+		<tr >
+        	<td align='center' >{$idx}</td>
+            <td align='left' >{$bulan.$idx} - {$smarty.now|date_format:"%Y"}</td>
+           	{foreach from=$data item=x}
+				{if $x.nama_cp neq ''}
+				{assign var=total value=$total+$x.bulan.$idx}
+				<td align='right' style='width:15%'>Rp. {$x.bulan.$idx|number_format:2:",":"."}</td>
+				{/if}
+			{/foreach}
+            <td align='right' style='width:15%'>Rp. {$total|number_format:2:",":"."} </td>
+		</tr>
+	{/for}	
+	</tbody>
+	{assign var=grand_total value=0}
+	<tfoot>
+    	<tr >
+        	<td align='center' colspan="2" >Grand TOTAL</td>
+           	{foreach from=$data item=x}
+				{if $x.nama_cp neq ''}
+				{assign var=grand_total value=$grand_total+$x.total}
+				<td align='right' style='width:15%;font-weight:bold;'>Rp. {$x.total|number_format:2:",":"."}</td>
+				{/if}
+			{/foreach}
+            <td align='right' style='width:15%;font-weight:bold;'>Rp. {$grand_total|number_format:2:",":"."}</td>
+		</tr>
+    </tfoot>
+</table>
+
+</div>
+<script>
+$('#main_real').css('height',getClientHeight()-200);
+</script>
