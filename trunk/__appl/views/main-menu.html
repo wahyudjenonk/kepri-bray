@@ -1,7 +1,7 @@
 <div title="Dashboard" iconCls="" style="padding:5px;">
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/dashboard/realisasi/main/');" >Realisasi PBB-KB</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/dashboard/apbd/main/');" >Target Pajak APBD</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/dashboard/apbdp/main/');" >Target Pajak APBDP</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="Realisasi_PBB_KB" onClick="loadUrl(this, '{$host}home/getdisplay/dashboard/realisasi/main/');" >Realisasi PBB-KB</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="Target_Pajak_APBD" onClick="loadUrl(this, '{$host}home/getdisplay/dashboard/apbd/main/');" >Target Pajak APBD</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="Target_Pajak_APBDP" onClick="loadUrl(this, '{$host}home/getdisplay/dashboard/apbdp/main/');" >Target Pajak APBDP</a>
 </div>
 <div title="Pungutan Pajak" iconCls="" style="padding:5px;">
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/pungutan_pajak/pbbkb/main/');" >PBBKB</a>
@@ -13,22 +13,22 @@
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-laporan" onClick="" >Laporan PBBKB</a>
 </div>
 <div title="Data Master" iconCls="" style="padding:5px;">
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/provinsi/main/');" >Provinsi</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/kabupaten/main/');" >Kabupaten/Kota</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/jenis_perusahaan/main/');" >Jenis Perusahaan</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/jenis_bahanbakar/main/');" >Jenis Bahan Bakar</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/klasifikasi_pbbkb/main/');" >Klasifikasi PBB-KB</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/klasifikasi_pbbkb_pertamina/main/');" >Klasifikasi PBB-KB Pertamina</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/profil_wajib_pungut/main/');" >Profil Wajib Pungut</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/master/profil_wajib_pajak/main/');" >Profil Wajib Pajak</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="provinsi" onClick="loadUrl(this, '{$host}home/getdisplay/master/provinsi/main/');" >Provinsi</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="kabupaten" onClick="loadUrl(this, '{$host}home/getdisplay/master/kabupaten/main/');" >Kabupaten/Kota</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="perusahaan" onClick="loadUrl(this, '{$host}home/getdisplay/master/jenis_perusahaan/main/');" >Jenis Perusahaan</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="fuel" onClick="loadUrl(this, '{$host}home/getdisplay/master/jenis_bahanbakar/main/');" >Jenis Bahan Bakar</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="pbb-kb" onClick="loadUrl(this, '{$host}home/getdisplay/master/klasifikasi_pbbkb/main/');" >Klasifikasi PBB-KB</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="pbb-kb-pertamina" onClick="loadUrl(this, '{$host}home/getdisplay/master/klasifikasi_pbbkb_pertamina/main/');" >Klasifikasi PBB-KB Pertamina</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="wpungut" onClick="loadUrl(this, '{$host}home/getdisplay/master/profil_wajib_pungut/main/');" >Profil Wajib Pungut</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="wpajak" onClick="loadUrl(this, '{$host}home/getdisplay/master/profil_wajib_pajak/main/');" >Profil Wajib Pajak</a>
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-bank" onClick="loadUrl(this, '{$host}home/getdisplay/master/bank/main/');" >Bank</a>
 </div>
 <div title="Setting" iconCls="" style="padding:5px;">
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/tahun_pajak/main/');" >Tahun Pajak</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/target_pajak/main/');" >Target Pajak</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/tingkat_daerah/main/');" >Tingkat Daerah</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/jabatan/main/');" >Jabatan</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/owner/main/');" >Lembaga Pengguna/Owner</a>
-	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="database" onClick="loadUrl(this, '{$host}home/getdisplay/setting/user_level/main/');" >User Level</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-tahun-pajak" onClick="loadUrl(this, '{$host}home/getdisplay/setting/tahun_pajak/main/');" >Tahun Pajak</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-target-pajak" onClick="loadUrl(this, '{$host}home/getdisplay/setting/target_pajak/main/');" >Target Pajak</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="tingkat_daerah" onClick="loadUrl(this, '{$host}home/getdisplay/setting/tingkat_daerah/main/');" >Tingkat Daerah</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-jabatan" onClick="loadUrl(this, '{$host}home/getdisplay/setting/jabatan/main/');" >Jabatan</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="owner" onClick="loadUrl(this, '{$host}home/getdisplay/setting/owner/main/');" >Lembaga Pengguna/Owner</a>
+	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-group_key" onClick="loadUrl(this, '{$host}home/getdisplay/setting/user_level/main/');" >User Level</a>
 	<a href="#" plain="true" style='margin-top:2px;' class="easyui-linkbutton btn-main-menu" iconCls="icon-group" onClick="loadUrl(this, '{$host}home/getdisplay/setting/user_manajemen/main/');" >User Manajemen</a>
 </div>
