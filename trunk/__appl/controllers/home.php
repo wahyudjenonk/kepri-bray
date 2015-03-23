@@ -60,20 +60,29 @@ class home extends CI_Controller {
 		switch($p2){
 			case "main":
 				$template = $type."/".$p1."/main.html";
-				if($p1 == 'realisasi' || $p1=='apbd' || $p1=='apbdp'){
-					$data=$this->mhome->get_dashboard_data($p1);
-					$this->smarty->assign('data', $data);
-					//echo '<pre>';print_r($data);echo '</pre>';exit;
-					//print_r($data);exit;
+				switch($p1){
+					case "realisasi":
+					case "apbd":
+					case "apbdp":
+						$data=$this->mhome->get_dashboard_data($p1);
+						$this->smarty->assign('data', $data);
+					break;
+					case "chart_line":
+						$data=$this->mhome->get_dashboard_data($p1);
+						echo json_encode($data);
+						exit;
+					break;
+					case "rekon":
+						$data=$this->mhome->report_data($p1);
+						$bulan_na=array();
+						for($i=1;$i<=12;$i++){
+							$bulan=$this->mhome->konversi_bulan($i);
+							$bulan_na[$i]=$bulan;
+						}	
+						$this->smarty->assign('data', $data);
+						$this->smarty->assign('bulan', $bulan_na);
+					break;
 				}
-				if($p1 == 'chart_line'){
-					$data=$this->mhome->get_dashboard_data($p1);
-					echo json_encode($data);
-					//echo "<pre>";
-					//print_r($data);
-					exit;
-				}
-				
 			break;
 			case "form":
 				$editstatus = $this->input->post('editstatus');
