@@ -271,6 +271,30 @@ class mhome extends CI_Model{
 			break;
 			//end modul pungutan pajak
 			
+			//Modul Report
+			case "wajib_pajak":
+				$sql = "
+					SELECT KdWP, NmWP
+					FROM tbl_wajib_pajak_pertamina_daerah
+				";
+				return $this->db->query($sql)->result_array();
+			break;
+			case "kabupaten_report":
+				$sql = "
+					SELECT KdKabKot, NmKabKot
+					FROM cl_kabupaten_kota
+				";
+				return $this->db->query($sql)->result_array();
+			break;
+			case "jenis_bb_report":
+				$sql = "
+					SELECT KdBB, NmBB
+					FROM cl_jenis_bahan_bakar
+				";
+				return $this->db->query($sql)->result_array();
+			break;
+			//End Modul Report
+			
 		}
 		return $this->get_json($sql);
 	}

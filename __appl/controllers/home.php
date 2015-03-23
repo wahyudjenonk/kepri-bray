@@ -73,6 +73,11 @@ class home extends CI_Controller {
 						echo json_encode($data);
 						exit;
 					break;
+					case "skpd":
+						$data_perusahaan = $this->mhome->getdata('wajib_pajak');
+						$this->smarty->assign("jml_perusahaan", count($data_perusahaan));
+						$this->smarty->assign("data_perusahaan", $data_perusahaan);
+					break;
 					case "rekon":
 						$data=$this->mhome->report_data($p1);
 						$bulan_na=array();
@@ -82,6 +87,32 @@ class home extends CI_Controller {
 						}	
 						$this->smarty->assign('data', $data);
 						$this->smarty->assign('bulan', $bulan_na);
+					break;
+					case "dkwn":
+						$data_perusahaan = $this->mhome->getdata('wajib_pajak');
+						$data_kabupaten = $this->mhome->getdata('kabupaten_report');
+						
+						$this->smarty->assign("jml_kabupaten", count($data_kabupaten));
+						$this->smarty->assign("data_kabupaten", $data_kabupaten);
+						$this->smarty->assign("data_perusahaan", $data_perusahaan);
+					break;
+					case "pertamina":
+						$data_kabupaten = $this->mhome->getdata('kabupaten_report');
+						$this->smarty->assign("data_kabupaten", $data_kabupaten);
+					break;
+					case "bb":
+						$data_jenis_bahanbakar = $this->mhome->getdata('jenis_bb_report');
+						$this->smarty->assign("data_jenis_bahanbakar", $data_jenis_bahanbakar);
+					break;
+					case 'bb_kabkota':
+						$data_perusahaan = $this->mhome->getdata('wajib_pajak');
+						$data_kabupaten = $this->mhome->getdata('kabupaten_report');
+						$data_jenis_bahanbakar = $this->mhome->getdata('jenis_bb_report');
+						
+						$this->smarty->assign("data_kabupaten", $data_kabupaten);
+						$this->smarty->assign("data_perusahaan", $data_perusahaan);
+						$this->smarty->assign("data_jenis_bahanbakar", $data_jenis_bahanbakar);
+						$this->smarty->assign("jml_jns_bahanbakar", count($data_jenis_bahanbakar));
 					break;
 				}
 			break;
