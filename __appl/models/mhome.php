@@ -640,6 +640,47 @@ class mhome extends CI_Model{
 		}
 		return $bulan;
 	}
+	function report_data($p1){
+		switch($p1){
+			case "rekon":
+				$data=array();
+				$sql="SELECT * FROM tbl_wajib_pungut_pertamina_wil ";
+				$cp=$this->db->query($sql)->result_array();
+				$data['jml_data']=count($cp);
+				
+				foreach($cp as $v){
+					$data[$v['KdCP']]=array();
+					$data[$v['KdCP']]['nama_cp']=$v['NmCP'];
+					$data[$v['KdCP']]['bulan']=array();
+					$tot=0;
+					for($i=1;$i<=12;$i++){
+						$bulan=$this->konversi_bulan($i);
+						$sql_data="SELECT sum(A.Tax3)as pajak 
+								   FROM tbl_pembayaran_pungutan_bank A
+								   WHERE A.TaxBulan3=".$i." 
+								   AND A.TaxThn3=".date('Y')." 
+								   AND A.KdCP3=".$v['KdCP'];
+						$data_real=$this->db->query($sql_data)->row('pajak');
+						$data[$v['KdCP']]['bulan'][$i]=(isset($data_real) ? $data_real : 0);
+						$tot=$data[$v['KdCP']]['bulan'][$i]+$tot;
+						//$data[$i][$bulan]=100;
+					}
+					$data[$v['KdCP']]['total']=$tot;
+					
+				}
+				
+				/*for($i=1;$i<=12;$i++){
+					$bulan=$this->konversi_bulan($i);
+					$data[$i]=array();
+					$data[$i][$bulan]=100;
+				}*/
+				//echo "<pre>";print_r($data);
+				//print_r($data);exit;
+			break;
+		}
+		return $data;
+	}
+	
 	// END GOYZ CROTZZZ
 	
 }
