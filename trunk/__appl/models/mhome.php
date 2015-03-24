@@ -13,7 +13,7 @@ class mhome extends CI_Model{
 				$sql = "
 					SELECT *
 					FROM tbl_user
-					WHERE UserLogin = '".$p1."'
+					WHERE nama_user = '".$p1."'
 				";
 				return $this->db->query($sql)->row_array();
 			break;
