@@ -472,6 +472,9 @@ class mhome extends CI_Model{
 				LEFT JOIN cl_jenis_bahan_bakar B ON A.KdBB=B.KdBB ORDER BY A.NmKlass ASC";
 			break;
 			
+			case "cl_klasifikasi_pbbkb":
+				$sql="SELECT KdKlas as id,NmKlas as txt FROM cl_klasifikasi_pbbkb ";
+			break;
 			case "cl_jenis_bahan_bakar":
 				$sql="SELECT KdBB as id,NmBB as txt FROM cl_jenis_bahan_bakar ";
 			break;
@@ -664,8 +667,41 @@ class mhome extends CI_Model{
 		}
 		return $bulan;
 	}
-	function report_data($p1){
+	function report_data($p1, $p2=""){
 		switch($p1){
+			case "skpd":
+				$array = array();
+				foreach($p2 as $k => $v){
+					$array[$v['KdWP']]['id_perusahaan'] = $v['KdWP'];
+					$array[$v['KdWP']]['nama_perusahaan'] = $v['NmWP'];
+					$array[$v['KdWP']]['detail_skpd'] = array();
+					$tot = null;
+					for($i=1;$i<=12;$i++){
+						$sql_skpd = "
+							SELECT Tax
+							FROM tbl_pungutan_pbbkb
+							WHERE TaxBulan = '".$i."'
+							AND KdWP = '".$v['KdWP']."' AND TaxThn = '".date('Y')."'
+						";
+						$query_skpd = $this->db->query($sql_skpd)->row_array();
+						
+						$pajak_beneran = ( isset($query_skpd['Tax']) ? $query_skpd['Tax'] : null );
+						$pajak_format = ( isset($query_skpd['Tax']) ? "Rp.".number_format($query_skpd['Tax'],0,",",".") : null );
+						$array[$v['KdWP']]['detail_skpd'][$i] = array();
+						$array[$v['KdWP']]['detail_skpd'][$i]['nilai_format'] = $pajak_format;
+						$array[$v['KdWP']]['detail_skpd'][$i]['nilai_beneran'] = $pajak_beneran;
+						$tot += $pajak_beneran;
+					}
+					$array[$v['KdWP']]['total_skpd_format'] = ( isset($tot) ? "Rp.".number_format($tot,0,",",".") : null );
+					$array[$v['KdWP']]['total_skpd_beneran'] = ( isset($tot) ? $tot : null );
+				}
+				/*
+				echo "<pre>";
+				print_r($array);
+				exit;
+				//*/
+				return $array;
+			break;
 			case "rekon":
 				$data=array();
 				$sql="SELECT * FROM tbl_wajib_pungut_pertamina_wil ";
@@ -701,6 +737,7 @@ class mhome extends CI_Model{
 				//echo "<pre>";print_r($data);
 				//print_r($data);exit;
 			break;
+			
 		}
 		return $data;
 	}

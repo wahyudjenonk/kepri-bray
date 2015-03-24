@@ -1,31 +1,77 @@
 {assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
 {assign var=tahun_blm value=$tahun_skr-1}
 <div style="overflow:auto;" id="main_real">
-
-	<div style="width:120%;text-align:center;font-size:12px;font-weight:bold;"> Laporan Realisasi Penerimaan PBB-KB Berdasarkan SKPD dan Rekening Bank Riau & Bank Bukopin</div>
-	<table id="rounded-corner" style="width:120%;margin:10px;" >
+	<div style="width:200%;text-align:center;font-size:12px;font-weight:bold;"> Laporan Realisasi Penerimaan PBB-KB Berdasarkan SKPD dan Rekening Bank Riau & Bank Bukopin Tahun {$tahun_skr}</div>
+	<table id="rounded-corner" style="width:200%;margin:10px;" >
 		<thead>
 			<tr >
-				<th style='border:1px #fff solid !important;' width='5%' rowspan="2" scope="col" class="rounded-company" align='center'>No</th>
+				<th style='border:1px #fff solid !important;' width='2%' rowspan="2" scope="col" class="rounded-company" align='center'>No</th>
 				<th style='border:1px #fff solid !important;' scope="col" rowspan="2" class="rounded-q1" align='center'>Penerimaan Bank Bulan</th>
-				<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center' colspan="{$jml_perusahaan}">Penyedia Bahan Bakar</th>
-				<th style='border:1px #fff solid !important;' scope="col" rowspan="2" class="rounded-q4" align='right'>Total</th>
+				{foreach from=$data_perusahaan item=i}
+					{if $i.NmWP neq ''}
+						<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center' colspan='2'>{$i.NmWP}</th>	
+					{/if}
+				{/foreach}
+				<th style='border:1px #fff solid !important;' scope="col" colspan="2" class="rounded-q4" align='center'>Total</th>
 			</tr>
 			<tr>
 				{foreach from=$data_perusahaan item=i}
 					{if $i.NmWP neq ''}
-						<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center'>{$i.NmWP}</th>	
+						<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center'>SKPD</th>	
+						<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center'>LAP. BANK</th>	
 					{/if}
 				{/foreach}
+						<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center'>SKPD</th>	
+						<th style='border:1px #fff solid !important;' scope="col" class="rounded-q1" align='center'>LAP. BANK</th>	
+
 			</tr>
 		</thead>
 		<tbody>
-		
+			{for $idx=1 to 12 }
+				{assign var=total value=0}
+				<tr >
+					<td align='center' style='border:1px #fff solid !important;'>{$idx}</td>
+					<td align='left' style='border:1px #fff solid !important;'>{$bulan.$idx} - {$smarty.now|date_format:"%Y"}</td>
+					{foreach from=$data item=x}
+						{if $x.nama_perusahaan neq ''}
+							{assign var=total value=$total+$x.detail_skpd.$idx.nilai_beneran}
+							<td style='border:1px #fff solid !important;'>{$x.detail_skpd.$idx.nilai_format|default:'-'}</td>
+							<td align='left' style='border:1px #fff solid !important;'>-</td>
+						{/if}
+					{/foreach}
+					<td style='border:1px #fff solid !important;'>
+						{if $total neq 0}
+							Rp.{$total|number_format:0:",":"."}
+						{else}
+							-
+						{/if}
+					</td>
+					<td style='border:1px #fff solid !important;'>-</td>
+				</tr>
+			{/for}	
 			
 			
 		</tbody>
 		<tfoot>
-			
+			<tr >
+				<td align='center' style='font-weight:bold;border:1px #fff solid !important;' colspan='2'>Grand TOTAL</td>
+				{assign var=grand_total value=0}
+				{foreach from=$data item=x}
+					{if $x.nama_perusahaan neq ''}
+						{assign var=grand_total value=$grand_total+$x.total_skpd_beneran}
+						<td align='left' style='font-weight:bold;border:1px #fff solid !important;'>{$x.total_skpd_format|default:'-'}</td>
+						<td align='left' style='font-weight:bold;border:1px #fff solid !important;'>-</td>
+					{/if}
+				{/foreach}
+				<td align='left' style='font-weight:bold;border:1px #fff solid !important;'>
+					{if $grand_total neq 0}
+						Rp.{$grand_total|number_format:0:",":"."}
+					{else}
+						-
+					{/if}
+				</td>
+				<td style='font-weight:bold;border:1px #fff solid !important;'>-</td>
+			</tr>
 		</tfoot>
 	</table>
 

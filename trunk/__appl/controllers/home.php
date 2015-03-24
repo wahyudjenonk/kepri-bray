@@ -75,8 +75,17 @@ class home extends CI_Controller {
 					break;
 					case "skpd":
 						$data_perusahaan = $this->mhome->getdata('wajib_pajak');
+						$bulan_na=array();
+						for($i=1;$i<=12;$i++){
+							$bulan=$this->mhome->konversi_bulan($i);
+							$bulan_na[$i]=$bulan;
+						}	
+						$data = $this->mhome->report_data($p1, $data_perusahaan);
+						
+						$this->smarty->assign('bulan', $bulan_na);
 						$this->smarty->assign("jml_perusahaan", count($data_perusahaan));
 						$this->smarty->assign("data_perusahaan", $data_perusahaan);
+						$this->smarty->assign("data", $data);
 					break;
 					case "rekon":
 						$data=$this->mhome->report_data($p1);
@@ -138,7 +147,10 @@ class home extends CI_Controller {
 					$combo = $this->get_combo('cl_kabupaten_kota', ($editstatus == 'add' ? '' : $data_edit->KdKabKot), 'return' );
 					if($p1 == 'profil_wajib_pajak'){
 						$combo2 = $this->get_combo('cl_jenis_perusahaan', ($editstatus == 'add' ? '' : $data_edit->KdJenCP), 'return' );
+						$combo3 = $this->get_combo('cl_klasifikasi_pbbkb', ($editstatus == 'add' ? '' : $data_edit->KdKlasifikas), 'return' );
+						
 						$this->smarty->assign('combo_jenper', $combo2);
+						$this->smarty->assign('combo_klas', $combo3);
 					}
 					if($p1 == 'owner'){
 						$combo2 = $this->get_combo('cl_tingkat_daerah_pengguna', ($editstatus == 'add' ? '' : $data_edit->KdTk), 'return' );

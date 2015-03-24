@@ -50,9 +50,7 @@
 			<td width='1%'>:</td>
 			<td width='75%'>
 				<select type='text' name='KdKlasifikas' class="easyui-validatebox" style='width:50%;padding:2px;'>
-				  <option value="A" {if $data_edit->KdKlasifikas|default:'' eq 'A'}selected{/if}>A</option>
-				  <option value="B" {if $data_edit->KdKlasifikas|default:'' eq 'B'}selected{/if}>B</option>
-				  <option value="C" {if $data_edit->KdKlasifikas|default:'' eq 'C'}selected{/if}>C</option>
+				  {$combo_klas}
 				</select>
 			</td>
 		</tr>
