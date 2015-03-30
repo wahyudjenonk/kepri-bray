@@ -678,7 +678,7 @@ class mhome extends CI_Model{
 					$tot = null;
 					for($i=1;$i<=12;$i++){
 						$sql_skpd = "
-							SELECT Tax
+							SELECT sum(Tax) as Tax
 							FROM tbl_pungutan_pbbkb
 							WHERE TaxBulan = '".$i."'
 							AND KdWP = '".$v['KdWP']."' AND TaxThn = '".date('Y')."'
@@ -700,7 +700,7 @@ class mhome extends CI_Model{
 				print_r($array);
 				exit;
 				//*/
-				return $array;
+				//return $array;
 			break;
 			case "rekon":
 				$data=array();
@@ -737,9 +737,57 @@ class mhome extends CI_Model{
 				//echo "<pre>";print_r($data);
 				//print_r($data);exit;
 			break;
+			case "bb":
+				$array = array();
+				foreach($p2 as $k => $v){
+					$array[$v['KdBB']]['id_bahanbakar'] = $v['KdBB'];
+					$array[$v['KdBB']]['nama_bahanbakar'] = $v['NmBB'];
+					$array[$v['KdBB']]['detail_bb'] = array();
+					$tot_pajak = null;
+					$tot_kuantitas = null;
+					for($i=1;$i<=12;$i++){
+						$sql_bb = "
+							SELECT sum(Tax) as pajak, sum(QtyBB) as kuantitas
+							FROM tbl_pungutan_pbbkb
+							WHERE TaxBulan = '".$i."'
+							AND KdBB = '".$v['KdBB']."' AND TaxThn = '".date('Y')."'
+						";
+						$query_bb = $this->db->query($sql_bb)->row_array();
+						$pajak_beneran = ( isset($query_bb['pajak']) ? $query_bb['pajak'] : null );
+						$pajak_format = ( isset($query_bb['pajak']) ? "Rp.".number_format($query_bb['pajak'],0,",",".") : null );
+						
+						$kuantitas_beneran = ( isset($query_bb['kuantitas']) ? $query_bb['kuantitas'] : null );
+						$kuantitas_format = ( isset($query_bb['kuantitas']) ? number_format($query_bb['kuantitas'],0,",",".") : null );
+						
+						$array[$v['KdBB']]['detail_bb'][$i] = array();
+						$array[$v['KdBB']]['detail_bb'][$i]['nilai_format_pajak'] = $pajak_format;
+						$array[$v['KdBB']]['detail_bb'][$i]['nilai_beneran_pajak'] = $pajak_beneran;
+						$array[$v['KdBB']]['detail_bb'][$i]['nilai_format_kuantitas'] = $kuantitas_format;
+						$array[$v['KdBB']]['detail_bb'][$i]['nilai_beneran_kuantitas'] = $kuantitas_beneran;
+						
+						$tot_pajak += $pajak_beneran;
+						$tot_kuantitas += $kuantitas_beneran;
+					}
+					$array[$v['KdBB']]['total_pajak_format'] = ( isset($tot_pajak) ? "Rp.".number_format($tot_pajak,0,",",".") : null );
+					$array[$v['KdBB']]['total_pajak_beneran'] = ( isset($tot_pajak) ? $tot_pajak : null );
+					$array[$v['KdBB']]['total_kuantitas_format'] = ( isset($tot_kuantitas) ? number_format($tot_kuantitas,0,",",".") : null );
+					$array[$v['KdBB']]['total_kuantitas_beneran'] = ( isset($tot_kuantitas) ? $tot_kuantitas : null );
+				}
+				
+				/*
+				echo "<pre>";
+				print_r($array);
+				exit;
+				//*/
+				
+			break;
 			
 		}
-		return $data;
+		if(isset($data)){
+			return $data;
+		}else{
+			return $array;
+		}
 	}
 	
 	// END GOYZ CROTZZZ
