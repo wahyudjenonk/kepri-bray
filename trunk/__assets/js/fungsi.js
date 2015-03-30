@@ -557,18 +557,27 @@ function fillCombo(url, SelID, value, value2, value3, value4){
 	});
 
 }
+
+//Fungsi Tanggal
 function formatDate(date) {
-	var bulan=date.getMonth() +1;
-	var tgl=date.getDate();
-	if(bulan < 10){
-		bulan='0'+bulan;
-	}
-	
-	if(tgl < 10){
-		tgl='0'+tgl;
-	}
-	return date.getFullYear() + "-" + bulan + "-" + tgl;
+	var y = date.getFullYear();
+	var m = date.getMonth()+1;
+	var d = date.getDate();
+	return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
 }		
+$.fn.datebox.defaults.parser = function(s){
+	if (!s) return new Date();
+	var ss = s.split('-');
+	var y = parseInt(ss[0],10);
+	var m = parseInt(ss[1],10);
+	var d = parseInt(ss[2],10);
+	if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+		return new Date(y,m-1,d);
+	} else {
+		return new Date();
+	}
+};
+//End Fungsi Tanggal
 
 function hit_pajak(mod){
 	switch(mod){
