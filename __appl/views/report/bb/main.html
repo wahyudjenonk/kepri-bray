@@ -2,7 +2,7 @@
 {assign var=tahun_blm value=$tahun_skr-1}
 <div style="overflow:auto;" id="main_real">
 	<div style="text-align:center;font-size:12px;font-weight:bold;">Laporan Penerimaan PBB-KB Per-Jenis Bahan Bakar</div>
-	<table id="rounded-corner" style="width:98%;margin:10px;" >
+	<table id="rounded-corner" style="width:120%;margin:10px;" >
 		<thead>
 			<tr >
 				<th style='border:1px #fff solid !important;' scope="col" rowspan="2" class="rounded-q1" align='center'>Penerimaan Bank Bulan</th>
@@ -27,11 +27,71 @@
 		</thead>
 		<tbody>
 		
-			<tr >
-			</tr>
+			{for $idx=1 to 12 }
+				{assign var=total_pajak value=0}
+				{assign var=total_kuantitas value=0}
+				<tr >
+					<td align='left' style='border:1px #fff solid !important;'>{$bulan.$idx.bulan_sekarang} - {$smarty.now|date_format:"%Y"}</td>
+					{if $idx eq 1}
+						<td align='left' style='border:1px #fff solid !important;'>{$bulan.$idx.bulan_kemarin} - {$tahun_blm}</td>
+					{else}
+						<td align='left' style='border:1px #fff solid !important;'>{$bulan.$idx.bulan_kemarin} - {$smarty.now|date_format:"%Y"}</td>
+					{/if}
+					{foreach from=$data item=x}
+						{if $x.nama_bahanbakar neq ''}
+							{assign var=total_pajak value=$total_pajak+$x.detail_bb.$idx.nilai_beneran_pajak}
+							{assign var=total_kuantitas value=$total_kuantitas+$x.detail_bb.$idx.nilai_beneran_kuantitas}
+							<td style='border:1px #fff solid !important;' >{$x.detail_bb.$idx.nilai_format_kuantitas|default:'-'}</td>	
+							<td style='border:1px #fff solid !important;' >{$x.detail_bb.$idx.nilai_format_pajak|default:'-'}</td>	
+						{/if}
+					{/foreach}
+					<td style='border:1px #fff solid !important;'>
+						{if $total_kuantitas neq 0}
+							{$total_kuantitas|number_format:0:",":"."}
+						{else}
+							-
+						{/if}
+					</td>
+					<td style='border:1px #fff solid !important;'>
+						{if $total_pajak neq 0}
+							Rp.{$total_pajak|number_format:0:",":"."}
+						{else}
+							-
+						{/if}
+					</td>
+				</tr>
+			{/for}
 			
 		</tbody>
 		<tfoot>
+			<tr >
+				<td align='center' style='font-weight:bold;border:1px #fff solid !important;' colspan='2'>Grand TOTAL</td>
+				{assign var=grand_total value=0}
+				{assign var=grand_total_kuantitas value=0}
+				{foreach from=$data item=x}
+					{if $x.nama_bahanbakar neq ''}
+						{assign var=grand_total value=$grand_total+$x.total_pajak_beneran}
+						{assign var=grand_total_kuantitas value=$grand_total_kuantitas+$x.total_kuantitas_beneran}
+						<td  style='font-weight:bold;border:1px #fff solid !important;'>{$x.total_kuantitas_format|default:'-'}</td>
+						<td  style='font-weight:bold;border:1px #fff solid !important;'>{$x.total_pajak_format|default:'-'}</td>
+					{/if}
+				{/foreach}
+				<td  style='font-weight:bold;border:1px #fff solid !important;'>
+					{if $grand_total neq 0}
+						{$grand_total|number_format:0:",":"."}
+					{else}
+						-
+					{/if}
+				</td>
+				<td style='font-weight:bold;border:1px #fff solid !important;'>
+					{if $grand_total_kuantitas neq 0}
+						Rp.{$grand_total_kuantitas|number_format:0:",":"."}
+					{else}
+						-
+					{/if}
+				</td>
+			</tr>
+		
 		</tfoot>
 	</table>
 </div>

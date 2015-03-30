@@ -110,8 +110,24 @@ class home extends CI_Controller {
 						$this->smarty->assign("data_kabupaten", $data_kabupaten);
 					break;
 					case "bb":
+						$bulan_na=array();
+						for($i=1;$i<=12;$i++){
+							$bulan_sekarang = $this->mhome->konversi_bulan($i);
+							if($i == 1){
+								$bulan_kemarin = $this->mhome->konversi_bulan(12);
+							}else{
+								$bulan_kemarin = $this->mhome->konversi_bulan($i-1);
+							}
+							$bulan_na[$i] = array();
+							$bulan_na[$i]['bulan_sekarang'] = $bulan_sekarang;
+							$bulan_na[$i]['bulan_kemarin'] = $bulan_kemarin;
+						}
 						$data_jenis_bahanbakar = $this->mhome->getdata('jenis_bb_report');
+						$data = $this->mhome->report_data($p1, $data_jenis_bahanbakar);
+						
 						$this->smarty->assign("data_jenis_bahanbakar", $data_jenis_bahanbakar);
+						$this->smarty->assign("data", $data);
+						$this->smarty->assign('bulan', $bulan_na);
 					break;
 					case 'bb_kabkota':
 						$data_perusahaan = $this->mhome->getdata('wajib_pajak');
