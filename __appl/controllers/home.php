@@ -11,6 +11,7 @@ class home extends CI_Controller {
 		$this->smarty->assign('auth', $this->auth);
 		
 		$this->load->model('mhome'); 
+		$this->load->helper('db_helper');
 	}
 
 	
@@ -65,7 +66,29 @@ class home extends CI_Controller {
 					case "realisasi":
 					case "apbd":
 					case "apbdp":
-						$data=$this->mhome->get_dashboard_data($p1);
+						$data  = $this->mhome->get_dashboard_data($p1);
+						
+						/*
+						echo "<pre>";
+						print_r($data);
+						//exit;*/
+						
+						if($p1 == 'realisasi'){
+							$bulan = arraydate('bulan_singkat');
+							$this->smarty->assign('bulan', $bulan);
+						}else{
+							$tanda = $this->input->post('tanda');
+							if(!$tanda){
+								$this->smarty->assign('bulan', $this->get_combo('bulan','','return') );
+								$this->smarty->assign('tahun', $this->get_combo('tahun','','return') );
+								$this->smarty->assign('tahun_s', date('Y') );
+							}else{
+								$this->smarty->assign('tahun_s', $this->input->post('tahun') );
+							}
+							
+							$this->smarty->assign('tanda', $tanda);
+						}
+						
 						$this->smarty->assign('data', $data);
 					break;
 					case "chart_line":
@@ -210,7 +233,19 @@ class home extends CI_Controller {
 	
 	function get_combo($p1="", $p2="", $p3=""){
 		$opt="<option value=''>-- Pilih --</option>";
-		$data=$this->mhome->get_combo($p1);
+		
+		switch($p1){
+			case "bulan" :
+				$data = arraydate('bulan');
+			break;
+			case "tahun" :
+				$data = arraydate('tahun');
+			break;
+			default:
+				$data = $this->mhome->get_combo($p1);
+			break;
+		}
+		
 		$id=$this->input->post('v');
 		foreach($data as $v){
 			$sts="";

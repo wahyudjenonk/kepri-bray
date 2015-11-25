@@ -568,13 +568,26 @@ class mhome extends CI_Model{
 					$data[$i]=array();
 					//$data[$i][$tahun_skr]=(isset($qry_skr) ? number_format($qry_skr,2) : '-');
 					//$data[$i][$tahun_blm]=(isset($qry_blm) ? number_format($qry_blm,2) : '-');
-					$data[$i]['data']=array('bulan'=>$bulan,'thn_skr'=>(isset($qry_skr) ? number_format($qry_skr,2) : '-'),'thn_blm'=>(isset($qry_blm) ? number_format($qry_blm,2) : '-'));
+					$data[$i]['data'] = array(
+						'bulan' => $bulan, 
+						$tahun_skr => (isset($qry_skr) ? number_format($qry_skr,0) : '-'),
+						$tahun_blm => (isset($qry_blm) ? number_format($qry_blm,0) : '-')
+					);
 				}
 			break;
 			case "apbd":
 			case "apbdp":
-				$tahun_skr=date('Y');
-				$bulan_skr=date('m');
+				$bulan = $this->input->post('bulan');
+				$tahun = $this->input->post('tahun');
+				
+				if($bulan && $tahun){
+					$tahun_skr = $tahun;
+					$bulan_skr = $bulan;
+				}else{
+					$tahun_skr=date('Y');
+					$bulan_skr=date('m');
+				}
+				
 				$sql="SELECT A.*,B.pajak as pajak_blm,C.pajak as pajak_skr,B.pajak+c.pajak as total,
 						((B.pajak+c.pajak)/A.TargetTaxAPBD)*100 as real_apbd,((B.pajak+c.pajak)/A.TargetTaxAPBDP)*100 as real_apbdp
 						FROM target_pajak A 
@@ -600,8 +613,18 @@ class mhome extends CI_Model{
 				if(isset($qry->TargetTaxAPBDP)){$apbdp=$qry->TargetTaxAPBDP;}else{$apbdp=0;}
 				
 				$total=$pajak_blm+$pajak_skr;
-				$real_apbd=(($pajak_blm+$pajak_skr)/$apbd)*100;
-				$real_apbdp=(($pajak_blm+$pajak_skr)/$apbdp)*100;
+				if($apbd != 0){
+					$real_apbd = (($pajak_blm+$pajak_skr)/$apbd)*100;
+				}else{
+					$real_apbd = 0;
+				}
+				
+				if($apbdp != 0){
+					$real_apbdp = (($pajak_blm+$pajak_skr)/$apbdp)*100;
+				}else{
+					$real_apbdp = 0;
+				}
+				
 				$bulan=$this->konversi_bulan($bulan_skr);
 				$data=array(
 					'target_apbd'=>(isset($qry->TargetTaxAPBD) ? number_format($qry->TargetTaxAPBD,2) : '-'),

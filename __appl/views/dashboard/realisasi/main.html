@@ -1,3 +1,4 @@
+{*
 {assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
 {assign var=tahun_blm value=$tahun_skr-1}
 <div style="overflow:auto;" id="main_real">
@@ -34,3 +35,35 @@
 <script>
 //$('#main_real').css('height',getClientHeight()-200);
 </script>
+*}
+
+<table id="rounded-corner" style="width:98%;margin:10px;" >
+	<thead>
+		<tr rowspan='3'>
+			<th width='5%' scope="col" valign='bottom' align='center'><b>No</b></th>		
+            <th width='5%' scope="col" valign='bottom' align='center'><b>Tahun</b></th>
+            <th colspan='12' scope="col" align='center'><b>Realisasi Bulan</b></th>
+		</tr>
+        <tr>
+			<th scope="col" class="rounded-q1" align='center'></th>	
+			<th scope="col" class="rounded-q1" align='center'></th>	
+			{foreach from=$bulan item=bln}
+				<th scope="col" class="rounded-q1" align='center'>{$bln.txt}</th>	
+			{/foreach}
+		</tr>
+	</thead>
+	<tbody>
+		{assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
+		{assign var=tahun_blm value=$tahun_skr-1}
+		{for $idx=1 to 2 }
+			<tr>
+				<td align='center' >{$idx}</td>
+				<td align='left' >{$tahun_blm}</td>
+				{for $idxs=1 to 12 }
+					<td>{$data.{$idxs}.data.{$tahun_blm}}</td>
+				{/for}
+			</tr>
+			{assign var=tahun_blm value=$tahun_blm+1}
+		{/for}
+	</tbody>
+</table>	

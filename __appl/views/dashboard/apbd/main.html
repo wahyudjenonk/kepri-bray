@@ -1,27 +1,53 @@
+{*
 {assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
 {assign var=tahun_blm value=$tahun_skr-1}
-<div style="overflow:auto;" id="main_real">
-<div style="text-align:center;font-size:12px;font-weight:bold;"> Target Pajak PBB-KB APBD</div>
+<td colspan="6" class="rounded-foot-left" style="text-align:center;"><em>Realisasi PBB-KB Tahun {$tahun_blm} dan {$tahun_skr} </em></td>
+*}
+
+{if !$tanda}
+	<div style="text-align:center;font-size:16px;font-weight:bold;"> Target Pajak PBB-KB APBD</div>
+	<br/>
+	<br/>
+	&nbsp;&nbsp;
+	<label style='width:50px;'>Bulan</label> :
+	<select id='bulan'>
+		{$bulan}
+	</select>
+	&nbsp;&nbsp;
+	<label style='width:50px;'>Tahun</label> :
+	<select id='tahun'>
+		{$tahun}
+	</select>
+	&nbsp;&nbsp;
+	<button id='generate'>
+		Generate
+	</button>
+{/if}
+
+<div id='uhuy'>
 <table id="rounded-corner" style="width:98%;margin:10px;" >
 	<thead>
-        <tr >
-            <th width='5%' scope="col" class="rounded-company" align='center'>No</th>		
-            <th scope="col" class="rounded-q1" align='left'>Uraian</th>	
-            <th scope="col" class="rounded-q1" align='right'>Target APBD</th>	
-            <th scope="col" class="rounded-q1" align='right'>Bulan Ini</th>	
-            <th scope="col" class="rounded-q1" align='right'>s/d Bulan Lalu</th>	
-            <th scope="col" class="rounded-q1" align='right'>Total</th>	
-            <th scope="col" class="rounded-q4" align='center'>% Realisasi dari Target</th>	
-            
+		<tr>
+			<th colspan='8' scope="col" align='center'>Realisasi Penerimaan PBB-KB</th>		
+		</tr>
+		<tr >
+            <th width='5%' scope="col" align='center'>No</th>		
+            <th scope="col" align='left'>Uraian</th>	
+            <th scope="col" align='center'>Target APBD</th>	
+            <th scope="col" align='center'>Tahun</th>	
+            <th scope="col" align='center'>Bulan Ini</th>	
+            <th scope="col" align='center'>s/d Bulan Lalu</th>	
+            <th scope="col" align='center'>Total</th>	
+            <th scope="col" align='center'>% Realisasi dari Target</th>	
 		</tr>
 		
 	</thead>
 	<tbody>
-	
 		<tr >
         	<td align='center' >1</td>
             <td align='left' >Penerimaan Pajak PBB-KB </td>
             <td align='right' >Rp. {$data.target_apbd|default:'-'}</td>
+            <td align='right' >{$tahun_s}</td>
             <td align='right' style='width:15%'>Rp. {$data.pajak_skr|default:'-'}</td>
             <td align='right' style='width:15%'>Rp. {$data.pajak_blm|default:'-'}</td>
             <td align='right' style='width:15%'>Rp. {$data.total|default:'-'}</td>
@@ -29,15 +55,21 @@
 		</tr>
 		
 	</tbody>
-	<tfoot>
-    	<tr>
-        	<td colspan="6" class="rounded-foot-left" style="text-align:center;"><em>Realisasi PBB-KB Tahun {$tahun_blm} dan {$tahun_skr} </em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
-        </tr>
-    </tfoot>
 </table>
-
 </div>
+
 <script>
-$('#main_real').css('height',getClientHeight()-200);
+	$('#generate').on('click', function(){
+		var post = {};
+		post['tanda'] = 'Y';		
+		post['bulan'] = $('#bulan').val();
+		post['bulan_txt'] = $('#bulan option:selected').text();
+		post['tahun'] = $('#tahun').val();
+		
+		$('#uhuy').html('');
+		$.post(host+'home/getdisplay/dashboard/apbd/main', post, function(resp){
+			$('#uhuy').html(resp);
+		});
+		
+	});
 </script>
