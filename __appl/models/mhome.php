@@ -213,12 +213,12 @@ class mhome extends CI_Model{
 			//modul pungutan_pajak
 			case "pbbkb":
 				$sql = "
-					SELECT A.*,A.RecNo as id, B.NmCP, C.NmWP, D.NmBB, E.NmKlas,E.Persentasi
+					SELECT A.*,A.RecNo as id, B.NmCP, C.NmWP, D.NmBB
 					FROM tbl_pungutan_pbbkb A
-					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP = B.KdCP
-					LEFT JOIN tbl_wajib_pajak_pertamina_daerah C ON A.KdWP = C.KdWP
+					LEFT JOIN tbl_wajib_pungut_non_pertamina B ON A.KdCP = B.KdCP
+					LEFT JOIN tbl_wajib_pajak_non_pertamina C ON A.KdWP = C.KdWP
 					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB = D.KdBB
-					LEFT JOIN cl_klasifikasi_pbbkb E ON A.KdKlas = E.KdKlas
+				
 				";
 				
 				if($p1=='edit'){
@@ -228,7 +228,23 @@ class mhome extends CI_Model{
 				
 				
 			break;
-			case "pbbkb_pertamina":
+			case "denda":
+				$sql = "
+					SELECT A.*
+					FROM tbl_denda A ";
+				
+				
+				if($p1=='edit'){
+					$sql .=" WHERE A.id=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
+				if($p1=='get'){
+					return $this->db->query($sql)->row_array();
+				}
+				
+				
+			break;
+			/*case "pbbkb_pertamina":
 				$sql = "
 					SELECT A.*,A.RecNo2 as id, B.NmCP, D.NmBB, E.NmKlas
 					FROM tbl_punggut_pbbkb_pertamina A
@@ -241,8 +257,23 @@ class mhome extends CI_Model{
 					$sql .=" AND A.RecNo2=".$this->input->post('id');
 					return $this->db->query($sql)->row();
 				}
+			break;*/
+			case "tbl_punggut_pbbkb_pertamina_wil_klas_sektor":
+			case "pbbkb_pertamina":
+				$sql = "
+					SELECT A.*,A.RecNo2 as id, B.NmCP,C.NmWP, D.NmBB
+					FROM tbl_punggut_pbbkb_pertamina_wil_klas_sektor A
+					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP2 = B.KdCP
+					LEFT JOIN tbl_wajib_pajak_pertamina_daerah C ON A.KdWP2=C.KdWP
+					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB2 = D.KdBB
+					WHERE flag_data = 'P'
+				";
+				if($p1=='edit'){
+					$sql .=" AND A.RecNo2=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
 			break;
-			case "pbbkb_pertamina_sektor":
+			/*case "pbbkb_pertamina_sektor":
 				$sql = "
 					SELECT A.*,A.RecNo2 as id, B.NmCP, D.NmBB, E.NmKlass,E.Persentasi
 					FROM tbl_punggut_pbbkb_pertamina A
@@ -253,6 +284,20 @@ class mhome extends CI_Model{
 				";
 				if($p1=='edit'){
 					$sql .=" AND A.RecNo2=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
+			break;*/
+			case "pbbkb_pertamina_sektor":
+			case "tbl_punggut_pbbkb_pertamina_subsidi_nonsubsidi":
+				$sql = "
+					SELECT A.*,A.RecNo4 as id, B.NmCP, D.NmBB, E.NmKlass,E.Persentasi
+					FROM tbl_punggut_pbbkb_pertamina_subsidi_nonsubsidi A
+					LEFT JOIN tbl_wajib_pungut_pertamina_wil B ON A.KdCP4 = B.KdCP
+					LEFT JOIN cl_jenis_bahan_bakar D ON A.KdBB4 = D.KdBB
+					LEFT JOIN cl_klasifikasi_pbbkb_pertamina E ON A.KdKlasSec4 = E.KdKlasSec
+				";
+				if($p1=='edit'){
+					$sql .=" AND A.RecNo4=".$this->input->post('id');
 					return $this->db->query($sql)->row();
 				}
 			break;
@@ -396,6 +441,7 @@ class mhome extends CI_Model{
 				}
 				$field_id="RecNo3";
 			break;
+			case "tbl_punggut_pbbkb_pertamina_wil_klas_sektor":
 			case "tbl_punggut_pbbkb_pertamina":
 				if($sts_crud=='delete'){
 					$id=$this->input->post('id');
@@ -403,7 +449,7 @@ class mhome extends CI_Model{
 				}else{
 					$id=$data['RecNo2'];unset($data['RecNo2']);
 					if(isset($data['NmBB'])){unset($data['NmBB']);}
-					unset($data['NmCP']);
+					unset($data['NmWP']);
 					$data['TglInput2']=date('Y-m-d');
 				}
 				
@@ -418,6 +464,16 @@ class mhome extends CI_Model{
 					$data['TglInput']=date('Y-m-d');
 				}
 				$field_id="RecNo";
+			break;
+			case "tbl_punggut_pbbkb_pertamina_subsidi_nonsubsidi":
+				if($sts_crud=='delete'){
+					$id=$this->input->post('id');
+					unset($data['id']);
+				}else{
+					$id=$data['RecNo4'];unset($data['RecNo4']);
+					$data['TglInput4']=date('Y-m-d');
+				}
+				$field_id="RecNo4";
 			break;
 			case "tbl_user":
 				$this->load->library('encrypt');
@@ -460,6 +516,18 @@ class mhome extends CI_Model{
 	}
 	function get_combo($p1,$p2="",$p3=""){
 		switch($p1){
+			case "tbl_wajib_pungut_non_pertamina":
+				$sql="SELECT KdCP as id,NmCP as txt FROM tbl_wajib_pungut_non_pertamina ";
+			break;
+			case "cl_jenis_pungutan":
+				$sql="SELECT id,jenis_pungutan as txt FROM cl_jenis_pungutan ";
+			break;
+			/*case "cl_klasifikasi_pbbkb_pertamina":
+				$sql="SELECT * FROM cl_klasifikasi_pbbkb_pertamina ";
+			break;*/
+			case "tbl_wajib_pajak_non_pertamina":
+				$sql="SELECT KdWP as id,NmWP as txt FROM tbl_wajib_pajak_non_pertamina ";
+			break;
 			case "tbl_wajib_pungut_pertamina_wil":
 				$sql="SELECT KdCP as id,NmCP as txt FROM tbl_wajib_pungut_pertamina_wil ";
 			break;

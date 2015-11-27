@@ -178,6 +178,16 @@ class home extends CI_Controller {
 					$combo = $this->get_combo('cl_provinsi', ($editstatus == 'add' ? '' : $data_edit->KdProv), 'return' );
 					$this->smarty->assign('combo_provinsi', $combo);
 				}
+				if($p1 == 'pbbkb_pertamina_sektor'){
+					$klass = $this->mhome->get_combo('cl_klasifikasi_pbbkb_pertamina');
+					//print_r($jenis_pungutan);
+					$this->smarty->assign('klass', $klass);
+				}
+				if($p1 == 'pbbkb_bank'){
+					$denda_persen = $this->mhome->getdata('denda','get');
+					//print_r($jenis_pungutan);
+					$this->smarty->assign('denda_persen', $denda_persen);
+				}
 				if($p1 == 'klasifikasi_pbbkb_pertamina'){
 					$combo = $this->get_combo('cl_jenis_bahan_bakar', ($editstatus == 'add' ? '' : $data_edit->KdBB), 'return' );
 					$this->smarty->assign('combo_bahanbakar', $combo);

@@ -1,42 +1,42 @@
-<form method='post' url="{$host}home/crud_na/tbl_punggut_pbbkb_pertamina/{$editstatus}" id="form_pbbkb_pertamina_sektor" enctype="multipart/form-data">
-<input type='hidden' name='RecNo2' style='width:250px;padding:2px;' value="{$data_edit->RecNo2|default:''}">
-<input type='hidden' name='flag_data' style='width:250px;padding:2px;' value="S">
+<form method='post' url="{$host}home/crud_na/tbl_punggut_pbbkb_pertamina_subsidi_nonsubsidi/{$editstatus}" id="form_pbbkb_pertamina_sektor" enctype="multipart/form-data">
+<input type='hidden' name='RecNo4' style='width:250px;padding:2px;' value="{$data_edit->RecNo4|default:''}">
+<!--input type='hidden' name='flag_data' style='width:250px;padding:2px;' value="S"-->
 <table width='100%' style='margin-bottom:20px;'>
 		<tr>
 			<td width='34%'>Tgl. Laporan</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='TglLaporan2' id="TglLaporan2" style='width:100%;padding:2px;' value="{$data_edit->TglLaporan2|default:''}" >
+				<input type='text' name='TglLaporan4' id="TglLaporan4" style='width:100%;padding:2px;' value="{$data_edit->TglLaporan4|default:''}" >
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Tahun dan Bulan Pajak</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select name='TaxThn2' id="TaxThn2" style='width:45%;padding:2px;' class="easyui-validatebox" >
+				<select name='TaxThn4' id="TaxThn4" style='width:45%;padding:2px;' class="easyui-validatebox" >
 					<option value="">-- Pilih --</option>
 					{assign var=tahun_skr value=$smarty.now|date_format:"%Y"}
 					{assign var=tahun_awal value=$tahun_skr-5}
 					{assign var=tahun_akhir value=$tahun_skr+5}
 					{for $foo=$tahun_awal to $tahun_akhir}
-						<option value="{$foo}" {if $data_edit->TaxThn2|default:'' eq $foo}selected{/if}>{$foo}</option>
+						<option value="{$foo}" {if $data_edit->TaxThn4|default:'' eq $foo}selected{/if}>{$foo}</option>
 					{/for}
 				</select>
 				- 
-				<select name='TaxBulan2' id="TaxBulan2" style='width:52%;padding:2px;' class="easyui-validatebox" >
+				<select name='TaxBulan4' id="TaxBulan4" style='width:52%;padding:2px;' class="easyui-validatebox" >
 					<option value="">-- Pilih --</option>
-					<option value="1" {if $data_edit->TaxBulan2|default:'' eq 1}selected{/if}>Januari</option>
-					<option value="2" {if $data_edit->TaxBulan2|default:'' eq 2}selected{/if}>Februari</option>
-					<option value="3" {if $data_edit->TaxBulan2|default:'' eq 3}selected{/if}>Maret</option>
-					<option value="4" {if $data_edit->TaxBulan2|default:'' eq 4}selected{/if}>April</option>
-					<option value="5" {if $data_edit->TaxBulan2|default:'' eq 5}selected{/if}>Mei</option>
-					<option value="6" {if $data_edit->TaxBulan2|default:'' eq 6}selected{/if}>Juni</option>
-					<option value="7" {if $data_edit->TaxBulan2|default:'' eq 7}selected{/if}>Juli</option>
-					<option value="8" {if $data_edit->TaxBulan2|default:'' eq 8}selected{/if}>Agustus</option>
-					<option value="9" {if $data_edit->TaxBulan2|default:'' eq 9}selected{/if}>September</option>
-					<option value="10" {if $data_edit->TaxBulan2|default:'' eq 10}selected{/if}>Oktober</option>
-					<option value="11" {if $data_edit->TaxBulan2|default:'' eq 11}selected{/if}>November</option>
-					<option value="12" {if $data_edit->TaxBulan2|default:'' eq 12}selected{/if}>Desember</option>
+					<option value="1" {if $data_edit->TaxBulan4|default:'' eq 1}selected{/if}>Januari</option>
+					<option value="2" {if $data_edit->TaxBulan4|default:'' eq 2}selected{/if}>Februari</option>
+					<option value="3" {if $data_edit->TaxBulan4|default:'' eq 3}selected{/if}>Maret</option>
+					<option value="4" {if $data_edit->TaxBulan4|default:'' eq 4}selected{/if}>April</option>
+					<option value="5" {if $data_edit->TaxBulan4|default:'' eq 5}selected{/if}>Mei</option>
+					<option value="6" {if $data_edit->TaxBulan4|default:'' eq 6}selected{/if}>Juni</option>
+					<option value="7" {if $data_edit->TaxBulan4|default:'' eq 7}selected{/if}>Juli</option>
+					<option value="8" {if $data_edit->TaxBulan4|default:'' eq 8}selected{/if}>Agustus</option>
+					<option value="9" {if $data_edit->TaxBulan4|default:'' eq 9}selected{/if}>September</option>
+					<option value="10" {if $data_edit->TaxBulan4|default:'' eq 10}selected{/if}>Oktober</option>
+					<option value="11" {if $data_edit->TaxBulan4|default:'' eq 11}selected{/if}>November</option>
+					<option value="12" {if $data_edit->TaxBulan4|default:'' eq 12}selected{/if}>Desember</option>
 				</select>
 			</td>
 		</tr>
@@ -45,51 +45,74 @@
 			<td width='1%'>:</td>
 			<td width='75%'>
 				Medan
+				<input type="hidden" id="KdCP4" name="KdCP4" style='width:341px;padding:2px;' value="{$data_edit->KdCP4|default:1}">
 				{*<select id="KdCP" name="KdCP" style='width:100%;padding:2px;' class="easyui-validatebox"></select>
 
 				*}
 				
 			</td>
 		</tr>
-		<tr>
+		<!--tr>
 			<td width='34%'>Data Pertamina Daerah</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
 				{*<select id="KdWP" name="KdWP" style='width:100%;padding:2px;' class="easyui-validatebox"></select>*}
-				<input type="hidden" id="KdCP2" name="KdCP2" style='width:341px;padding:2px;' value="{$data_edit->KdCP2|default:''}">
+				<input type="hidden" id="KdCP4" name="KdCP4" style='width:341px;padding:2px;' value="{$data_edit->KdCP4|default:''}">
 				<input type="text" id="NmCP" name="NmCP" style='width:341px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmCP|default:''}">
 			</td>
-		</tr>
+		</tr-->
 		<tr>
-			<td width='34%'>Klasifikasi Sektor</td>
+			<td width='34%'>Jenis Pungutan PBB-KB Pertamina</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type="hidden" id="KdKlas2" name="KdKlas2" style='width:341px;padding:2px;' value="{$data_edit->KdKlas2|default:''}">
-				<input type="text" id="NmBB" name="NmBB" style='width:200px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmBB|default:''}">
+				<select name='KdKlasSec4' id="KdKlasSec4" style='width:45%;padding:2px;' class="easyui-validatebox" onchange="$('#persentase').html($('option:selected', this).attr('data'));">
+					<option value="">-- Pilih --</option>
+					{foreach from=$klass item=i}
+					<option value="{$i.id}" data="{$i.Persentasi}" {if $data_edit->KdKlasSec4|default:'' eq $i.id}selected{/if}>{$i.txt}</option>
+					{/foreach}
+					
+				</select>
 				&nbsp;&nbsp;
 				Persen: <span id="persentase">{$data_edit->Persentasi|default:''}</span>%
 			</td>
 		</tr>
+		<!--tr>
+			<td width='34%'>Jenis Pungutan PBB-KB Pertamina
+			<td width='1%'>:</td>
+			<td width='75%'>
+			
+				<select name='jenis_pungutan' id="jenis_pungutan" style='width:45%;padding:2px;' class="easyui-validatebox" >
+					<option value="">-- Pilih --</option>
+					{foreach from=$jns_pungutan item=i}
+					<option value="{$i.id}" {if $data_edit->jenis_pungutan|default:'' eq $i.id}selected{/if}>{$i.txt}</option>
+					{/foreach}
+					
+				</select>
+				
+				&nbsp;&nbsp;
+				Persen: <span id="persentase">{$data_edit->Persentasi|default:''}</span>%
+			</td>
+		</tr-->
 		<tr>
 			<td width='34%'>Jenis Bahan Bakar</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<select id="KdBB2" name="KdBB2" style='width:50%;padding:2px;' class="easyui-validatebox"></select>
+				<select id="KdBB4" name="KdBB4" style='width:50%;padding:2px;' class="easyui-validatebox"></select>
 			</td>
 		</tr>
 		
 		<tr>
-			<td width='34%'>Quantity Pembelian</td>
+			<td width='34%'>Quantity Penjualan</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='QtyBB2' id="QtyBB2" style='width:20%;padding:2px;' value="{$data_edit->QtyBB2|default:''}">
+				<input type='text' name='QtyBB4' id="QtyBB4" style='width:20%;padding:2px;' value="{$data_edit->QtyBB4|default:''}">
 			</td>
 		</tr>
 		<tr>
 			<td width='34%'>Total Pembayaran</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='Pay2' id="Pay2" style='width:50%;padding:2px;'  value="{$data_edit->Pay2|default:''}" >
+				<input type='text' name='Pay4' id="Pay4" style='width:50%;padding:2px;'  value="{$data_edit->Pay4|default:''}" >
 				&nbsp;
 				<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="calc_pajak_pertamini" >
 					<span class="l-btn-left l-btn-icon-left">
@@ -100,10 +123,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td width='34%'>Kalkulasi PBB-KB</td>
+			<td width='34%'>Kalkulasi Jenis Pungutan PBB-KB</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='Tax2' id="Tax2" style='width:50%;padding:2px;' value="{$data_edit->Tax2|default:''}" >
+				<input type='text' name='Tax4' id="Tax4" style='width:50%;padding:2px;' value="{$data_edit->Tax4|default:''}" >
 			</td>
 		</tr>
 </table>
@@ -125,22 +148,22 @@
 <script>
 {/literal}
 {if $editstatus eq 'edit'}
-	fillCombo(host+'home/get_combo/cl_jenis_bahan_bakar','KdBB2','{$data_edit->KdBB2}');
+	fillCombo(host+'home/get_combo/cl_jenis_bahan_bakar','KdBB4','{$data_edit->KdBB4}');
 {else}
-	fillCombo(host+'home/get_combo/cl_jenis_bahan_bakar','KdBB2');
+	fillCombo(host+'home/get_combo/cl_jenis_bahan_bakar','KdBB4');
 {/if}
 {literal}	
 	
 $(document).ready(function(){
-	$('#TglLaporan2').datebox({formatter: formatDate,required:true });
+	$('#TglLaporan4').datebox({formatter: formatDate,required:true });
 	$(".easyui-validatebox").validatebox({required:true}); 
-	$('#QtyBB2').numberbox({  
+	$('#QtyBB4').numberbox({  
 		required:true,
 		min:0,  
 		precision:0 ,
 		groupSeparator:',' 
 	});
-	$('#Pay2').numberbox({  
+	$('#Pay4').numberbox({  
 		required:true,
 		min:0,  
 		precision:2 ,
@@ -150,7 +173,7 @@ $(document).ready(function(){
 	
 	
 	
-	$('#Tax2').numberbox({  
+	$('#Tax4').numberbox({  
 		required:true,
 		min:0,  
 		precision:2 ,

@@ -257,47 +257,96 @@ function genGrid(modnya, divnya){
 			judulnya = "Data PBBKB";
 			urlnya = "pbbkb";
 			kolom[modnya] = [	
-				{field:'TglInput',title:'Tanggal Input',width:150, halign:'center',align:'center'},
+				/*{field:'TglInput',title:'Tanggal Input',width:150, halign:'center',align:'center'},*/
 				{field:'TglLaporan',title:'Tanggal Laporan',width:150, halign:'center',align:'center'},
-				{field:'TaxBulan',title:'Pajak Bulan',width:150, halign:'center',align:'center'},
-				{field:'TaxThn',title:'Pajak Tahun',width:100, halign:'center',align:'center'},
+				{field:'TaxBulan',title:'Pajak Bulan - Tahun',width:150, halign:'center',align:'center',
+					formatter:function(value,rowData,rowIndex){
+						return value+' - '+rowData.TaxThn
+					}
+				},
+				/*{field:'TaxThn',title:'Pajak Tahun',width:100, halign:'center',align:'center'},*/
 				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
 				{field:'NmWP',title:'Wajib Pajak',width:250, halign:'center'},
-				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
-				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
-				{field:'QtyBB',title:'Quantity',width:100, halign:'center',align:'right'},
-				{field:'Pay',title:'Pembayaran',width:250, halign:'center',align:'right'},
-				{field:'Tax',title:'Pajak',width:250, halign:'center',align:'right'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:150, halign:'center'},
+				/*{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},*/
+				{field:'QtyBB',title:'Quantity',width:100, halign:'center',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Pay',title:'Pembayaran',width:250, halign:'center',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Tax',title:'Pajak',width:250, halign:'center',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
 			];
 		break;
 		case "pbbkb_pertamina":
-			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
-			urlnya = "pbbkb_pertamina";
+			judulnya = "Data PBB-KB Pertamina Daerah";
+			urlnya = "tbl_punggut_pbbkb_pertamina_wil_klas_sektor";
 			kolom[modnya] = [	
-				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
+				/*{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},*/
 				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
-				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
-				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
-				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
-				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
-				{field:'NmKlas',title:'Klasifikasi',width:250, halign:'center'},
-				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
-				{field:'Tax2',title:'Pajak',width:250, halign:'center'},
+				{field:'TaxBulan2',title:'Pajak Bulan - Tahun',width:150, halign:'center',align:'center',
+					formatter:function(value,rowData,rowIndex){
+						return value+' - '+rowData.TaxThn2
+					}
+				},
+				{field:'NmCP',title:'Pertamina Wal.',width:250, halign:'center'},
+				{field:'NmWP',title:'Pertamina Daerah.',width:200, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:200, halign:'center'},
+				{field:'QtyBB2',title:'Qty',width:100, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Pay2',title:'Pembayaran',width:200, halign:'center',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				/*{field:'Tax2',title:'Pajak',width:250, halign:'center',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},*/
 			];
 		break;
 		
 		case "pbbkb_pertamina_sektor":
-			judulnya = "Data PBBKB Dari Wajib Pungut Khusus Pertamina Wilayah per Klasifikasi Sektor";
-			urlnya = "pbbkb_pertamina_sektor";
+			judulnya = "PBB-KB Pertamina Per-Jenis Pungutan";
+			urlnya = "tbl_punggut_pbbkb_pertamina_subsidi_nonsubsidi";
 			kolom[modnya] = [	
-				{field:'TglInput2',title:'Tanggal Input',width:150, halign:'center'},
-				{field:'TglLaporan2',title:'Tanggal Laporan',width:150, halign:'center'},
-				{field:'TaxBulan2',title:'Pajak Bulan',width:250, halign:'center'},
-				{field:'TaxThn2',title:'Pajak Tahun',width:250, halign:'center'},
-				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
-				{field:'NmBB',title:'Jenis Bahan Bakar',width:250, halign:'center'},
-				{field:'NmKlass',title:'Klasifikasi',width:250, halign:'center'},
-				{field:'Pay2',title:'Pembayaran',width:250, halign:'center'},
+				/*{field:'TglInput4',title:'Tanggal Input',width:150, halign:'center'},*/
+				{field:'TglLaporan4',title:'Tanggal Laporan',width:150, halign:'center',align:'center'},
+				{field:'TaxBulan4',title:'Pajak Bulan - Tahun',width:150, halign:'center',align:'center',
+					formatter:function(value,rowData,rowIndex){
+						return value+' - '+rowData.TaxThn4
+					}
+				},
+				{field:'NmCP',title:'Pertamina Wilayah',width:250, halign:'center'},
+				{field:'NmBB',title:'Jenis Bahan Bakar',width:150, halign:'center'},
+				{field:'NmKlass',title:'Klasifikasi',width:150, halign:'center'},
+				{field:'QtyBB4',title:'Qty',width:150, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Pay4',title:'Pembayaran',width:150, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Tax4',title:'Pajak',width:150, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
 			];
 		break;
 		
@@ -305,15 +354,35 @@ function genGrid(modnya, divnya){
 			judulnya = "Data Setoran PBBKB ke Bank";
 			urlnya = "pbbkb_bank";
 			kolom[modnya] = [	
-				{field:'TglInput3',title:'Tanggal Input',width:150, halign:'center'},
+				/*{field:'TglInput3',title:'Tanggal Input',width:150, halign:'center'},*/
 				{field:'TglBankPaid',title:'Tanggal Bayar Bank',width:150, halign:'center'},
-				{field:'TaxBulan3',title:'Pajak Bulan',width:250, halign:'center'},
-				{field:'TaxThn3',title:'Pajak Tahun',width:250, halign:'center'},
+				{field:'TaxBulan3',title:'Pajak Bulan - Tahun',width:150, halign:'center',align:'center',
+					formatter:function(value,rowData,rowIndex){
+						return value+' - '+rowData.TaxThn3
+					}
+				},
 				{field:'NmCP',title:'Wajib Pungut',width:250, halign:'center'},
-				{field:'NmBank',title:'Nama Bank',width:250, halign:'center'},
-				{field:'QtyBB3',title:'Quantity Pembelian',width:250, halign:'center'},
-				{field:'Pay3',title:'Nominal Pajak',width:250, halign:'center'},
-				{field:'Tax3',title:'Nominal Pembayaran',width:250, halign:'center'},
+				{field:'NmBank',title:'Nama Bank',width:150, halign:'center'},
+				{field:'QtyBB3',title:'Quantity Pembelian',width:150, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Pay3',title:'Nominal Pajak',width:200, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'Tax3',title:'Nominal Pembayaran',width:200, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
+				{field:'denda',title:'Denda',width:200, halign:'right',align:'right',
+					formatter:function(value,rowData,rowIndex){
+						return NumberFormat(value);
+					}
+				},
 			];
 		break;
 		//end modul pungutan pajek
@@ -454,17 +523,18 @@ function genform(type, modulnya, submodulnya){
 			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		case "pbbkb_pertamina":
+		case "tbl_punggut_pbbkb_pertamina_wil_klas_sektor":
 			var lebar = getClientWidth()-800;
 			var tinggi = getClientHeight()-385;
-			var judulwindow = 'PBBKB-PERTAMINA';
-			var table="tbl_punggut_pbbkb_pertamina";
+			var judulwindow = 'PBB-KB PERTAMINA DAERAH';
+			var table="tbl_punggut_pbbkb_pertamina_wil_klas_sektor";
 			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		case "pbbkb_pertamina_sektor":
 			var lebar = getClientWidth()-800;
 			var tinggi = getClientHeight()-330;
-			var judulwindow = 'PBBKB-PERTAMINA SEKTOR';
-			var table="tbl_punggut_pbbkb_pertamina";
+			var judulwindow = 'PBB-KB Pertamina Per-Jenis Pungutan';
+			var table="tbl_punggut_pbbkb_pertamina_subsidi_nonsubsidi";
 			//var field_id="tbl_pungutan_pbbkb";
 		break;
 		case "pbbkb_bank":
@@ -584,9 +654,9 @@ function hit_pajak(mod){
 		case "pbbkb":
 			console.log($('#persentase').html());
 			console.log($('#KdWP').val());
-			if($('#persentase').html()!="" && $('#KdWP').val()!="" && $("#Pay").numberbox('getValue')!=""){
+			if($('#KdKlas').val()!="" && $('#KdWP').val()!="" && $("#Pay").numberbox('getValue')!=""){
 				var pajak;
-				pajak=(parseFloat($("#Pay").numberbox('getValue')) * parseFloat($('#persentase').html()))/100;
+				pajak=(parseFloat($("#Pay").numberbox('getValue')) * parseFloat($('#KdKlas').val()))/100;
 				$('#Tax').numberbox('setValue',pajak);
 				console.log(pajak);
 			}
@@ -596,15 +666,15 @@ function hit_pajak(mod){
 		break;
 		case "pertamina":
 			console.log($('#persentase').html());
-			console.log($('#KdWP').val());
-			if($('#persentase').html()!="" && $('#KdWP2').val()!="" && $("#Pay2").numberbox('getValue')!=""){
+			
+			if($('#persentase').html()!="" && $("#Pay4").numberbox('getValue')!=""){
 				var pajak;
-				pajak=(parseFloat($("#Pay2").numberbox('getValue')) * parseFloat($('#persentase').html()))/100;
-				$('#Tax2').numberbox('setValue',pajak);
+				pajak=(parseFloat($("#Pay4").numberbox('getValue')) * parseFloat($('#persentase').html()))/100;
+				$('#Tax4').numberbox('setValue',pajak);
 				console.log(pajak);
 			}
 			else{
-				$.messager.alert('Data PBB-KB',"Untuk Melakukan Kalkulasi Harap Pilih Data Wajib Pungut Dan Pembayaran!!",'info');
+				$.messager.alert('Data PBB-KB',"Untuk Melakukan Kalkulasi Harap Pilih Jenis Pungutan Dan Pembayaran!!",'info');
 			}
 		break;
 		case "bank":
@@ -621,4 +691,90 @@ function hit_pajak(mod){
 			}
 		break;
 	}
+}
+function NumberFormat(value) {
+	
+    var jml= new String(value);
+    if(jml=="null" || jml=="NaN") jml ="0";
+    jml1 = jml.split("."); 
+    jml2 = jml1[0];
+    amount = jml2.split("").reverse();
+
+    var output = "";
+    for ( var i = 0; i <= amount.length-1; i++ ){
+        output = amount[i] + output;
+        if ((i+1) % 3 == 0 && (amount.length-1) !== i)output = ',' + output;
+    }
+    if(jml1[1]===undefined) jml1[1] ="00";
+   // if(isNaN(output))  output = "0";
+    return output + "." + jml1[1];
+}
+function hit_denda(tgl_setor_bank,thn_pajak,bln_pajak,persen,tot_pungut,btn_hide){
+	//var tgl=$('#TglBankPaid').datebox('getValue');
+	var pecah=tgl_setor_bank.split("-");
+	var thn_setor=pecah[0];
+	var bln_setor=pecah[1];
+	var tgl_setor=pecah[2];
+	//var thn_pajak=$('#TaxThn3').val();
+	//var bln_pajak=$('#TaxBulan3').val();
+	var denda=0;
+	var jml_denda=0;
+	var setor=0;
+	if(parseFloat(thn_setor)== parseFloat(thn_pajak)){
+	  if(parseFloat(bln_setor) < parseFloat(bln_pajak)){
+		alert('Bulan Setor Lebih Kecil Dari Bulan Pajak');
+		$('#'+btn_hide).hide();
+	  }
+	  else{
+		if(parseFloat(tgl_setor)>=26){
+		  denda =parseFloat(bln_setor)-parseFloat(bln_pajak);
+		 
+		}
+		$('#'+btn_hide).show();		
+	  }
+	}
+
+	else if(parseFloat(thn_setor)> parseFloat(thn_pajak)){
+	 // alert('sama atau lebih');
+		var selisih_thn=parseFloat(thn_setor)-parseFloat(thn_pajak);
+		  if(parseFloat(bln_setor)< parseFloat(bln_pajak)){
+			if(parseFloat(tgl_setor)>=26){
+			  denda=((12*selisih_thn)- parseFloat(bln_pajak))+parseFloat(bln_setor);
+			}
+			else{
+			  denda=(((12*selisih_thn)- parseFloat(bln_pajak))+parseFloat(bln_setor))-1;
+			}
+			
+		  }
+		  else{
+			var selisih_bln_pajak=((12*selisih_thn)-parseFloat(bln_pajak));
+			if(parseFloat(tgl_setor)>=26){
+				console.log(selisih_bln_pajak+' + '+parseFloat(bln_setor));
+				denda = (selisih_bln_pajak+parseFloat(bln_setor));
+			} 
+			else{
+				console.log(selisih_bln_pajak+' + '+parseFloat(bln_setor));
+				denda = (selisih_bln_pajak+parseFloat(bln_setor))-1;
+			}			
+		  }
+		$('#'+btn_hide).show();
+	}
+	else{
+	  alert('tahun bayar lebih kecil');
+	  $('#'+btn_hide).hide();
+	}
+	
+	$('#jml_bln_denda').val(denda);
+	$('#jml_bln_na').html(denda);
+	if(denda!=0){
+		jml_denda=(((tot_pungut*persen)/100)*denda);
+	}
+	$('#denda').val(jml_denda);
+	$('#denda_na').html(NumberFormat(jml_denda));
+	
+	setor=jml_denda+parseFloat($('#Tax3').val());
+	$('#BankPaid').val(setor);
+	$('#setor_na').html(NumberFormat(setor));
+	
+	console.log(denda);
 }

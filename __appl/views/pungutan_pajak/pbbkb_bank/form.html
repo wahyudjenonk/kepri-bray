@@ -73,26 +73,43 @@
 			<td width='75%'>
 				<input type='text' name='Pay3' id="Pay3" style='width:50%;padding:2px;'  value="{$data_edit->Pay3|default:''}" >
 				&nbsp;
-				<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="calc_pajak_bank" >
+				<!--a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="calc_pajak_bank" >
 					<span class="l-btn-left l-btn-icon-left">
 						<span class="l-btn-text">Kalkulasi Pajak</span><span class="l-btn-icon icon-calculator_add">&nbsp;</span>
 					</span>
-				</a>
+				</a-->
 				
 			</td>
 		</tr>
 		<tr>
-			<td width='34%'>Kalkulasi PBB-KB</td>
+			<td width='34%'>Pungutan PBB-KB</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
 				<input type='text' name='Tax3' id="Tax3" style='width:50%;padding:2px;' value="{$data_edit->Tax3|default:''}" >
 			</td>
 		</tr>
 		<tr>
+			<td width='54%'>Jml. Bulan Denda </td>
+			<td width='1%' valign="top">:</td>
+			<td width='55%' valign="top">
+				<span id="jml_bln_na">{$data_edit->jml_bln_denda|default:0}</span>&nbsp;&nbsp;bln
+				<input type="hidden" id="jml_bln_denda" name="jml_bln_denda" style='width:341px;padding:2px;' value="{$data_edit->jml_bln_denda|default:''}">
+			</td>
+		</tr>
+		<tr>
+			<td width='54%'>Denda <br> <span style="font-size:6px;color:red;">(Pembayaran ke bank lewat dari tgl 30 perbulan pajak)</span></td>
+			<td width='1%' valign="top">:</td>
+			<td width='55%' valign="top">
+				<input type="hidden" id="denda" name="denda" style='width:341px;padding:2px;' value="{$data_edit->denda|default:''}">
+				<span id="denda_na">{$data_edit->denda|number_format:2:".":","|default:''}</span>&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
 			<td width='34%'>Setoran Bank</td>
 			<td width='1%'>:</td>
 			<td width='75%'>
-				<input type='text' name='BankPaid' id="BankPaid" style='width:50%;padding:2px;' value="{$data_edit->BankPaid|default:''}" >
+				<input type='hidden' name='BankPaid' id="BankPaid"  value="{$data_edit->BankPaid|default:''}" >
+				<span id="setor_na">{$data_edit->BankPaid|number_format:2:".":","|default:''}</span>&nbsp;&nbsp;
 			</td>
 		</tr>
 </table>
@@ -133,14 +150,23 @@ $(document).ready(function(){
 		required:true,
 		min:0,  
 		precision:2 ,
-		groupSeparator:',' 
+		groupSeparator:',',
+		onChange:function(){
+			if($('#TglBankPaid').datebox('getValue')!="" && $('#TaxThn3').val()!=""){
+				hit_denda($('#TglBankPaid').datebox('getValue'),$('#TaxThn3').val(),$('#TaxBulan3').val(),2,$('#Tax3').val(),'simpan_pbbkb_bank');
+				//$('#simpan_pbbkb_bank').show();
+			}else{
+				$.messager.alert('Data PBB-KB PEMBAYARAN BANK',"Pilih Tgl Setor Atau Tahun Pajak",'error');
+				$('#simpan_pbbkb_bank').hide();
+			}
+		}
 	});
-	$('#BankPaid').numberbox({  
+	/*$('#BankPaid').numberbox({  
 		required:true,
 		min:0,  
 		precision:2 ,
 		groupSeparator:',' 
-	});
+	});*/
 	//fillCombo(host+'home/get_combo/tbl_wajib_pungut_pertamina_wil','KdCP');
 	//fillCombo(host+'home/get_combo/tbl_wajib_pajak_pertamina_daerah','KdWP');
 	$('#NmCP').autocomplete({
@@ -162,7 +188,18 @@ $(document).ready(function(){
 	});
 	
 });	
-	
+	/*$('#TaxThn3').change(function(){
+		$('#TaxBulan3').trigger('change');
+	})*/
+	$('#Tax3').blur(function() {
+  		if($('#TglBankPaid').datebox('getValue')!="" && $('#TaxThn3').val()!=""){
+			hit_denda($('#TglBankPaid').datebox('getValue'),$('#TaxThn3').val(),$('#TaxBulan3').val(),{/literal}{$denda_persen.Persen|default:0}{literal},$('#Tax3').val(),'simpan_pbbkb_bank');
+			$('#simpan_pbbkb_bank').show();
+		}else{
+			$.messager.alert('Data PBB-KB PEMBAYARAN BANK',"Pilih Tgl Setor Atau Tahun Pajak",'error');
+			$('#simpan_pbbkb_bank').hide();
+		}
+	});
 	$('#calc_pajak_bank').on('click',function(){
 		return hit_pajak('bank');
 	});

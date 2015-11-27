@@ -58,8 +58,9 @@
 				<input type="hidden" id="KdWP" name="KdWP" style='width:341px;padding:2px;' value="{$data_edit->KdWP|default:''}">
 				<input type="text" id="NmWP" name="NmWP" style='width:150px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->NmWP|default:''}">
 				&nbsp;&nbsp;
-				<input type='hidden' name='KdKlas' id="KdKlas" style='width:250px;padding:2px;' value="{$data_edit->KdKlas|default:''}">
-				Klas.: <span id="klasifikasi">{$data_edit->NmKlas|default:''}</span>&nbsp;&nbsp;Persen: <span id="persentase">{$data_edit->Persentasi|default:''}</span>%
+				<!--input type='hidden' name='KdKlas' id="KdKlas" style='width:250px;padding:2px;' value="{$data_edit->KdKlas|default:''}"-->
+				Klasifikasi(%): <input type="text" id="KdKlas" name="KdKlas" style='width:50px;padding:2px;' class="autocomplete easyui-validatebox" value="{$data_edit->KdKlas|default:''}">
+				<!--span id="klasifikasi">{$data_edit->NmKlas|default:''}</span>&nbsp;&nbsp;Persen: <span id="persentase">{$data_edit->Persentasi|default:''}</span>%-->
 			</td>
 		</tr>
 		<tr>
@@ -131,6 +132,14 @@ $(document).ready(function(){
 		precision:0 ,
 		groupSeparator:',' 
 	});
+	$('#KdKlas').numberbox({  
+		required:true,
+		min:0,  
+		max:100,
+		precision:0 ,
+		groupSeparator:',' 
+	});
+	
 	$('#Pay').numberbox({  
 		required:true,
 		min:0,  
@@ -150,7 +159,7 @@ $(document).ready(function(){
 	//fillCombo(host+'home/get_combo/tbl_wajib_pungut_pertamina_wil','KdCP');
 	//fillCombo(host+'home/get_combo/tbl_wajib_pajak_pertamina_daerah','KdWP');
 	$('#NmCP').autocomplete({
-		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pungut_pertamina_wil',
+		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pungut_non_pertamina',
 		onSelect: function (suggestion) {
 			console.log(suggestion.data)
 			  $('#KdCP').val(suggestion.data);
@@ -159,7 +168,7 @@ $(document).ready(function(){
 		}
 	});
 	$('#NmWP').autocomplete({
-		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pajak_pertamina_daerah',
+		serviceUrl: host+'home/get_autocomplete/tbl_wajib_pajak_non_pertamina',
 		onSelect: function (suggestion) {
 			console.log(suggestion.data2);
 			$('#KdKlas').val(suggestion.data4);
