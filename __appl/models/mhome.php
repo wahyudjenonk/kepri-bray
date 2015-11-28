@@ -184,6 +184,17 @@ class mhome extends CI_Model{
 					return $this->db->query($sql)->row();
 				}
 			break;
+			case "denda":
+				$sql = "
+					SELECT *
+					FROM tbl_denda
+					$where
+				";
+				if($p1=='edit'){
+					$sql .=" AND id=".$this->input->post('id');
+					return $this->db->query($sql)->row();
+				}
+			break;			
 			case "user_level":
 				$sql = "
 					SELECT *, KdLevel as id
@@ -490,6 +501,10 @@ class mhome extends CI_Model{
 			case "tbl_wajib_pungut_pertamina_wil":
 				$id=$data['KdCP'];unset($data['KdCP']);
 				$field_id="KdCP";
+			break;
+			case "tbl_denda":
+				$id=$data['id'];
+				$field_id="id";
 			break;
 		}
 		switch ($sts_crud){
