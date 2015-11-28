@@ -139,7 +139,7 @@ function genGrid(modnya, divnya){
 			judulnya = "Data Klasifikasi PBB-KB Pertamina";
 			urlnya = "klasifikasi_pbbkb_pertamina";
 			kolom[modnya] = [	
-				{field:'NmBB',title:'Nama Bahan Bakar',width:200, halign:'center'},
+				//{field:'NmBB',title:'Nama Bahan Bakar',width:200, halign:'center'},
 				{field:'NmKlass',title:'Nama Klasifikasi',width:200, halign:'center'},
 				{field:'Persentasi',title:'Persentase(%)',width:200, halign:'center'},
 				{field:'FieldAktif',title:'Status Klasifikasi',width:110, halign:'center'},
@@ -229,6 +229,14 @@ function genGrid(modnya, divnya){
 				{field:'KetTk',title:'Tingkat Daerah',width:150, halign:'center'},
 				{field:'nama_kepala_dinas',title:'Nama Kepala Dinas',width:200, halign:'center'},
 				{field:'nama_kepala_seksi',title:'Nama Kepala Seksi',width:200, halign:'center'},
+			];
+		break;
+		case "denda":
+			judulnya = "Denda";
+			urlnya = "denda";
+			kolom[modnya] = [	
+				{field:'JenisDenda',title:'Jenis Denda',width:300, halign:'center'},
+				{field:'Persen',title:'Persentase (%)',width:150, halign:'center', align:'right'},
 			];
 		break;
 		case "user_level":
@@ -499,6 +507,12 @@ function genform(type, modulnya, submodulnya){
 			var tinggi = getClientHeight()-400;
 			var judulwindow = 'Form Lembaga Pengguna';
 			var table="cl_tingkat_daerah_pengguna";
+		break;
+		case "denda":
+			var lebar = getClientWidth()-850;
+			var tinggi = getClientHeight()-450;
+			var judulwindow = 'Form Setting Denda';
+			var table="tbl_denda";
 		break;
 		case "user_level":
 			var lebar = getClientWidth()-990;
