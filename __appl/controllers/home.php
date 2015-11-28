@@ -184,7 +184,7 @@ class home extends CI_Controller {
 					$this->smarty->assign('klass', $klass);
 				}
 				if($p1 == 'pbbkb_bank'){
-					$denda_persen = $this->mhome->getdata('denda','get');
+					$denda_persen = $this->mhome->getdata('denda_pbbkb','get');
 					//print_r($jenis_pungutan);
 					$this->smarty->assign('denda_persen', $denda_persen);
 				}

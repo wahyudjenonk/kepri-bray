@@ -239,7 +239,7 @@ class mhome extends CI_Model{
 				
 				
 			break;
-			case "denda":
+			case "denda_pbbkb":
 				$sql = "
 					SELECT A.*
 					FROM tbl_denda A ";
